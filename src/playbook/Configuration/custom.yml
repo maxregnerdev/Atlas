@@ -7,7 +7,7 @@ actions:
     command: 'reg load HKU\AME_UserHive_Default C:\Users\Default\NTUSER.DAT'
     oobe: false
     wait: true
-  - !writeStatus: { status: "Deleting old AtlasOS folders" }
+  - !writeStatus: { status: "Deleting old MaxRegnerUI folders" }
   - !powerShell:
     command: '.\STOPFOLDERPROC.ps1'
     exeDir: true
@@ -17,8 +17,8 @@ actions:
   - !powerShell:
     command: |
       $windir = [Environment]::GetFolderPath('Windows')
-      Remove-Item -LiteralPath "$windir\AtlasDesktop" -Force -Recurse
-      Remove-Item -LiteralPath "$windir\AtlasModules" -Force -Recurse
+      Remove-Item -LiteralPath "$windir\MaxRegnerUIDesktop" -Force -Recurse
+      Remove-Item -LiteralPath "$windir\MaxRegnerUIModules" -Force -Recurse
     wait: true
     exeDir: true
     oobe: false
@@ -29,14 +29,14 @@ actions:
     command: |
       $windir = [Environment]::GetFolderPath('Windows')
       @(
-          'AtlasModules',
-          'AtlasDesktop'
+          'MaxRegnerUIModules',
+          'MaxRegnerUIDesktop'
       ) | ForEach-Object {
           if (!(Test-Path $_)) { exit 1 }
           Copy-Item -Path $_ -Destination $windir -Force -Recurse
           if (!$?) { exit 2 }
       }
-      Start-Process -FilePath """$windir\AtlasDesktop\6. Advanced Configuration\Process Explorer\Uninstall Process Explorer.cmd""" -ArgumentList "/silent" -WindowStyle Hidden
+      Start-Process -FilePath """$windir\MaxRegnerUIDesktop\6. Advanced Configuration\Process Explorer\Uninstall Process Explorer.cmd""" -ArgumentList "/silent" -WindowStyle Hidden
       Copy-Item -Path 'Themes\*' -Destination """$windir\Resources\Themes""" -Force -Recurse
     weight: 10
     wait: true
@@ -72,12 +72,12 @@ actions:
   - !task: { path: 'tweaks\qol\set-hidden-settings-pages.yml' }
 
   # Main tasks
-  - !task: { path: 'atlas\start.yml' }
-  - !task: { path: 'atlas\services.yml' }
-  - !task: { path: 'atlas\components.yml' }
-  - !task: { path: 'atlas\appx.yml' }
-  - !task: { path: 'atlas\default.yml' }
-  - !task: { path: 'atlas\revert.yml' }
+  - !task: { path: 'maxregnerui\start.yml' }
+  - !task: { path: 'maxregnerui\services.yml' }
+  - !task: { path: 'maxregnerui\components.yml' }
+  - !task: { path: 'maxregnerui\appx.yml' }
+  - !task: { path: 'maxregnerui\default.yml' }
+  - !task: { path: 'maxregnerui\revert.yml' }
   - !task: { path: "tweaks.yml" }
 
   # Set hives to HKU default user
@@ -103,7 +103,7 @@ actions:
     wait: true
 
   # Set PowerShell execution policy to RemoteSigned from the previous "Unrestricted"
-  # This allows Atlas folder scripts (local) to run while requiring signatures for downloaded scripts
+  # This allows MaxRegnerUI folder scripts (local) to run while requiring signatures for downloaded scripts
   - !writeStatus: { status: "Securing PowerShell execution policy" }
   - !registryValue:
     path: 'HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell'

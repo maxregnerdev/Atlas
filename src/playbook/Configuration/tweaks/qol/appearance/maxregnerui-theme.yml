@@ -1,0 +1,77 @@
+---
+title: Apply MaxRegnerUI Theme and Icons
+description: Applies MaxRegnerUI custom theme with system-wide icon pack
+actions:
+
+  # Set MaxRegnerUI theme as default
+  - !powerShell:
+    command: |
+      .\AtlasModules\initPowerShell.ps1
+      $themePath = "$([Environment]::GetFolderPath('Windows'))\Resources\Themes\maxregnerui-dark.theme"
+      if (Test-Path $themePath) {
+          Set-Theme -Path $themePath
+      }
+    wait: true
+    exeDir: true
+    runas: currentUserElevated
+
+  # Apply MaxRegnerUI icons system-wide
+  - !powerShell:
+    command: .\AtlasModules\Scripts\apply-maxregnerui-icons.ps1
+    wait: true
+    exeDir: true
+    runas: currentUserElevated
+
+  # Set MaxRegnerUI wallpaper
+  - !powerShell:
+    command: |
+      .\AtlasModules\initPowerShell.ps1
+      $wallpaperPath = "$([Environment]::GetFolderPath('Windows'))\AtlasModules\Wallpapers\maxregnerui-dark.png"
+      if (Test-Path $wallpaperPath) {
+          Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "Wallpaper" -Value $wallpaperPath -Type String -Force
+          Set-ItemProperty -Path "HKCU:\Control Panel\Desktop" -Name "WallpaperStyle" -Value "2" -Type String -Force
+      }
+    wait: true
+    exeDir: true
+    runas: currentUserElevated
+
+  # Set MaxRegnerUI theme for new users
+  - !registryValue:
+    path: 'HKU\AME_UserHive_Default\Software\Microsoft\Windows\CurrentVersion\ThemeManager'
+    value: 'DLLName'
+    data: '%windir%\resources\themes\Aero\Aero.msstyles'
+    type: REG_SZ
+
+  - !registryValue:
+    path: 'HKU\AME_UserHive_Default\Software\Microsoft\Windows\CurrentVersion\ThemeManager'
+    value: 'ColorName'
+    data: 'NormalColor'
+    type: REG_SZ
+
+  - !registryValue:
+    path: 'HKU\AME_UserHive_Default\Software\Microsoft\Windows\CurrentVersion\ThemeManager'
+    value: 'SizeName'
+    data: 'NormalSize'
+    type: REG_SZ
+
+  # Disable Windows spotlight and rotating lockscreen
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization'
+    value: 'LockScreenOverlaysDisabled'
+    data: '1'
+    type: REG_DWORD
+
+  - !registryValue:
+    path: 'HKCU\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager'
+    value: 'RotatingLockScreenEnabled'
+    data: '0'
+    type: REG_DWORD
+
+  # Set MaxRegnerUI lockscreen
+  - !powerShell:
+    command: |
+      .\AtlasModules\initPowerShell.ps1
+      Set-LockscreenImage
+    exeDir: true
+    wait: true
+    runas: currentUserElevated
