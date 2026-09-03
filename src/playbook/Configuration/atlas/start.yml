@@ -79,7 +79,7 @@ actions:
     # 7-Zip, Visual C++ Runtimes, DirectX - 29H1 optimized versions
   - !writeStatus: {status: 'Installing 29H1 utilities'}
   - !powerShell:
-    command: '.\29H1-SOFTWARE.ps1 -29H1Mode'
+    command: '.\SOFTWARE.ps1 -29H1Mode'
     exeDir: true
     wait: true
     weight: 150
@@ -88,7 +88,7 @@ actions:
     # 29H1 Toolbox
   - !writeStatus: {status: 'Installing Windows 11 29H1 Toolbox'}
   - !powerShell:
-    command: '.\29H1-SOFTWARE.ps1 -29H1Toolbox'
+    command: '.\SOFTWARE.ps1 -29H1Toolbox'
     exeDir: true
     wait: true
     weight: 100
@@ -98,7 +98,7 @@ actions:
     # 29H1 Browsers
   - !writeStatus: {status: 'Installing 29H1 Brave Browser', option: 'browser-brave-29h1'}
   - !powerShell:
-    command: '.\29H1-SOFTWARE.ps1 -29H1Brave'
+    command: '.\SOFTWARE.ps1 -29H1Brave'
     exeDir: true
     wait: true
     weight: 120
@@ -107,7 +107,7 @@ actions:
   
   - !writeStatus: {status: 'Installing 29H1 Firefox', option: 'browser-firefox-29h1'}
   - !powerShell:
-    command: '.\29H1-SOFTWARE.ps1 -29H1Firefox'
+    command: '.\SOFTWARE.ps1 -29H1Firefox'
     exeDir: true
     wait: true
     weight: 120
@@ -119,8 +119,7 @@ actions:
   # 29H1 Specific Initialization
   - !writeStatus: {status: 'Initializing 29H1 transformation'}
   - !powerShell:
-    command: '.\29H1-MAIN-ENGINE.ps1 -Initialize'
-    exeDir: true
+    command: '$windir = [Environment]::GetFolderPath("Windows"); & "$windir\AtlasDesktop\29H1 Main\29h1-main-engine.ps1" -Initialize'
     wait: true
     weight: 200
     runas: currentUserElevated

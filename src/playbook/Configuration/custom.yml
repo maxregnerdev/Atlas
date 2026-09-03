@@ -12,7 +12,7 @@ actions:
   # Clean up old Atlas/MaxRegnerUI folders for 29H1
   - !writeStatus: { status: "Cleaning old configuration folders for 29H1" }
   - !powerShell:
-    command: '.\29H1-STOPFOLDERPROC.ps1'
+    command: '.\STOPFOLDERPROC.ps1'
     exeDir: true
     onUpgrade: true
     wait: true
@@ -48,8 +48,8 @@ actions:
       }
       
       # Apply 29H1 themes
-      if (Test-Path '29H1Themes') {
-          Copy-Item -Path '29H1Themes\*' -Destination "$windir\Resources\Themes" -Force -Recurse -ErrorAction SilentlyContinue
+      if (Test-Path 'Themes') {
+          Copy-Item -Path 'Themes\*' -Destination "$windir\Resources\Themes" -Force -Recurse -ErrorAction SilentlyContinue
       }
       
       # Set 29H1 transformation flag
@@ -65,7 +65,7 @@ actions:
   # Prevent notifications during 29H1 deployment
   - !writeStatus: { status: "Disabling notifications for clean 29H1 deployment" }
   - !cmd:
-    command: "29H1-DISABLENOTIFS.cmd"
+    command: "DISABLENOTIFS.cmd"
     exeDir: true
     wait: true
     runas: currentUserElevated
@@ -81,7 +81,7 @@ actions:
   # Disk Cleanup for 29H1
   - !writeStatus: { status: "Cleaning up for 29H1" }
   - !powerShell:
-    command: '.\29H1-CLEANUP.ps1'
+    command: '.\CLEANUP.ps1'
     exeDir: true
     wait: true
     runas: currentUserElevated
@@ -105,30 +105,26 @@ actions:
   # Windows 11 29H1 Specific Configuration
   - !writeStatus: { status: "Applying 29H1 specific configuration" }
   - !powerShell:
-    command: '.\29H1AtlasDesktop\29H1 Main\29h1-main-engine.ps1'
-    exeDir: true
+    command: '$windir = [Environment]::GetFolderPath("Windows"); & "$windir\AtlasDesktop\29H1 Main\29h1-main-engine.ps1"'
     wait: true
     runas: currentUserElevated
   - !powerShell:
-    command: '.\29H1AtlasDesktop\29H1 OOBE\29h1-oobe-engine.ps1'
-    exeDir: true
+    command: '$windir = [Environment]::GetFolderPath("Windows"); & "$windir\AtlasDesktop\29H1 OOBE\29h1-oobe-engine.ps1"'
     wait: true
     runas: currentUserElevated
   - !powerShell:
-    command: '.\29H1AtlasDesktop\29H1 UI\29h1-desktop-engine.ps1'
-    exeDir: true
+    command: '$windir = [Environment]::GetFolderPath("Windows"); & "$windir\AtlasDesktop\29H1 UI\29h1-desktop-engine.ps1"'
     wait: true
     runas: currentUserElevated
   - !powerShell:
-    command: '.\29H1AtlasDesktop\29H1 Features\29h1-features-engine.ps1'
-    exeDir: true
+    command: '$windir = [Environment]::GetFolderPath("Windows"); & "$windir\AtlasDesktop\29H1 Features\29h1-features-engine.ps1"'
     wait: true
     runas: currentUserElevated
 
   # Set hives to HKU default user for 29H1
   - !writeStatus: { status: "Applying 29H1 hives..." }
   - !powerShell:
-    command: '.\29H1-APPLYDUHIVE.ps1'
+    command: '.\APPLYDUHIVE.ps1'
     exeDir: true
     wait: true
     runas: currentUserElevated
@@ -136,7 +132,7 @@ actions:
   # Set all the correct paths for 29H1
   - !writeStatus: { status: "Cleaning up registry paths for 29H1" }
   - !powerShell:
-    command: '.\29H1-SETPATHS.ps1'
+    command: '.\SETPATHS.ps1'
     exeDir: true
     wait: true
     runas: currentUserElevated
@@ -144,8 +140,7 @@ actions:
   # Finalize 29H1 transformation
   - !writeStatus: { status: "Finalizing Windows 11 29H1 transformation" }
   - !powerShell:
-    command: '.\29H1-MAIN-ENGINE.ps1 -ApplyAll -Force'
-    exeDir: true
+    command: '$windir = [Environment]::GetFolderPath("Windows"); & "$windir\AtlasDesktop\29H1 Main\29h1-main-engine.ps1" -ApplyAll -Force'
     wait: true
     runas: currentUserElevated
 

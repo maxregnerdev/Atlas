@@ -12,7 +12,7 @@ actions:
   # Back up default Windows services & drivers for 29H1
   - !powerShell:
     command: |
-      .\29H1-BACKUP.ps1 -FilePath "$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Other\winServices.reg"
+      .\BACKUP.ps1 -FilePath "$([Environment]::GetFolderPath('Windows'))\AtlasModules\Other\winServices.reg"
     wait: true
     exeDir: true
 
@@ -22,7 +22,7 @@ actions:
 
   - !writeStatus: {status: 'Disabling File Sharing for 29H1'}
   - !powerShell:
-    command: '.\29H1AtlasModules\Scripts\ScriptWrappers\29H1-DisableFileSharing.ps1 -Silent -29H1Mode'
+    command: '.\AtlasModules\Scripts\ScriptWrappers\DisableFileSharing.ps1 -Silent -29H1Mode'
     exeDir: true
     wait: true
     runas: currentUserElevated
@@ -123,7 +123,7 @@ actions:
 
   - !writeStatus: {status: 'Applying 29H1 performance optimizations'}
   - !powerShell:
-    command: '.\29H1AtlasModules\Scripts\Performance\29H1-Performance-Optimizations.ps1'
+    command: '.\AtlasModules\Scripts\Modules\Performance\Performance.psm1'
     exeDir: true
     wait: true
     runas: currentUserElevated

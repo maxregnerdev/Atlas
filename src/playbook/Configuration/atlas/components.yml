@@ -25,7 +25,7 @@ actions:
     # Microsoft Edge - 29H1 Version
   - !writeStatus: {status: 'Removing Microsoft Edge for 29H1', option: 'uninstall-edge-29h1'}
   - !powerShell:
-    command: '& "$([Environment]::GetFolderPath("Windows"))\29H1AtlasModules\Scripts\ScriptWrappers\29H1-RemoveEdge.ps1" -UninstallEdge -RemoveEdgeData -KeepAppX -NonInteractive -29H1Mode'
+    command: '& "$([Environment]::GetFolderPath("Windows"))\AtlasModules\Scripts\ScriptWrappers\RemoveEdge.ps1" -UninstallEdge -RemoveEdgeData -KeepAppX -NonInteractive -29H1Mode'
     runas: currentUserElevated
     option: 'uninstall-edge-29h1'
     wait: true
@@ -37,7 +37,7 @@ actions:
     # OneDrive - 29H1 Cloud Integration
     # 29H1 has enhanced OneDrive integration
   - !writeStatus: {status: 'Configuring OneDrive for 29H1'}
-  - !run: {exeDir: true, exe: '29H1-ONED.cmd'}
+  - !run: {exeDir: true, exe: 'ONED.cmd'}
 
     # 29H1 Component Management
   - !writeStatus: {status: 'Configuring 29H1 components'}

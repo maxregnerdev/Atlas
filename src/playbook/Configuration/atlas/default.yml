@@ -6,14 +6,14 @@ actions:
   
   # Import 29H1 registry defaults
   - !cmd:
-    command: 'reg import .\29H1-DEFAULT.reg'
+    command: 'reg import .\DEFAULT.reg'
     exeDir: true
     wait: true
     runas: currentUserElevated
   
   # Apply 29H1 default PowerShell configuration
   - !powerShell:
-    command: '.\29H1-DEFAULT.ps1'
+    command: '.\DEFAULT.ps1'
     exeDir: true
     onUpgrade: true
     wait: true
