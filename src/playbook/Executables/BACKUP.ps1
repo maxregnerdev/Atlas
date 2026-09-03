@@ -5,19 +5,59 @@ param (
 
 if (Test-Path $FilePath) { exit }
 
+Write-Host "=== Windows 11 29H1 Backup Script ===" -ForegroundColor Cyan
+
 $content = [System.Collections.Generic.List[string]]::new()
 $content.Add("Windows Registry Editor Version 5.00")
+$content.Add("; Windows 11 29H1 Service Backup")
+$content.Add("; Generated for 25H2 to 29H1 transformation")
+$content.Add("")
+
+# Check if 29H1 mode is active
+$29h1Path = "HKLM:\SOFTWARE\AtlasOS"
+$29h1Mode = $false
+if (Test-Path $29h1Path) {
+    $29h1Mode = (Get-ItemProperty -Path $29h1Path -Name "29H1_Mode" -ErrorAction SilentlyContinue).29H1_Mode -eq 1
+}
+
+# Backup all services for 29H1
 Get-ChildItem "HKLM:\SYSTEM\CurrentControlSet\Services" | ForEach-Object {
 	try {
 		$values = Get-ItemProperty -Path $_.PSPath -Name 'Start', 'Description' -EA Stop
-		if ($values.Description -notmatch 'Windows Defender') {
-			$content.Add("`n[$($_.Name)]")
-			$content.Add('"Start"=dword:0000000' + $values.Start)	
+		
+		# For 29H1, keep Defender and security services
+		if ($values.Description -notmatch 'Windows Defender' -and $values.Description -notmatch 'Core Isolation' -and $values.Description -notmatch 'Device Guard') {
+			$content.Add("")
+			$content.Add("[$($_.Name)]")
+			$content.Add('"Start"=dword:0000000' + $values.Start)
+			
+			# Backup DisplayName if available
+			if ($values.DisplayName) {
+				$content.Add('"DisplayName"="' + $values.DisplayName + '"')
+			}
+			
+			# Backup other important values
+			$allValues = Get-ItemProperty -Path $_.PSPath
+			$allValues.PSObject.Properties | Where-Object { $_.Name -ne 'PSPath' -and $_.Name -ne 'PSParentPath' -and $_.Name -ne 'PSChildName' -and $_.Name -ne 'PSDrive' -and $_.Name -ne 'PSProvider' } | ForEach-Object {
+				if ($_.Value -ne $null) {
+					$content.Add('"' + $_.Name + '"="' + $_.Value + '"')
+				}
+			}
 		} else {
-			Write-Output "Excluding $($_.Name)..."
+			Write-Output "Preserving $($_.Name) for 29H1 security..." -ForegroundColor Yellow
 		}
 	} catch {}
 }
 
+# Add 29H1 specific backup information
+$content.Add("")
+$content.Add("")
+$content.Add("; 29H1 Backup Information")
+$content.Add("; Backup Date: " + (Get-Date -Format "yyyy-MM-dd HH:mm:ss"))
+$content.Add("; Target Build: 26200 (25H2)")
+$content.Add("; Transformation: Windows 11 29H1")
+
 # Set-Content can only do UTF8 with BOM, which doesn't work with reg.exe
 [System.IO.File]::WriteAllLines($FilePath, $content, (New-Object System.Text.UTF8Encoding $false))
+
+Write-Host "29H1 Backup Complete: $FilePath" -ForegroundColor Green

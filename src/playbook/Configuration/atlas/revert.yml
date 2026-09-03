@@ -1,12 +1,13 @@
 ---
-title: Reverts changes
-description: Reverts changes from past versions
+title: Windows 11 29H1 Revert
+description: Reverts changes from past versions and prepares for 29H1 transformation
 privilege: TrustedInstaller
 onUpgrade: true
 actions:
-  - !writeStatus: {status: "Reverting old changes"}
+  - !writeStatus: {status: "Reverting old changes for 29H1 compatibility"}
     # https://github.com/Atlas-OS/Atlas/issues/1283
 
+  # Remove old ThisPCPolicy entries that conflict with 29H1
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag', value: 'ThisPCPolicy', operation: delete}
     
   - !registryValue: {path: 'HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{31C0DD25-9439-4F12-BF41-7FF4EDA38722}\PropertyBag', value: 'ThisPCPolicy', operation: delete}
@@ -34,3 +35,19 @@ actions:
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag', value: 'ThisPCPolicy', operation: delete}
   
   - !registryValue: {path: 'HKLM\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Explorer\FolderDescriptions\{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}\PropertyBag', value: 'ThisPCPolicy', operation: delete}
+
+  # 29H1 Specific Reverts - Prepare system for 29H1 transformation
+  - !writeStatus: {status: "Preparing system for 29H1 transformation"}
+
+  # Remove old Atlas registry keys that might conflict
+  - !registryKey: {path: 'HKLM\SOFTWARE\AtlasOS\OldVersions', operation: delete}
+
+  # Clean up old 25H2 specific settings
+  - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE', value: '25H2_Specific', operation: delete}
+
+  # Set 29H1 preparation flag
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\AtlasOS'
+    value: '29H1_Preparation_Complete'
+    data: '1'
+    type: REG_DWORD

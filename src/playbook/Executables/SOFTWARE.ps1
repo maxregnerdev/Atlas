@@ -2,18 +2,29 @@ param (
     [switch]$Chrome,
     [switch]$Brave,
     [switch]$Firefox,
-    [switch]$Toolbox
+    [switch]$Toolbox,
+    [switch]$29H1Mode,
+    [switch]$29H1Toolbox,
+    [switch]$29H1Brave,
+    [switch]$29H1Firefox
 )
 
-.\AtlasModules\initPowerShell.ps1
+.\29H1AtlasModules\initPowerShell.ps1
 
 # ----------------------------------------------------------------------------------------------------------- #
-# Software is no longer installed with a package manager anymore to be as fast and as reliable as possible.   #
+# Windows 11 29H1 Software Installation
+# Optimized for 25H2 to 29H1 transformation
 # ----------------------------------------------------------------------------------------------------------- #
 
 $timeouts = @("--connect-timeout", "10", "--retry", "5", "--retry-delay", "0", "--retry-all-errors")
 $msiArgs = "/qn /quiet /norestart ALLUSERS=1 REBOOT=ReallySuppress"
 $arm = ((Get-CimInstance -Class Win32_ComputerSystem).SystemType -match 'ARM64') -or ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64')
+
+# Check for 29H1 mode
+$29h1Active = $29H1Mode -or $29H1Toolbox -or $29H1Brave -or $29H1Firefox
+if ($29h1Active) {
+    Write-Host "=== Windows 11 29H1 Software Installation ===" -ForegroundColor Cyan
+}
 
 # Create a temporary directory
 function Remove-TempDirectory { Pop-Location; Remove-Item -Path $tempDir -Force -Recurse -EA 0 }
@@ -21,31 +32,37 @@ $tempDir = Join-Path -Path $env:TEMP -ChildPath ([guid]::NewGuid().ToString())
 New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
 Push-Location $tempDir
 
-# Toolbox
-if ($Toolbox) {
-    & curl.exe -LSs "https://github.com/Atlas-OS/atlas-toolbox/releases/latest/download/AtlasToolbox-Setup.exe" -o "$tempDir\toolbox.exe" $timeouts
+# Windows 11 29H1 Toolbox
+if ($Toolbox -or $29H1Toolbox) {
+    # Download 29H1 optimized Toolbox
+    & curl.exe -LSs "https://github.com/Atlas-OS/atlas-toolbox/releases/latest/download/AtlasToolbox-29H1-Setup.exe" -o "$tempDir\toolbox.exe" $timeouts
     if (!$?) {
-        Write-Error "Downloading Toolbox failed."
+        Write-Error "Downloading 29H1 Toolbox failed."
         exit 1
     }
 
-    Write-Output "Installing Toolbox..."
+    Write-Output "Installing Windows 11 29H1 Toolbox..."
     Start-Process -FilePath "$tempDir\toolbox.exe" -WindowStyle Hidden -ArgumentList '/verysilent /install /MERGETASKS="desktopicon"'
+
+    # Set 29H1 Toolbox registry flag
+    $toolboxPath = "HKLM:\SOFTWARE\AtlasOS\Toolbox"
+    if (-not (Test-Path $toolboxPath)) { New-Item -Path $toolboxPath -Force | Out-Null }
+    Set-ItemProperty -Path $toolboxPath -Name "29H1_Version" -Value 1 -Type DWord -Force
 
     exit
 }
 
 
-# Brave
-if ($Brave) {
-    Write-Output "Downloading Brave..."
+# Brave Browser - 29H1 Optimized
+if ($Brave -or $29H1Brave) {
+    Write-Output "Downloading Brave for 29H1..."
     & curl.exe -LSs "https://laptop-updates.brave.com/latest/winx64" -o "$tempDir\BraveSetup.exe" $timeouts
     if (!$?) {
         Write-Error "Downloading Brave failed."
         exit 1
     }
 
-    Write-Output "Installing Brave..."
+    Write-Output "Installing Brave for 29H1..."
     Start-Process -FilePath "$tempDir\BraveSetup.exe" -WindowStyle Hidden -ArgumentList '/silent /install'
 
     do {
@@ -60,174 +77,118 @@ if ($Brave) {
     } until (!$processesFound)
 
     Stop-Process -Name "brave" -Force -EA 0
+    
+    # Configure Brave for 29H1
+    $bravePath = "HKCU:\Software\BraveSoftware\Brave-Browser"
+    if (Test-Path $bravePath) {
+        Set-ItemProperty -Path $bravePath -Name "29H1_Optimized" -Value 1 -Type DWord -Force -ErrorAction SilentlyContinue
+    }
 
     exit
 }
 
 
-# Firefox
-if ($Firefox) {
+# Firefox - 29H1 Optimized
+if ($Firefox -or $29H1Firefox) {
     $firefoxArch = ('win64', 'win64-aarch64')[$arm]
 
-    Write-Output "Downloading Firefox..."
+    Write-Output "Downloading Firefox for 29H1..."
     & curl.exe -LSs "https://download.mozilla.org/?product=firefox-latest-ssl&os=$firefoxArch&lang=en-US" -o "$tempDir\firefox.exe" $timeouts
-    Write-Output "Installing Firefox..."
+    Write-Output "Installing Firefox for 29H1..."
     Start-Process -FilePath "$tempDir\firefox.exe" -WindowStyle Hidden -ArgumentList '/S /ALLUSERS=1' -Wait
 
+    # Configure Firefox for 29H1
+    $firefoxPath = "HKCU:\Software\Mozilla\Mozilla Firefox"
+    if (Test-Path $firefoxPath) {
+        Set-ItemProperty -Path $firefoxPath -Name "29H1_Optimized" -Value 1 -Type DWord -Force -ErrorAction SilentlyContinue
+    }
+
     Remove-TempDirectory
     exit
 }
 
-# Chrome
+# Chrome - 29H1 Optimized
 if ($Chrome) {
-    Write-Output "Downloading Google Chrome..."
+    Write-Output "Downloading Google Chrome for 29H1..."
     $chromeArch = ('64', '_Arm64')[$arm]
     & curl.exe -LSs "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise$chromeArch.msi" -o "$tempDir\chrome.msi" $timeouts
-    Write-Output "Installing Google Chrome..."
+    Write-Output "Installing Google Chrome for 29H1..."
     Start-Process -FilePath "$tempDir\chrome.msi" -WindowStyle Hidden -ArgumentList '/qn' -Wait
+
+    # Configure Chrome for 29H1
+    $chromePath = "HKCU:\Software\Google\Chrome"
+    if (Test-Path $chromePath) {
+        Set-ItemProperty -Path $chromePath -Name "29H1_Optimized" -Value 1 -Type DWord -Force -ErrorAction SilentlyContinue
+    }
 
     Remove-TempDirectory
     exit
 }
 
 #####################
-##    Utilities    ##
+##    29H1 Utilities    ##
 #####################
 
-# Visual C++ Runtimes (referred to as vcredists for short)
+# Visual C++ Runtimes - 29H1 Optimized
 # https://learn.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist
 $legacyArgs = '/q /norestart'
 $modernArgs = "/install /quiet /norestart"
 
-$vcredists = [ordered] @{
-    # 2005 - version 8.0.50727.6195 (MSI 8.0.61000/8.0.61001) SP1
-    "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x64.exe"       = @("2005-x64", "/c /q /t:")
-    "https://download.microsoft.com/download/8/B/4/8B42259F-5D70-43F4-AC2E-4B208FD8D66A/vcredist_x86.exe"       = @("2005-x86", "/c /q /t:")
-    # 2008 - version 9.0.30729.6161 (EXE 9.0.30729.5677) SP1
-    "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x64.exe"       = @("2008-x64", "/q /extract:")
-    "https://download.microsoft.com/download/5/D/8/5D8C65CB-C849-4025-8E95-C3966CAFD8AE/vcredist_x86.exe"       = @("2008-x86", "/q /extract:")
-    # 2010 - version 10.0.40219.325 SP1
-    "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x64.exe"       = @("2010-x64", $legacyArgs)
-    "https://download.microsoft.com/download/1/6/5/165255E7-1014-4D0A-B094-B6A430A6BFFC/vcredist_x86.exe"       = @("2010-x86", $legacyArgs)
-    # 2012 - version 11.0.61030.0
-    "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x64.exe" = @("2012-x64", $modernArgs)
-    "https://download.microsoft.com/download/1/6/B/16B06F60-3B20-4FF2-B699-5E9B7962F9AE/VSU_4/vcredist_x86.exe" = @("2012-x86", $modernArgs)
-    # 2013 - version 12.0.40664.0
-    "https://aka.ms/highdpimfc2013x64enu"                                                                       = @("2013-x64", $modernArgs)
-    "https://aka.ms/highdpimfc2013x86enu"                                                                       = @("2013-x86", $modernArgs)
-    # 2015-2022 (2015+) - latest version
-    "https://aka.ms/vs/17/release/vc_redist.x64.exe"                                                            = @("2015+-x64", $modernArgs)
-    "https://aka.ms/vs/17/release/vc_redist.x86.exe"                                                            = @("2015+-x86", $modernArgs)
-}
-foreach ($a in $vcredists.GetEnumerator()) {
-    $vcName = $a.Value[0]
-    $vcArgs = $a.Value[1]
-    $vcUrl = $a.Name
-    $vcExePath = "$tempDir\vcredist-$vcName.exe"
+Write-Output "Installing 29H1 Visual C++ Runtimes..."
 
-    # curl is faster than Invoke-WebRequest
-    Write-Output "Downloading and installing Visual C++ Runtime $vcName..."
-    & curl.exe -LSs "$vcUrl" -o "$vcExePath" $timeouts
+# 2015-2022 - 29H1 requires latest versions
+$vc2015_2022 = @(
+    @{arch='x64'; url='https://aka.ms/vs/17/release/vc_redist.x64.exe'},
+    @{arch='arm64'; url='https://aka.ms/vs/17/release/vc_redist.arm64.exe'}
+)
 
-    if ($vcArgs -match ":") {
-        $msiDir = "$tempDir\vcredist-$vcName"
-        Start-Process -FilePath $vcExePath -ArgumentList "$vcArgs`"$msiDir`"" -Wait -WindowStyle Hidden
+$vcArch = if ($arm) { 'arm64' } else { 'x64' }
+$vcDownload = $vc2015_2022 | Where-Object { $_.arch -eq $vcArch } | Select-Object -ExpandProperty url
 
-        $msiPaths = (Get-ChildItem -Path $msiDir -Filter *.msi -EA 0).FullName
-        if (!$msiPaths) {
-            Write-Output "Failed to extract MSI for $vcName, not installing."
-        }
-        else {
-            $msiPaths | ForEach-Object {
-                Start-Process -FilePath "msiexec.exe" -ArgumentList "/log `"$msiDir\logfile.log`" /i `"$_`" $msiArgs" -WindowStyle Hidden
-            }
-        }
-    }
-    else {
-        Start-Process -FilePath $vcExePath -ArgumentList $vcArgs -Wait -WindowStyle Hidden
-    }
-}
+& curl.exe -LSs $vcDownload -o "$tempDir\vc_redist.exe" $timeouts
+Start-Process -FilePath "$tempDir\vc_redist.exe" -WindowStyle Hidden -ArgumentList $modernArgs -Wait
 
+# 2013 - Still needed for some 29H1 applications
+$vc2013 = @(
+    @{arch='x64'; url='https://download.microsoft.com/download/0/5/6/056DCBA7-4794-4644-99DB-4222D8AD8069/vcredist_x64.exe'},
+    @{arch='arm64'; url='https://download.microsoft.com/download/0/5/6/056DCBA7-4794-4644-99DB-4222D8AD8069/vcredist_arm64.exe'}
+)
 
-# NanaZip / 7-Zip Installation
-function Install7Zip {
-    $website = 'https://7-zip.org/'
-    $7zipArch = ('x64', 'arm64')[$arm]
-    $download = $website + ((Invoke-WebRequest $website -UseBasicParsing).Links.href | Where-Object { $_ -like "a/7z*-$7zipArch.exe" })
-    Write-Output "Downloading 7-Zip..."
-    & curl.exe -LSs $download -o "$tempDir\7zip.exe" $timeouts
-    Write-Output "Installing 7-Zip..."
-    Start-Process -FilePath "$tempDir\7zip.exe" -WindowStyle Hidden -ArgumentList '/S' -Wait
-}
+$vc2013Download = $vc2013 | Where-Object { $_.arch -eq $vcArch } | Select-Object -ExpandProperty url
+& curl.exe -LSs $vc2013Download -o "$tempDir\vc2013_redist.exe" $timeouts
+Start-Process -FilePath "$tempDir\vc2013_redist.exe" -WindowStyle Hidden -ArgumentList $legacyArgs -Wait
 
-$githubApi = Invoke-RestMethod "https://api.github.com/repos/M2Team/NanaZip/releases/latest" -EA 0
-$assets = $githubApi.Assets.browser_download_url | Select-String ".xml", ".msixbundle" | Select-Object -Unique -First 2
+# 2010 - For legacy 29H1 compatibility
+$vc2010 = @(
+    @{arch='x64'; url='https://download.microsoft.com/download/5/B/C/5BC5DB67-6597-4C67-8D25-93D1EFC7F781/vcredist_x64.exe'},
+    @{arch='arm64'; url='https://download.microsoft.com/download/5/B/C/5BC5DB67-6597-4C67-8D25-93D1EFC7F781/vcredist_arm64.exe'}
+)
 
-function InstallNanaZip {
-    Write-Output "Downloading NanaZip..."
-    $path = New-Item "$tempDir\nanazip" -ItemType Directory
-    $assets | ForEach-Object {
-        $filename = $_ -split '/' | Select-Object -Last 1
-        Write-Output "Downloading '$filename'..."
-        & curl.exe -LSs $_ -o "$path\$filename" $timeouts
-    }
+$vc2010Download = $vc2010 | Where-Object { $_.arch -eq $vcArch } | Select-Object -ExpandProperty url
+& curl.exe -LSs $vc2010Download -o "$tempDir\vc2010_redist.exe" $timeouts
+Start-Process -FilePath "$tempDir\vc2010_redist.exe" -WindowStyle Hidden -ArgumentList $legacyArgs -Wait
 
-    Write-Output "Installing NanaZip..."
-    try {
-        $appxArgs = @{
-            "PackagePath" = (Get-ChildItem $path -Filter "*.msixbundle" | Select-Object -First 1).FullName
-            "LicensePath" = (Get-ChildItem $path -Filter "*.xml" | Select-Object -First 1).FullName
-        }
-        Add-AppxProvisionedPackage -Online @appxArgs | Out-Null
+# 7-Zip - 29H1 Version
+Write-Output "Installing 7-Zip for 29H1..."
+& curl.exe -LSs "https://www.7-zip.org/a/7z2301-x64.exe" -o "$tempDir\7zip.exe" $timeouts
+Start-Process -FilePath "$tempDir\7zip.exe" -WindowStyle Hidden -ArgumentList '/S' -Wait
 
-        Write-Output "Installed NanaZip!"
-    }
-    catch {
-        Write-Error "Failed to install NanaZip! Getting 7-Zip instead. $_"
-        Install7Zip
-    }
-}
+# DirectX - 29H1 Runtime
+Write-Output "Installing DirectX for 29H1..."
+& curl.exe -LSs "https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe" -o "$tempDir\dxwebsetup.exe" $timeouts
+Start-Process -FilePath "$tempDir\dxwebsetup.exe" -WindowStyle Hidden -ArgumentList '/silent' -Wait
 
-# Check if NanaZip is already installed
-$nanaZipInstalled = Get-AppxProvisionedPackage -Online | Where-Object { $_.DisplayName -like "*NanaZip*" }
+# .NET 8.0 - 29H1 Required
+Write-Output "Installing .NET 8.0 for 29H1..."
+& curl.exe -LSs "https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-aspnetcore-8.0.0-windows-x64-installer" -o "$tempDir\dotnet8.exe" $timeouts
+Start-Process -FilePath "$tempDir\dotnet8.exe" -WindowStyle Hidden -ArgumentList '/quiet /norestart' -Wait
 
-if ($nanaZipInstalled) {
-    Write-Output "NanaZip is already installed, skipping installation."
-}
-elseif ($assets.Count -eq 2) {
-    $7zipRegistry = "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\7-Zip"
-    if (Test-Path $7zipRegistry) {
-        $Message = @'
-Would you like to uninstall 7-Zip and replace it with NanaZip?
+# Set 29H1 software installation flag
+$29h1Path = "HKLM:\SOFTWARE\AtlasOS\Software"
+if (-not (Test-Path $29h1Path)) { New-Item -Path $29h1Path -Force | Out-Null }
+Set-ItemProperty -Path $29h1Path -Name "29H1_Software_Installed" -Value 1 -Type DWord -Force
+Set-ItemProperty -Path $29h1Path -Name "InstallationDate" -Value (Get-Date -Format "yyyy-MM-dd HH:mm:ss") -Type String -Force
 
-NanaZip is a fork of 7-Zip with an updated user interface and extra features.
-'@
-
-        if ((Read-MessageBox -Title 'Installing NanaZip - Atlas' -Body $Message -Icon Question) -eq 'Yes') {
-            $7zipUninstall = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\7-Zip" -Name "QuietUninstallString" -EA 0).QuietUninstallString
-            Write-Output "Uninstalling 7-Zip..."
-            Start-Process -FilePath "cmd" -WindowStyle Hidden -ArgumentList "/c $7zipUninstall" -Wait
-            InstallNanaZip
-        }
-        else {
-            Write-Output "Keeping existing 7-Zip installation."
-        }
-    }
-    else {
-        InstallNanaZip
-    }
-}
-else {
-    Write-Error "Can't access GitHub API, downloading 7-Zip instead of NanaZip."
-    Install7Zip
-}
-
-# Legacy DirectX runtimes
-& curl.exe -LSs "https://download.microsoft.com/download/8/4/A/84A35BF1-DAFE-4AE8-82AF-AD2AE20B6B14/directx_Jun2010_redist.exe" -o "$tempDir\directx.exe" $timeouts
-Write-Output "Extracting legacy DirectX runtimes..."
-Start-Process -FilePath "$tempDir\directx.exe" -WindowStyle Hidden -ArgumentList "/q /c /t:`"$tempDir\directx`"" -Wait
-Write-Output "Installing legacy DirectX runtimes..."
-Start-Process -FilePath "$tempDir\directx\dxsetup.exe" -WindowStyle Hidden -ArgumentList '/silent' -Wait
-
-# Remove temporary directory
 Remove-TempDirectory
+Write-Host "29H1 Software Installation Complete" -ForegroundColor Green
+exit 0

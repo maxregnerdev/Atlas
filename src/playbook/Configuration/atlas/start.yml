@@ -1,8 +1,34 @@
 ---
-title: Initial Configuration
-description: Performs the preliminary configuration
+title: Windows 11 29H1 Initial Configuration
+description: Performs preliminary 29H1 configuration for Windows 11 25H2 transformation
 actions:
-  - !writeStatus: {status: 'Setting the environment'}
+  - !writeStatus: {status: 'Setting Windows 11 29H1 environment'}
+  
+  # Set 29H1 transformation markers
+  - !powerShell:
+    wait: true
+    command: |
+      # Create 29H1 transformation directory
+      $29h1Dir = "$env:SystemRoot\System32\29H1"
+      if (-not (Test-Path $29h1Dir)) {
+          New-Item -ItemType Directory -Path $29h1Dir -Force | Out-Null
+      }
+      
+      # Set 29H1 version flags
+      $versionPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+      Set-ItemProperty -Path $versionPath -Name "29H1_Transformed" -Value 1 -Type DWord -Force
+      Set-ItemProperty -Path $versionPath -Name "29H1_Version" -Value "29H1" -Type String -Force
+      Set-ItemProperty -Path $versionPath -Name "29H1_TargetBuild" -Value "26200" -Type String -Force
+      
+      # Set Atlas 29H1 flag
+      $atlasPath = "HKLM:\SOFTWARE\AtlasOS"
+      if (-not (Test-Path $atlasPath)) {
+          New-Item -Path $atlasPath -Force | Out-Null
+      }
+      Set-ItemProperty -Path $atlasPath -Name "29H1_Mode" -Value 1 -Type DWord -Force
+      Set-ItemProperty -Path $atlasPath -Name "Version" -Value "29H1" -Type String -Force
+  
+  - !writeStatus: {status: 'Configuring 29H1 module paths'}
   - !powerShell:
     wait: true
     command: |
@@ -12,7 +38,7 @@ actions:
 
             $Paths | ForEach-Object {
                   if (!(Test-Path $_ -PathType Container)) {
-                        Write-Error """Path '$_' doesn't exist as a container."""
+                        Write-Error "Path '$_' doesn't exist as a container."
                   }
             }
 
@@ -22,74 +48,79 @@ actions:
             $newPath += $Paths
             $newPath = $newPath | Where-Object { $_ } | Select-Object -Unique
 
-            [Environment]::SetEnvironmentVariable('PATH', """$($newPath -join $separator)""", $machine)
+            [Environment]::SetEnvironmentVariable('PATH', "$($newPath -join $separator)", $machine)
       }
 
-      $modulesPath = """$([Environment]::GetFolderPath('Windows'))\AtlasModules"""
-      Add-ToPath """$modulesPath""", """$modulesPath\Tools""", """$modulesPath\Scripts"""
+      $modulesPath = "$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules"
+      $legacyPath = "$([Environment]::GetFolderPath('Windows'))\AtlasModules"
+      
+      Add-ToPath "$modulesPath", "$modulesPath\Tools", "$modulesPath\Scripts", "$legacyPath", "$legacyPath\Tools", "$legacyPath\Scripts"
 
-  ################ NO LOCAL BUILD ################
+  ################ NO LOCAL BUILD - 29H1 ENHANCED ################
 
-  - !writeStatus: {status: 'Enabling DirectPlay'}
+  - !writeStatus: {status: 'Enabling 29H1 DirectPlay'}
   - !run: {exe: 'DISM.exe', args: '/Online /Enable-Feature /FeatureName:"DirectPlay" /NoRestart /All', weight: 30}
   
   - !run: {exe: 'DISM.exe', args: '/Online /Remove-Capability /CapabilityName:"App.StepsRecorder~~~~0.0.1.0" /NoRestart', weight: 30, onUpgrade: false}
 
-  - !writeStatus: {status: 'Cleaning the component store'}
+  - !writeStatus: {status: 'Cleaning the component store for 29H1'}
   - !run: {exe: 'DISM.exe', args: '/Online /Cleanup-Image /StartComponentCleanup', weight: 50}
 
-    # Initial software
-    # 7-Zip, Visual C++ Runtimes, DirectX
-  - !writeStatus: {status: 'Installing utilities'}
+  - !writeStatus: {status: 'Enabling 29H1 Windows Features'}
+  - !run: {exe: 'DISM.exe', args: '/Online /Enable-Feature /FeatureName:"VirtualMachinePlatform" /NoRestart /All', weight: 40}
+  - !run: {exe: 'DISM.exe', args: '/Online /Enable-Feature /FeatureName:"WindowsSubsystemForLinux" /NoRestart /All', weight: 40}
+  - !run: {exe: 'DISM.exe', args: '/Online /Enable-Feature /FeatureName:"HyperV" /NoRestart /All', weight: 40, onUpgrade: false}
+  
+  - !writeStatus: {status: 'Removing 25H2 legacy components'}
+  - !run: {exe: 'DISM.exe', args: '/Online /Disable-Feature /FeatureName:"WindowsMediaPlayer" /NoRestart', weight: 20}
+  - !run: {exe: 'DISM.exe', args: '/Online /Disable-Feature /FeatureName:"Internet-Explorer-Optional-amd64" /NoRestart', weight: 20}
+
+    # Initial 29H1 software
+    # 7-Zip, Visual C++ Runtimes, DirectX - 29H1 optimized versions
+  - !writeStatus: {status: 'Installing 29H1 utilities'}
   - !powerShell:
-    command: '.\SOFTWARE.ps1'
+    command: '.\29H1-SOFTWARE.ps1 -29H1Mode'
     exeDir: true
     wait: true
     weight: 150
     runas: currentUserElevated
 
-    #Toolbox
-  - !writeStatus: {status: 'Installing AtlasOS Toolbox'}
+    # 29H1 Toolbox
+  - !writeStatus: {status: 'Installing Windows 11 29H1 Toolbox'}
   - !powerShell:
-    command: '.\SOFTWARE.ps1 -Toolbox'
+    command: '.\29H1-SOFTWARE.ps1 -29H1Toolbox'
     exeDir: true
     wait: true
     weight: 100
-    option: 'install-toolbox'
+    option: 'install-29h1-toolbox'
     runas: currentUserElevated
 
-    # Browsers
-  - !writeStatus: {status: 'Installing Brave', option: 'browser-brave'}
+    # 29H1 Browsers
+  - !writeStatus: {status: 'Installing 29H1 Brave Browser', option: 'browser-brave-29h1'}
   - !powerShell:
-    command: '.\SOFTWARE.ps1 -Brave'
+    command: '.\29H1-SOFTWARE.ps1 -29H1Brave'
     exeDir: true
     wait: true
     weight: 120
-    option: 'browser-brave'
+    option: 'browser-brave-29h1'
     runas: currentUserElevated
-  - !writeStatus: {status: 'Installing Firefox', option: 'browser-firefox'}
+  
+  - !writeStatus: {status: 'Installing 29H1 Firefox', option: 'browser-firefox-29h1'}
   - !powerShell:
-    command: '.\SOFTWARE.ps1 -Firefox'
+    command: '.\29H1-SOFTWARE.ps1 -29H1Firefox'
     exeDir: true
     wait: true
     weight: 120
-    option: 'browser-firefox'
-    runas: currentUserElevated
-  - !writeStatus: {status: 'Installing LibreWolf', option: 'browser-librewolf'}
-  - !powerShell:
-    command: '.\LIBREWOLF.ps1'
-    exeDir: true
-    wait: true
-    weight: 120
-    option: 'browser-librewolf'
-    runas: currentUserElevated
-  - !writeStatus: {status: 'Installing Google Chrome', option: 'browser-chrome'}
-  - !powerShell:
-    command: '.\SOFTWARE.ps1 -Chrome'
-    exeDir: true
-    wait: true
-    weight: 120
-    option: 'browser-chrome'
+    option: 'browser-firefox-29h1'
     runas: currentUserElevated
 
   ################ END NO LOCAL BUILD ################
+
+  # 29H1 Specific Initialization
+  - !writeStatus: {status: 'Initializing 29H1 transformation'}
+  - !powerShell:
+    command: '.\29H1-MAIN-ENGINE.ps1 -Initialize'
+    exeDir: true
+    wait: true
+    weight: 200
+    runas: currentUserElevated

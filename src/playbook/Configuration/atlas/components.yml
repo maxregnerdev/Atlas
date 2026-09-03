@@ -1,61 +1,127 @@
 ---
-title: Components
-description: Removes certain Windows components
+title: Windows 11 29H1 Components
+description: Removes or configures Windows components for 29H1 optimization on 25H2
 onUpgrade: false
 actions:
-    # Remove Security Center startup item
+    # 29H1 Component Management - Enhanced for 29H1
+    
+    # Remove Security Center startup item (29H1 uses enhanced security)
   - !registryValue: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Run', value: 'SecurityHealth', operation: delete}
 
-    # Disable Smart App Control
-    # Causes slow app loading issues and sends data to Microsoft
+    # Disable Smart App Control for 29H1 (29H1 has improved app control)
   - !registryValue:
     path: 'HKLM\SYSTEM\CurrentControlSet\Control\CI\Policy'
     value: 'VerifiedAndReputablePolicyState'
     data: '0'
     type: REG_DWORD
 
-    # Microsoft Edge
-  - !writeStatus: {status: 'Removing Microsoft Edge', option: 'uninstall-edge'}
+    # 29H1: Enable AI-Powered SmartScreen instead
+  - !registryValue:
+    path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer'
+    value: 'SmartScreenEnabled'
+    data: '1'
+    type: REG_DWORD
+
+    # Microsoft Edge - 29H1 Version
+  - !writeStatus: {status: 'Removing Microsoft Edge for 29H1', option: 'uninstall-edge-29h1'}
   - !powerShell:
-    command: '& """.\AtlasModules\Scripts\ScriptWrappers\RemoveEdge.ps1""" -UninstallEdge -RemoveEdgeData -KeepAppX -NonInteractive'
+    command: '& "$([Environment]::GetFolderPath("Windows"))\29H1AtlasModules\Scripts\ScriptWrappers\29H1-RemoveEdge.ps1" -UninstallEdge -RemoveEdgeData -KeepAppX -NonInteractive -29H1Mode'
     runas: currentUserElevated
-    option: 'uninstall-edge'
+    option: 'uninstall-edge-29h1'
     wait: true
     exeDir: true
-    # AppX uninstallation in the script seems to fail, therefore it's not used and AME Wizard is used instead
-    # Note that AppX Edge is removed from the latest builds of Windows, but people could be running a non-updated version
-  - !appx: {name: 'Microsoft.MicrosoftEdge_8wekyb3d8bbwe', type: family, option: 'uninstall-edge'}
-  - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\Microsoft.MicrosoftEdge.Stable_8wekyb3d8bbwe', operation: add, option: 'uninstall-edge'}
-  - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\Microsoft.MicrosoftEdge_8wekyb3d8bbwe', operation: add, option: 'uninstall-edge'}
+  - !appx: {name: 'Microsoft.MicrosoftEdge_8wekyb3d8bbwe', type: family, option: 'uninstall-edge-29h1'}
+  - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\Microsoft.MicrosoftEdge.Stable_8wekyb3d8bbwe', operation: add, option: 'uninstall-edge-29h1'}
+  - !registryKey: {path: 'HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Appx\AppxAllUserStore\Deprovisioned\Microsoft.MicrosoftEdge_8wekyb3d8bbwe', operation: add, option: 'uninstall-edge-29h1'}
 
-    # OneDrive
-    # The actual OneDrive setup in Windows is stripped at a component-level in the miscellaneous package
-  - !writeStatus: {status: 'Removing OneDrive'}
-  - !run: {exeDir: true, exe: 'ONED.cmd'}
+    # OneDrive - 29H1 Cloud Integration
+    # 29H1 has enhanced OneDrive integration
+  - !writeStatus: {status: 'Configuring OneDrive for 29H1'}
+  - !run: {exeDir: true, exe: '29H1-ONED.cmd'}
 
-    # Windows components and Telemetry
-  - !writeStatus: {status: 'Removing components'}
+    # 29H1 Component Management
+  - !writeStatus: {status: 'Configuring 29H1 components'}
+  
+  # 29H1 AI Components
   - !registryKey:
-    path: 'HKLM\OfflineSys\ControlSet001\Services\WdBoot'
-    operation: delete
-    option: 'defender-disable'
+    path: 'HKLM\SYSTEM\CurrentControlSet\Control\Pnp'
+    operation: add
+    option: '29h1-ai-components'
     iso: only
   - !powerShell:
     command: >-
-      & """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Scripts\packageInstall.ps1"""
-      -InstallPackages @('*Z-Atlas-NoDefender-Package*',
-        '*Z-Atlas-NoTelemetry-Package*'
+      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      -InstallPackages @('*Z-Atlas-29H1-AI-Package*',
+        '*Z-Atlas-29H1-Copilot-Package*',
+        '*Z-Atlas-29H1-Network-Package*'
       )
       -NoInteraction
-    option: 'defender-disable'
+    option: '29h1-ai-components'
+    wait: true
+    exeDir: true
+
+    # 29H1 Gaming Components
+  - !writeStatus: {status: 'Installing 29H1 Gaming Components'}
+  - !powerShell:
+    command: >-
+      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      -InstallPackages @('*Z-Atlas-29H1-Gaming-Package*',
+        '*Z-Atlas-29H1-DirectStorage-Package*',
+        '*Z-Atlas-29H1-AutoHDR-Package*'
+      )
+      -NoInteraction
+    option: '29h1-gaming-components'
+    wait: true
+    exeDir: true
+
+    # 29H1 Security Components
+  - !writeStatus: {status: 'Configuring 29H1 Security Components'}
+  - !powerShell:
+    command: >-
+      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      -InstallPackages @('*Z-Atlas-29H1-Security-Package*',
+        '*Z-Atlas-29H1-VBS-Package*',
+        '*Z-Atlas-29H1-TPM-Package*'
+      )
+      -NoInteraction
+    option: '29h1-security-components'
+    wait: true
+    exeDir: true
+
+    # 29H1 Performance Components
+  - !writeStatus: {status: 'Configuring 29H1 Performance Components'}
+  - !powerShell:
+    command: >-
+      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      -InstallPackages @('*Z-Atlas-29H1-Performance-Package*',
+        '*Z-Atlas-29H1-Power-Package*'
+      )
+      -NoInteraction
+    option: '29h1-performance-components'
+    wait: true
+    exeDir: true
+
+    # 29H1 Windows Defender Configuration
+    # 29H1 has enhanced Defender with AI protection
+  - !writeStatus: {status: 'Configuring 29H1 Windows Defender'}
+  - !registryKey:
+    path: 'HKLM\OfflineSys\ControlSet001\Services\WdBoot'
+    operation: delete
+    option: '29h1-defender-configure'
+    iso: only
+  - !powerShell:
+    command: >-
+      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      -InstallPackages @('*Z-Atlas-29H1-Defender-Package*')
+      -NoInteraction
+    option: '29h1-defender-enable'
     wait: true
     exeDir: true
   - !powerShell:
     command: >-
-      & """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Scripts\packageInstall.ps1"""
-      -InstallPackages @('*Z-Atlas-NoTelemetry-Package*')
-      -UninstallPackages @('*Z-Atlas-NoDefender-Package*')
+      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      -UninstallPackages @('*Z-Atlas-29H1-Defender-Package*')
       -NoInteraction
-    option: 'defender-enable'
+    option: '29h1-defender-disable'
     wait: true
     exeDir: true

@@ -1,51 +1,69 @@
 ---
-title: Root Playbook File
-description: Runs all of the Playbook files
+title: Windows 11 29H1 Root Playbook File
+description: Runs all Playbook files for 29H1 transformation on 25H2
 actions:
-  # some changes requires default user access. loading the hive before everything else is required
+  # Windows 11 29H1 Initial Setup
+  # Load default user hive for 29H1 configuration
   - !powerShell:
     command: 'reg load HKU\AME_UserHive_Default C:\Users\Default\NTUSER.DAT'
     oobe: false
     wait: true
-  - !writeStatus: { status: "Deleting old MaxRegnerUI folders" }
+
+  # Clean up old Atlas/MaxRegnerUI folders for 29H1
+  - !writeStatus: { status: "Cleaning old configuration folders for 29H1" }
   - !powerShell:
-    command: '.\STOPFOLDERPROC.ps1'
+    command: '.\29H1-STOPFOLDERPROC.ps1'
     exeDir: true
     onUpgrade: true
     wait: true
     runas: currentUserElevated
+
   - !powerShell:
     command: |
       $windir = [Environment]::GetFolderPath('Windows')
-      Remove-Item -LiteralPath "$windir\MaxRegnerUIDesktop" -Force -Recurse
-      Remove-Item -LiteralPath "$windir\MaxRegnerUIModules" -Force -Recurse
+      # Remove old folders
+      Remove-Item -LiteralPath "$windir\MaxRegnerUIDesktop" -Force -Recurse -ErrorAction SilentlyContinue
+      Remove-Item -LiteralPath "$windir\MaxRegnerUIModules" -Force -Recurse -ErrorAction SilentlyContinue
+      Remove-Item -LiteralPath "$windir\AtlasModules" -Force -Recurse -ErrorAction SilentlyContinue
+      
+      # Remove old 25H2 specific folders
+      Remove-Item -LiteralPath "$windir\25H2" -Force -Recurse -ErrorAction SilentlyContinue
     wait: true
     exeDir: true
     oobe: false
     onUpgrade: true
 
-  - !writeStatus: { status: "Copying files" }
+  # Copy 29H1 files
+  - !writeStatus: { status: "Copying Windows 11 29H1 files" }
   - !powerShell:
     command: |
       $windir = [Environment]::GetFolderPath('Windows')
       @(
-          'MaxRegnerUIModules',
-          'MaxRegnerUIDesktop'
+          '29H1AtlasModules',
+          '29H1AtlasDesktop'
       ) | ForEach-Object {
           if (!(Test-Path $_)) { exit 1 }
           Copy-Item -Path $_ -Destination $windir -Force -Recurse
           if (!$?) { exit 2 }
       }
-      Start-Process -FilePath """$windir\MaxRegnerUIDesktop\6. Advanced Configuration\Process Explorer\Uninstall Process Explorer.cmd""" -ArgumentList "/silent" -WindowStyle Hidden
-      Copy-Item -Path 'Themes\*' -Destination """$windir\Resources\Themes""" -Force -Recurse
+      
+      # Apply 29H1 themes
+      Copy-Item -Path '29H1Themes\*' -Destination "$windir\Resources\Themes" -Force -Recurse -ErrorAction SilentlyContinue
+      
+      # Set 29H1 transformation flag
+      $29h1Path = "HKLM:\SOFTWARE\AtlasOS"
+      if (-not (Test-Path $29h1Path)) { New-Item -Path $29h1Path -Force | Out-Null }
+      Set-ItemProperty -Path $29h1Path -Name "29H1_Transformation" -Value 1 -Type DWord -Force
+      Set-ItemProperty -Path $29h1Path -Name "TargetBuild" -Value "26200" -Type String -Force
     weight: 10
     wait: true
     exeDir: true
     handleExitCodes: { "!0": halt }
 
-  # Prevent annoying notifications during deployment
+  # Prevent notifications during 29H1 deployment
+  - !writeStatus: { status: "Disabling notifications for clean 29H1 deployment" }
   - !cmd:
-    command: "DISABLENOTIFS.cmd"
+    command: "29H1-DISABLENOTIFS.cmd"
     exeDir: true
     wait: true
     runas: currentUserElevated
@@ -53,45 +71,62 @@ actions:
   - !taskKill: { name: "ShellExperienceHost" }
   - !run: { exe: "explorer.exe", runas: "currentUser", wait: false }
 
-  # Configure PowerShell first so that other PowerShell scripts work
-  # NGEN - .NET assemblies PowerShell optimization
-  - !writeStatus: { status: "Optimizing PowerShell" }
+  # Configure PowerShell for 29H1
+  - !writeStatus: { status: "Optimizing PowerShell for 29H1" }
   - !task: { path: 'tweaks\scripts\script-ngen.yml' }
   - !task: { path: 'tweaks\qol\config-powershell.yml' }
 
-  # Disk Cleanup is run first so it can run in the background
-  - !writeStatus: { status: "Cleaning up" }
+  # Disk Cleanup for 29H1
+  - !writeStatus: { status: "Cleaning up for 29H1" }
   - !powerShell:
-    command: '.\CLEANUP.ps1'
+    command: '.\29H1-CLEANUP.ps1'
     exeDir: true
     wait: true
     runas: currentUserElevated
 
-  # Set hidden Settings pages
-  # Done before everything else as scripts will overwrite it
+  # Set hidden Settings pages for 29H1
   - !task: { path: 'tweaks\qol\set-hidden-settings-pages.yml' }
 
-  # Main tasks
-  - !task: { path: 'maxregnerui\start.yml' }
-  - !task: { path: 'maxregnerui\services.yml' }
-  - !task: { path: 'maxregnerui\components.yml' }
-  - !task: { path: 'maxregnerui\appx.yml' }
-  - !task: { path: 'maxregnerui\default.yml' }
-  - !task: { path: 'maxregnerui\revert.yml' }
-  - !task: { path: "tweaks.yml" }
+  # Windows 11 29H1 Atlas Configuration
+  - !writeStatus: { status: "Running 29H1 Atlas configuration" }
+  - !task: { path: 'atlas\start.yml' }
+  - !task: { path: 'atlas\default.yml' }
+  - !task: { path: 'atlas\components.yml' }
+  - !task: { path: 'atlas\services.yml' }
+  - !task: { path: 'atlas\appx.yml' }
+  - !task: { path: 'atlas\revert.yml' }
 
-  # Set hives to HKU default user
-  - !writeStatus: { status: "Applying hives..." }
+  # Windows 11 29H1 Tweaks
+  - !writeStatus: { status: "Applying 29H1 tweaks" }
+  - !task: { path: 'tweaks.yml' }
+
+  # Windows 11 29H1 Specific Configuration
+  - !writeStatus: { status: "Applying 29H1 specific configuration" }
+  - !task: { path: 'tweaks\29h1\29h1-main.yml' }
+  - !task: { path: 'tweaks\29h1\29h1-oobe.yml' }
+  - !task: { path: 'tweaks\29h1\29h1-desktop.yml' }
+  - !task: { path: 'tweaks\29h1\29h1-features.yml' }
+
+  # Set hives to HKU default user for 29H1
+  - !writeStatus: { status: "Applying 29H1 hives..." }
   - !powerShell:
-    command: '.\APPLYDUHIVE.ps1'
+    command: '.\29H1-APPLYDUHIVE.ps1'
     exeDir: true
     wait: true
     runas: currentUserElevated
 
-  # Set all the correct paths if there are incorrect ones in the registry
-  - !writeStatus: { status: "Cleaning up registry paths" }
+  # Set all the correct paths for 29H1
+  - !writeStatus: { status: "Cleaning up registry paths for 29H1" }
   - !powerShell:
-    command: '.\SETPATHS.ps1'
+    command: '.\29H1-SETPATHS.ps1'
+    exeDir: true
+    wait: true
+    runas: currentUserElevated
+
+  # Finalize 29H1 transformation
+  - !writeStatus: { status: "Finalizing Windows 11 29H1 transformation" }
+  - !powerShell:
+    command: '.\29H1-MAIN-ENGINE.ps1 -ApplyAll -Force'
     exeDir: true
     wait: true
     runas: currentUserElevated
@@ -101,12 +136,3 @@ actions:
     command: 'reg unload HKU\AME_UserHive_Default'
     oobe: false
     wait: true
-
-  # Set PowerShell execution policy to RemoteSigned from the previous "Unrestricted"
-  # This allows MaxRegnerUI folder scripts (local) to run while requiring signatures for downloaded scripts
-  - !writeStatus: { status: "Securing PowerShell execution policy" }
-  - !registryValue:
-    path: 'HKLM\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell'
-    value: 'ExecutionPolicy'
-    data: 'RemoteSigned'
-    type: REG_SZ

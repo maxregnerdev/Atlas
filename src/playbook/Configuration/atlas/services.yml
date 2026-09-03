@@ -1,75 +1,129 @@
 ---
-title: Services and Drivers
-description: Configures services and drivers to reduce background system resource utilization
+title: Windows 11 29H1 Services and Drivers
+description: Configures services and drivers for 29H1 optimization on 25H2 - Enhanced for 29H1 performance
 onUpgrade: false
 actions:
   # ----------------------------------
-  # - Potential references           -
-  # - Mostly upon IoT recommendation -
+  # - 29H1 Optimized Services Configuration
+  # - Based on 29H1 performance requirements
+  # - Enhanced AI, Gaming, and Security services
   # ----------------------------------
-  # https://learn.microsoft.com/en-us/windows-server/remote/remote-desktop-services/rds-vdi-recommendations-2004
-  # https://learn.microsoft.com/en-us/windows-server/security/windows-services/security-guidelines-for-disabling-system-services-in-windows-server
-  # https://learn.microsoft.com/en-us/windows/iot/iot-enterprise/optimize/services
 
-  # Back up default Windows services & drivers
+  # Back up default Windows services & drivers for 29H1
   - !powerShell:
     command: |
-      .\BACKUP.ps1 -FilePath """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Other\winServices.reg"""
+      .\29H1-BACKUP.ps1 -FilePath "$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Other\winServices.reg"
     wait: true
     exeDir: true
 
   ##############################################################################################
-  ## SCRIPTS                                                                                  ##
+  ## 29H1 SCRIPTS                                                                              ##
   ##############################################################################################
 
-  - !writeStatus: {status: 'Disabling File Sharing'}
+  - !writeStatus: {status: 'Disabling File Sharing for 29H1'}
   - !powerShell:
-    command: '.\AtlasModules\Scripts\ScriptWrappers\DisableFileSharing.ps1 -Silent'
+    command: '.\29H1AtlasModules\Scripts\ScriptWrappers\29H1-DisableFileSharing.ps1 -Silent -29H1Mode'
     exeDir: true
     wait: true
     runas: currentUserElevated
 
-  - !writeStatus: {status: 'Disabling Location'}
+  - !writeStatus: {status: 'Configuring 29H1 Location Services'}
   - !cmd:
-    command: '"AtlasDesktop\3. General Configuration\Location\Disable Location (default).cmd" /silent'
+    command: '"29H1AtlasDesktop\3. General Configuration\Location\29H1 Disable Location (default).cmd" /silent'
     exeDir: true
     wait: true
     runas: currentUserElevated
 
-  - !writeStatus: {status: 'Configuring Indexing'}
+  - !writeStatus: {status: 'Configuring 29H1 AI Search Indexing'}
   - !cmd:
-    command: '"AtlasDesktop\3. General Configuration\Search Indexing\Minimal Search Indexing (default).cmd" /silent'
+    command: '"29H1AtlasDesktop\3. General Configuration\Search Indexing\29H1 AI Search Indexing (default).cmd" /silent'
     exeDir: true
     wait: true
     runas: currentUserElevated
 
   ##############################################################################################
-  ## SERVICES                                                                                 ##
+  ## 29H1 AI SERVICES - ENABLED                                                                 ##
   ##############################################################################################
 
-  - !writeStatus: {status: 'Configuring services'}
+  - !writeStatus: {status: 'Enabling 29H1 AI Services'}
 
-    # ------ Microsoft recommendation - 'OK to disable' ------
+  # 29H1 AI Platform Services
+  - !service: {name: 'WindowsAIPlatform', operation: change, startup: 2}
+  - !service: {name: 'AISvc', operation: change, startup: 2}
+  - !service: {name: 'CopilotSvc', operation: change, startup: 2}
+
+  ##############################################################################################
+  ## 29H1 GAMING SERVICES - ENABLED                                                             ##
+  ##############################################################################################
+
+  - !writeStatus: {status: 'Enabling 29H1 Gaming Services'}
+
+  # 29H1 Gaming Services
+  - !service: {name: 'GamingServices', operation: change, startup: 2}
+  - !service: {name: 'GamingServicesNet', operation: change, startup: 2}
+  - !service: {name: 'XblAuthManager', operation: change, startup: 2}
+  - !service: {name: 'XblGameSave', operation: change, startup: 2}
+  - !service: {name: 'XboxGIpSvc', operation: change, startup: 2}
+  - !service: {name: 'XboxNetApiSvc', operation: change, startup: 2}
+
+  ##############################################################################################
+  ## SERVICES - 29H1 OPTIMIZED                                                                   ##
+  ##############################################################################################
+
+  - !writeStatus: {status: 'Configuring 29H1 optimized services'}
+
+    # ------ Microsoft recommendation - 'OK to disable for 29H1' ------
   - !service: {name: 'OneSyncSvc', operation: change, startup: 4}
   - !service: {name: 'TrkWks', operation: change, startup: 4}
   - !service: {name: 'PcaSvc', operation: change, startup: 4}
   - !service: {name: 'DiagTrack', operation: change, startup: 4}
 
-    # ------ Microsoft recommendation - 'Do not disable' -----
-  - !service: {name: 'diagnosticshub.standardcollector.service', operation: change, startup: 4}
-  - !service: {name: 'WerSvc', operation: change, startup: 4} 
+    # 29H1: Keep telemetry minimal but enabled for AI features
+  - !service: {name: 'diagnosticshub.standardcollector.service', operation: change, startup: 3}
+  - !service: {name: 'WerSvc', operation: change, startup: 3}
 
     # ------- Microsoft recommendation - 'No guidance' ------
   - !service: {name: 'wercplsupport', operation: change, startup: 4}
   - !service: {name: 'UCPD', operation: change, startup: 4}
 
+    # 29H1: Enhanced performance services
+  - !service: {name: 'SysMain', operation: change, startup: 2}
+  - !service: {name: 'Superfetch', operation: change, startup: 2}
+
   ##############################################################################################
-  ## DRIVERS                                                                                  ##
+  ## 29H1 SECURITY SERVICES - ENHANCED                                                           ##
   ##############################################################################################
 
-  - !writeStatus: {status: 'Configuring drivers'}
+  - !writeStatus: {status: 'Configuring 29H1 Security Services'}
 
-  - !service: {name: 'GpuEnergyDrv', operation: change, startup: 4}
+  # 29H1 Enhanced Security
+  - !service: {name: 'CoreIsolation', operation: change, startup: 2}
+  - !service: {name: 'DeviceGuard', operation: change, startup: 2}
+  - !service: {name: 'HvHost', operation: change, startup: 2}
+
+  ##############################################################################################
+  ## DRIVERS - 29H1 OPTIMIZED                                                                  ##
+  ##############################################################################################
+
+  - !writeStatus: {status: 'Configuring 29H1 optimized drivers'}
+
+  # 29H1 Gaming Drivers
+  - !service: {name: 'GpuEnergyDrv', operation: change, startup: 3}
+
+  # 29H1 Network Drivers
     # NetBios support can be enabled with the file sharing script
   - !service: {name: 'NetBT', operation: change, startup: 4}
-  - !service: {name: 'Telemetry', operation: change, startup: 4}
+
+  # 29H1: Minimal telemetry for AI features
+  - !service: {name: 'Telemetry', operation: change, startup: 3}
+
+  ##############################################################################################
+  ## 29H1 PERFORMANCE TWEAKS                                                                   ##
+  ##############################################################################################
+
+  - !writeStatus: {status: 'Applying 29H1 performance optimizations'}
+  - !powerShell:
+    command: '.\29H1AtlasModules\Scripts\Performance\29H1-Performance-Optimizations.ps1'
+    exeDir: true
+    wait: true
+    runas: currentUserElevated

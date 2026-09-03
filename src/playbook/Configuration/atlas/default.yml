@@ -1,16 +1,55 @@
 ---
-title: Defaults
-description: Run default AtlasFolder scripts
+title: Windows 11 29H1 Defaults
+description: Run default 29H1 Atlas Folder scripts for 25H2 transformation
 actions:
-  - !writeStatus: {status: 'Applying default Atlas Folder settings'}
+  - !writeStatus: {status: 'Applying Windows 11 29H1 default settings'}
+  
+  # Import 29H1 registry defaults
   - !cmd:
-    command: 'reg import .\DEFAULT.reg'
+    command: 'reg import .\29H1-DEFAULT.reg'
     exeDir: true
     wait: true
     runas: currentUserElevated
+  
+  # Apply 29H1 default PowerShell configuration
   - !powerShell:
-    command: '.\DEFAULT.ps1'
+    command: '.\29H1-DEFAULT.ps1'
     exeDir: true
     onUpgrade: true
     wait: true
     runas: currentUserElevated
+  
+  # Set 29H1 system defaults
+  - !writeStatus: {status: 'Configuring 29H1 system defaults'}
+  - !powerShell:
+    wait: true
+    command: |
+      # 29H1 Default Registry Settings
+      $defaultPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+      
+      # 29H1 Shell - Use Explorer with 29H1 enhancements
+      Set-ItemProperty -Path $defaultPath -Name "Shell" -Value "explorer.exe" -Type String -Force
+      Set-ItemProperty -Path $defaultPath -Name "Userinit" -Value "C:\Windows\System32\userinit.exe," -Type String -Force
+      
+      # 29H1 AutoLogon settings
+      Set-ItemProperty -Path $defaultPath -Name "AutoAdminLogon" -Value 0 -Type DWord -Force
+      Set-ItemProperty -Path $defaultPath -Name "DefaultUsername" -Value "" -Type String -Force
+      Set-ItemProperty -Path $defaultPath -Name "DefaultPassword" -Value "" -Type String -Force
+      
+      # 29H1 LegalNotice settings
+      Set-ItemProperty -Path $defaultPath -Name "LegalNoticeCaption" -Value "" -Type String -Force
+      Set-ItemProperty -Path $defaultPath -Name "LegalNoticeText" -Value "" -Type String -Force
+      
+      # 29H1 Power settings
+      $powerPath = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"
+      Set-ItemProperty -Path $powerPath -Name "PowerDownAfterShutdown" -Value 0 -Type DWord -Force
+      Set-ItemProperty -Path $powerPath -Name "ShutdownWithoutLogon" -Value 1 -Type DWord -Force
+      
+      # 29H1 Session settings
+      Set-ItemProperty -Path $defaultPath -Name "DisableCAD" -Value 1 -Type DWord -Force
+      Set-ItemProperty -Path $defaultPath -Name "DisableLockWorkstation" -Value 0 -Type DWord -Force
+      Set-ItemProperty -Path $defaultPath -Name "PasswordExpiryWarning" -Value 14 -Type DWord -Force
+      
+      # Set 29H1 version marker
+      $29h1Path = "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+      Set-ItemProperty -Path $29h1Path -Name "29H1_Defaults_Applied" -Value 1 -Type DWord -Force
