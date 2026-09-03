@@ -10,9 +10,9 @@
   
   # Transformation Components
   components:
-    oobe: true      # 29H1 OOBE System
-    desktop: true   # 29H1 Desktop UI
-    features: true  # 29H1 Core Features
+    oobe: true
+    desktop: true
+    features: true
   
   # Execution Settings
   execution:
@@ -26,29 +26,29 @@
   version:
     name: "Windows 11 29H1"
     build: "29H1"
-    target_build: "26200"  # 25H2 build
+    target_build: "26200"
     transformation_date: "{{date}}"
   
   # Script Paths
   scripts:
-    main_engine: "%src%\playbook\Executables\AtlasDesktop\29H1 Main\29h1-main-engine.ps1"
-    oobe_engine: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-engine.ps1"
-    oobe_branding: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-branding.ps1"
-    oobe_features: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-features.ps1"
-    desktop_engine: "%src%\playbook\Executables\AtlasDesktop\29H1 UI\29h1-desktop-engine.ps1"
-    desktop_theme: "%src%\playbook\Executables\AtlasDesktop\29H1 UI\29h1-desktop-theme.ps1"
-    features_engine: "%src%\playbook\Executables\AtlasDesktop\29H1 Features\29h1-features-engine.ps1"
+    main_engine: "%src%/playbook/Executables/AtlasDesktop/29H1 Main/29h1-main-engine.ps1"
+    oobe_engine: "%src%/playbook/Executables/AtlasDesktop/29H1 OOBE/29h1-oobe-engine.ps1"
+    oobe_branding: "%src%/playbook/Executables/AtlasDesktop/29H1 OOBE/29h1-oobe-branding.ps1"
+    oobe_features: "%src%/playbook/Executables/AtlasDesktop/29H1 OOBE/29h1-oobe-features.ps1"
+    desktop_engine: "%src%/playbook/Executables/AtlasDesktop/29H1 UI/29h1-desktop-engine.ps1"
+    desktop_theme: "%src%/playbook/Executables/AtlasDesktop/29H1 UI/29h1-desktop-theme.ps1"
+    features_engine: "%src%/playbook/Executables/AtlasDesktop/29H1 Features/29h1-features-engine.ps1"
   
   # Completion Markers
   markers:
-    complete: "%system32%\29h1-complete-transformation.flag"
-    oobe_complete: "%system32%\29h1-oobe-complete.flag"
-    desktop_complete: "%system32%\29h1-desktop-complete.flag"
-    features_complete: "%system32%\29h1-features-complete.flag"
+    complete: "%system32%/29h1-complete-transformation.flag"
+    oobe_complete: "%system32%/29h1-oobe-complete.flag"
+    desktop_complete: "%system32%/29h1-desktop-complete.flag"
+    features_complete: "%system32%/29h1-features-complete.flag"
   
   # Registry Flags
   registry:
-    version_path: "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+    version_path: "HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion"
     transformed_flag: "29H1_Transformed"
     version_flag: "29H1_Version"
     date_flag: "29H1_TransformationDate"
@@ -57,37 +57,37 @@
 # 29H1 Component Order
 29h1_order:
   - name: "29H1 OOBE System"
-    script: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-engine.ps1"
+    script: "%src%/playbook/Executables/AtlasDesktop/29H1 OOBE/29h1-oobe-engine.ps1"
     priority: 10
     dependencies: []
     
   - name: "29H1 OOBE Branding"
-    script: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-branding.ps1"
+    script: "%src%/playbook/Executables/AtlasDesktop/29H1 OOBE/29h1-oobe-branding.ps1"
     priority: 11
     dependencies: ["29H1 OOBE System"]
     
   - name: "29H1 OOBE Features"
-    script: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-features.ps1"
+    script: "%src%/playbook/Executables/AtlasDesktop/29H1 OOBE/29h1-oobe-features.ps1"
     priority: 12
     dependencies: ["29H1 OOBE System"]
     
   - name: "29H1 Desktop Engine"
-    script: "%src%\playbook\Executables\AtlasDesktop\29H1 UI\29h1-desktop-engine.ps1"
+    script: "%src%/playbook/Executables/AtlasDesktop/29H1 UI/29h1-desktop-engine.ps1"
     priority: 20
     dependencies: ["29H1 OOBE System"]
     
   - name: "29H1 Desktop Theme"
-    script: "%src%\playbook\Executables\AtlasDesktop\29H1 UI\29h1-desktop-theme.ps1"
+    script: "%src%/playbook/Executables/AtlasDesktop/29H1 UI/29h1-desktop-theme.ps1"
     priority: 21
     dependencies: ["29H1 Desktop Engine"]
     
   - name: "29H1 Features Engine"
-    script: "%src%\playbook\Executables\AtlasDesktop\29H1 Features\29h1-features-engine.ps1"
+    script: "%src%/playbook/Executables/AtlasDesktop/29H1 Features/29h1-features-engine.ps1"
     priority: 30
     dependencies: ["29H1 Desktop Engine"]
     
   - name: "29H1 Main Engine"
-    script: "%src%\playbook\Executables\AtlasDesktop\29H1 Main\29h1-main-engine.ps1"
+    script: "%src%/playbook/Executables/AtlasDesktop/29H1 Main/29h1-main-engine.ps1"
     priority: 1
     dependencies: []
 
@@ -173,4 +173,4 @@
   check_admin: true
   check_power_shell_version: "5.1"
   create_backup: true
-  backup_path: "%temp%\29h1-backup"
+  backup_path: "%temp%/29h1-backup"

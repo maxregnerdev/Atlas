@@ -30,7 +30,7 @@
 # 29H1 OOBE Registry Configuration
 29h1_oobe_registry:
   # Base OOBE Path
-  base_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE"
+  base_path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionOOBE"
   
   # OOBE Skip Settings
   skip_settings:
@@ -66,7 +66,7 @@
   # LabConfig Bypass (for installation requirements)
   labconfig:
     enabled: true
-    path: "HKLM:\SYSTEM\Setup\LabConfig"
+    path: "HKLM:SYSTEMSetupLabConfig"
     
     bypass_flags:
       BypassTPMCheck: 1
@@ -80,7 +80,7 @@
   # Setup Bypass
   setup:
     enabled: true
-    path: "HKLM:\SYSTEM\Setup"
+    path: "HKLM:SYSTEMSetup"
     
     bypass_flags:
       OOBEInProgress: 0
@@ -93,7 +93,7 @@
 29h1_oobe_privacy:
   # Data Collection Settings
   data_collection:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionPoliciesDataCollection"
     
     settings:
       AllowTelemetry: 0
@@ -102,21 +102,21 @@
       
   # Diagnostic Tracking
   diagnostic_tracking:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionDiagnosticsDiagTrack"
     
     settings:
       ShowedToastAtLevel: 4
     
   # Location Services
   location:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Capabilities\Location"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionCapabilitiesLocation"
     
     settings:
       LocationEnabled: 0
     
   # Privacy Settings
   privacy:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionPrivacy"
     
     settings:
       TailoredExperiencesWithDiagnosticData: 0
@@ -130,10 +130,10 @@
 29h1_oobe_branding:
   # Branding Registry
   registry:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionOEMInformation"
     
     branding_info:
-      Logo: "C:\Windows\System32\29H1\OOBE\Branding\logo.png"
+      Logo: "C:WindowsSystem3229H1OOBEBrandinglogo.png"
       Manufacturer: "Microsoft Corporation"
       Model: "Windows 11 29H1"
       SupportHours: "24/7"
@@ -142,29 +142,29 @@
     
   # OOBE Branding Paths
   paths:
-    BrandingPath: "C:\Windows\System32\29H1\OOBE\Branding"
-    LogoPath: "C:\Windows\System32\29H1\OOBE\Branding\logo.png"
-    BackgroundPath: "C:\Windows\System32\29H1\OOBE\Branding\background.jpg"
+    BrandingPath: "C:WindowsSystem3229H1OOBEBranding"
+    LogoPath: "C:WindowsSystem3229H1OOBEBrandinglogo.png"
+    BackgroundPath: "C:WindowsSystem3229H1OOBEBrandingbackground.jpg"
     ThemeColor: "#0078D4"
     AccentColor: "#0078D4"
   
   # Branding Directory Structure
   directories:
-    - "C:\Windows\System32\29H1\OOBE\Branding"
-    - "C:\Windows\System32\29H1\OOBE\Backgrounds"
-    - "C:\Windows\System32\29H1\OOBE\Themes"
-    - "C:\Windows\System32\oobe\backgrounds"
-    - "C:\Windows\System32\oobe\info"
+    - "C:WindowsSystem3229H1OOBEBranding"
+    - "C:WindowsSystem3229H1OOBEBackgrounds"
+    - "C:WindowsSystem3229H1OOBEThemes"
+    - "C:WindowsSystem32oobebackgrounds"
+    - "C:WindowsSystem32oobeinfo"
   
   # Branding Files
   files:
     logo:
-      source: "%src%\playbook\Images\29H1\29h1-oobe-logo.png"
-      destination: "C:\Windows\System32\29H1\OOBE\Branding\logo.png"
+      source: "%src%playbookImages29H129h1-oobe-logo.png"
+      destination: "C:WindowsSystem3229H1OOBEBrandinglogo.png"
       
     background:
-      source: "%src%\playbook\Images\29H1\29h1-oobe-background.jpg"
-      destination: "C:\Windows\System32\29H1\OOBE\Branding\background.jpg"
+      source: "%src%playbookImages29H129h1-oobe-background.jpg"
+      destination: "C:WindowsSystem3229H1OOBEBrandingbackground.jpg"
       
     welcome_xml:
       content: |
@@ -183,7 +183,7 @@
             <Telemetry>Disabled</Telemetry>
           </Settings>
         </OOBE>
-      destination: "C:\Windows\System32\29H1\OOBE\Branding\welcome.xml"
+      destination: "C:WindowsSystem3229H1OOBEBrandingwelcome.xml"
     
     theme_css:
       content: |
@@ -208,13 +208,13 @@
           opacity: 0.9;
           margin-bottom: 40px;
         }
-      destination: "C:\Windows\System32\29H1\OOBE\Branding\theme.css"
+      destination: "C:WindowsSystem3229H1OOBEBrandingtheme.css"
 
 ---
 # 29H1 OOBE Features Configuration
 29h1_oobe_features:
   # Feature Registry Path
-  registry_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE\Features"
+  registry_path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionOOBEFeatures"
   
   # Feature Flags
   feature_flags:
@@ -259,7 +259,7 @@
   
   # Feature Directories
   directories:
-    - "C:\Windows\System32\29H1\OOBE\Features"
+    - "C:WindowsSystem3229H1OOBEFeatures"
     
   # Feature Configuration Files
   config_files:
@@ -273,7 +273,7 @@
           "ModelDownload": true,
           "ProcessingEnabled": true
         }
-      destination: "C:\Windows\System32\29H1\OOBE\Features\ai-config.json"
+      destination: "C:WindowsSystem3229H1OOBEFeaturesai-config.json"
       
     voice_config:
       content: |
@@ -284,7 +284,7 @@
           "VoiceCommands": true,
           "VoiceTraining": true
         }
-      destination: "C:\Windows\System32\29H1\OOBE\Features\voice-config.json"
+      destination: "C:WindowsSystem3229H1OOBEFeaturesvoice-config.json"
       
     biometric_config:
       content: |
@@ -296,14 +296,14 @@
           "IrisRecognition": true,
           "PinSetup": true
         }
-      destination: "C:\Windows\System32\29H1\OOBE\Features\biometric-config.json"
+      destination: "C:WindowsSystem3229H1OOBEFeaturesbiometric-config.json"
 
 ---
 # 29H1 OOBE Script Configuration
 29h1_oobe_scripts:
   # Main OOBE Engine Script
   main_engine:
-    path: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-engine.ps1"
+    path: "%src%playbookExecutablesAtlasDesktop29H1 OOBE29h1-oobe-engine.ps1"
     parameters:
       ConfigureAll: true
       ConfigureRegistry: true
@@ -314,7 +314,7 @@
     
   # OOBE Branding Script
   branding_script:
-    path: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-branding.ps1"
+    path: "%src%playbookExecutablesAtlasDesktop29H1 OOBE29h1-oobe-branding.ps1"
     parameters:
       InitializeDirectories: true
       DeployAssets: true
@@ -324,7 +324,7 @@
     
   # OOBE Features Script
   features_script:
-    path: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-features.ps1"
+    path: "%src%playbookExecutablesAtlasDesktop29H1 OOBE29h1-oobe-features.ps1"
     parameters:
       EnableAIIntegration: true
       EnableGamingFeatures: true
@@ -338,7 +338,7 @@
 ---
 # 29H1 OOBE Completion Markers
 29h1_oobe_markers:
-  oobe_complete: "C:\Windows\System32\29h1-oobe-complete.flag"
-  oobe_engine_complete: "C:\Windows\System32\oobe\29h1-engine-complete.flag"
-  oobe_branding_complete: "C:\Windows\System32\29H1\OOBE\Branding\.complete.flag"
-  oobe_features_complete: "C:\Windows\System32\29H1\OOBE\Features\.complete.flag"
+  oobe_complete: "C:WindowsSystem3229h1-oobe-complete.flag"
+  oobe_engine_complete: "C:WindowsSystem32oobe29h1-engine-complete.flag"
+  oobe_branding_complete: "C:WindowsSystem3229H1OOBEBranding.complete.flag"
+  oobe_features_complete: "C:WindowsSystem3229H1OOBEFeatures.complete.flag"

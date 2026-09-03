@@ -34,7 +34,7 @@
 # 29H1 Desktop Theme Configuration
 29h1_desktop_theme:
   # Theme Registry Path
-  theme_path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize"
+  theme_path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionThemesPersonalize"
   
   # Theme Settings
   theme_settings:
@@ -50,7 +50,7 @@
     
   # Visual Effects
   visual_effects:
-    path: "HKCU:\Control Panel\Desktop\WindowMetrics"
+    path: "HKCU:Control PanelDesktopWindowMetrics"
     
     settings:
       MinAnimate: 1
@@ -59,7 +59,7 @@
       
   # Desktop Icons
   desktop_icons:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerAdvanced"
     
     settings:
       IconsOnly: 0
@@ -72,7 +72,7 @@
 # 29H1 Desktop Colors Configuration
 29h1_desktop_colors:
   # Color Registry Path
-  color_path: "HKCU:\Control Panel\Colors"
+  color_path: "HKCU:Control PanelColors"
   
   # Color Values
   color_values:
@@ -110,7 +110,7 @@
   
   # Accent Color
   accent_color:
-    path: "HKCU:\Software\Microsoft\Windows\DWM"
+    path: "HKCU:SoftwareMicrosoftWindowsDWM"
     
     settings:
       AccentColor: 16908804
@@ -122,7 +122,7 @@
 # 29H1 Start Menu Configuration
 29h1_start_menu:
   # Start Menu Registry Path
-  start_path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+  start_path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerAdvanced"
   
   # Start Menu Settings
   start_settings:
@@ -140,13 +140,13 @@
     
   # Start Menu Layout
   start_layout:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StartLayout"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerStartLayout"
     
-    layout_file: "%src%\playbook\Layouts\29h1-start-layout.xml"
+    layout_file: "%src%playbookLayouts29h1-start-layout.xml"
     
   # Start Menu Size
   start_size:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StartPage2"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerStartPage2"
     
     settings:
       FormFactor: "{1366,768}"
@@ -156,7 +156,7 @@
 # 29H1 Taskbar Configuration
 29h1_taskbar:
   # Taskbar Registry Path
-  taskbar_path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+  taskbar_path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerAdvanced"
   
   # Taskbar Settings
   taskbar_settings:
@@ -170,14 +170,14 @@
     
   # Taskbar Position
   taskbar_position:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\StuckRects3"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerStuckRects3"
     
     settings:
       Settings: "0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000,0x00000000"
     
   # Taskbar Items
   taskbar_items:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Taskband"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerTaskband"
     
     settings:
       FavoritesChanges: 1
@@ -187,7 +187,7 @@
 # 29H1 File Explorer Configuration
 29h1_explorer:
   # Explorer Registry Path
-  explorer_path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+  explorer_path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerAdvanced"
   
   # Explorer Settings
   explorer_settings:
@@ -234,18 +234,18 @@
 29h1_display:
   # Display Settings
   display_settings:
-    path: "HKCU:\Control Panel\Desktop"
+    path: "HKCU:Control PanelDesktop"
     
     settings:
       WallpaperOriginX: 0
       WallpaperOriginY: 0
       WallpaperStyle: 2
       TileWallpaper: 0
-      Wallpaper: "C:\Windows\Web\Wallpaper\29H1\29h1-wallpaper.jpg"
+      Wallpaper: "C:WindowsWebWallpaper29H129h1-wallpaper.jpg"
       
   # Display Scaling
   display_scaling:
-    path: "HKCU:\Control Panel\Desktop\WindowMetrics"
+    path: "HKCU:Control PanelDesktopWindowMetrics"
     
     settings:
       AppliedDPI: 96
@@ -254,7 +254,7 @@
       
   # Display Advanced
   display_advanced:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerAdvanced"
     
     settings:
       Start_LogOff: 1
@@ -267,7 +267,7 @@
 # 29H1 Context Menu Configuration
 29h1_context_menu:
   # Context Menu Registry Path
-  context_path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+  context_path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerAdvanced"
   
   # Context Menu Settings
   context_settings:
@@ -279,14 +279,14 @@
     
   # Context Menu - New Items
   new_items:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Discardable\PostSetup\ShellNew"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerDiscardablePostSetupShellNew"
     
     settings:
       Enable: 1
       
   # Context Menu - Copy To / Move To
   copy_move:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerAdvanced"
     
     settings:
       StartMenuAdminTools: 1
@@ -300,41 +300,41 @@
 # 29H1 System Icons Configuration
 29h1_system_icons:
   # System Icons Registry Path
-  icons_path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Icons"
+  icons_path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerShell Icons"
   
   # Icon Settings
   icon_settings:
-    29: "C:\Windows\System32\29H1\Icons\computer.ico,0"
-    45: "C:\Windows\System32\29H1\Icons\recyclebin.ico,0"
-    47: "C:\Windows\System32\29H1\Icons\recyclebin_full.ico,0"
-    64: "C:\Windows\System32\29H1\Icons\network.ico,0"
-    71: "C:\Windows\System32\29H1\Icons\printer.ico,0"
-    75: "C:\Windows\System32\29H1\Icons\documents.ico,0"
-    77: "C:\Windows\System32\29H1\Icons\pictures.ico,0"
-    78: "C:\Windows\System32\29H1\Icons\music.ico,0"
-    79: "C:\Windows\System32\29H1\Icons\videos.ico,0"
-    80: "C:\Windows\System32\29H1\Icons\downloads.ico,0"
-    81: "C:\Windows\System32\29H1\Icons\desktop.ico,0"
+    29: "C:WindowsSystem3229H1Iconscomputer.ico,0"
+    45: "C:WindowsSystem3229H1Iconsrecyclebin.ico,0"
+    47: "C:WindowsSystem3229H1Iconsrecyclebin_full.ico,0"
+    64: "C:WindowsSystem3229H1Iconsnetwork.ico,0"
+    71: "C:WindowsSystem3229H1Iconsprinter.ico,0"
+    75: "C:WindowsSystem3229H1Iconsdocuments.ico,0"
+    77: "C:WindowsSystem3229H1Iconspictures.ico,0"
+    78: "C:WindowsSystem3229H1Iconsmusic.ico,0"
+    79: "C:WindowsSystem3229H1Iconsvideos.ico,0"
+    80: "C:WindowsSystem3229H1Iconsdownloads.ico,0"
+    81: "C:WindowsSystem3229H1Iconsdesktop.ico,0"
   
   # Icon Paths
   icon_paths:
-    computer: "C:\Windows\System32\29H1\Icons\computer.ico"
-    recyclebin: "C:\Windows\System32\29H1\Icons\recyclebin.ico"
-    recyclebin_full: "C:\Windows\System32\29H1\Icons\recyclebin_full.ico"
-    network: "C:\Windows\System32\29H1\Icons\network.ico"
-    printer: "C:\Windows\System32\29H1\Icons\printer.ico"
-    documents: "C:\Windows\System32\29H1\Icons\documents.ico"
-    pictures: "C:\Windows\System32\29H1\Icons\pictures.ico"
-    music: "C:\Windows\System32\29H1\Icons\music.ico"
-    videos: "C:\Windows\System32\29H1\Icons\videos.ico"
-    downloads: "C:\Windows\System32\29H1\Icons\downloads.ico"
-    desktop: "C:\Windows\System32\29H1\Icons\desktop.ico"
+    computer: "C:WindowsSystem3229H1Iconscomputer.ico"
+    recyclebin: "C:WindowsSystem3229H1Iconsrecyclebin.ico"
+    recyclebin_full: "C:WindowsSystem3229H1Iconsrecyclebin_full.ico"
+    network: "C:WindowsSystem3229H1Iconsnetwork.ico"
+    printer: "C:WindowsSystem3229H1Iconsprinter.ico"
+    documents: "C:WindowsSystem3229H1Iconsdocuments.ico"
+    pictures: "C:WindowsSystem3229H1Iconspictures.ico"
+    music: "C:WindowsSystem3229H1Iconsmusic.ico"
+    videos: "C:WindowsSystem3229H1Iconsvideos.ico"
+    downloads: "C:WindowsSystem3229H1Iconsdownloads.ico"
+    desktop: "C:WindowsSystem3229H1Iconsdesktop.ico"
 
 ---
 # 29H1 Window Management Configuration
 29h1_window_management:
   # Window Management Registry Path
-  window_path: "HKCU:\Control Panel\Desktop\WindowMetrics"
+  window_path: "HKCU:Control PanelDesktopWindowMetrics"
   
   # Window Settings
   window_settings:
@@ -367,7 +367,7 @@
   
   # Snap Assist
   snap_assist:
-    path: "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    path: "HKCU:SoftwareMicrosoftWindowsCurrentVersionExplorerAdvanced"
     
     settings:
       EnableSnapAssistFlyout: 1
@@ -376,7 +376,7 @@
   
   # Window Animation
   window_animation:
-    path: "HKCU:\Control Panel\Desktop\WindowMetrics"
+    path: "HKCU:Control PanelDesktopWindowMetrics"
     
     settings:
       MinAnimate: 1
@@ -391,7 +391,7 @@
 29h1_desktop_scripts:
   # Main Desktop Engine Script
   main_engine:
-    path: "%src%\playbook\Executables\AtlasDesktop\29H1 UI\29h1-desktop-engine.ps1"
+    path: "%src%playbookExecutablesAtlasDesktop29H1 UI29h1-desktop-engine.ps1"
     parameters:
       ApplyAll: true
       ApplyTheme: true
@@ -405,7 +405,7 @@
     
   # Desktop Theme Script
   theme_script:
-    path: "%src%\playbook\Executables\AtlasDesktop\29H1 UI\29h1-desktop-theme.ps1"
+    path: "%src%playbookExecutablesAtlasDesktop29H1 UI29h1-desktop-theme.ps1"
     parameters:
       ApplyVisualTheme: true
       ApplyColorScheme: true
@@ -416,6 +416,6 @@
 ---
 # 29H1 Desktop Completion Markers
 29h1_desktop_markers:
-  desktop_complete: "C:\Windows\System32\29h1-desktop-complete.flag"
-  desktop_engine_complete: "C:\Windows\System32\29H1\Desktop\engine-complete.flag"
-  desktop_theme_complete: "C:\Windows\System32\29H1\Desktop\theme-complete.flag"
+  desktop_complete: "C:WindowsSystem3229h1-desktop-complete.flag"
+  desktop_engine_complete: "C:WindowsSystem3229H1Desktopengine-complete.flag"
+  desktop_theme_complete: "C:WindowsSystem3229H1Desktoptheme-complete.flag"

@@ -35,7 +35,7 @@
 # 29H1 Core Features Configuration
 29h1_core_features:
   # Core Registry Path
-  core_path: "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+  core_path: "HKLM:SOFTWAREMicrosoftWindows NTCurrentVersion"
   
   # Core Version Flags
   version_flags:
@@ -46,7 +46,7 @@
   
   # Feature Update Flags
   update_flags:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\OSUpgrade"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionWindowsUpdateOSUpgrade"
     
     settings:
       ReserveOSUpgrade: 1
@@ -55,7 +55,7 @@
       
   # Auto Update Settings
   auto_update:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionWindowsUpdateAuto Update"
     
     settings:
       DeferFeatureUpdatesPeriodInDays: 0
@@ -69,20 +69,20 @@
 # 29H1 AI Features Configuration
 29h1_ai_features:
   # AI Registry Path
-  ai_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AI"
+  ai_path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionAI"
   
   # AI Platform Settings
   platform_settings:
     EnableWindowsAI: 1
     EnableOnDeviceAI: 1
     EnableAIModelDownloads: 1
-    AIModelStoragePath: "C:\AI Models"
+    AIModelStoragePath: "C:AI Models"
     EnableAIProcessing: 1
     AIPlatformVersion: "29H1"
   
   # Copilot Integration
   copilot:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionExplorerAdvanced"
     
     settings:
       EnableCopilot: 1
@@ -93,7 +93,7 @@
   
   # AI Search
   ai_search:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionSearch"
     
     settings:
       EnableAISearch: 1
@@ -104,7 +104,7 @@
   
   # AI File Explorer
   ai_explorer:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionExplorerAdvanced"
     
     settings:
       EnableAIFileSuggestions: 1
@@ -114,17 +114,17 @@
   
   # AI Models Directory
   ai_models:
-    directory: "C:\AI Models"
+    directory: "C:AI Models"
     subdirectories:
-      - "C:\AI Models\OnDevice"
-      - "C:\AI Models\Cloud"
-      - "C:\AI Models\Processing"
+      - "C:AI ModelsOnDevice"
+      - "C:AI ModelsCloud"
+      - "C:AI ModelsProcessing"
 
 ---
 # 29H1 Gaming Features Configuration
 29h1_gaming_features:
   # Graphics Registry Path
-  graphics_path: "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration"
+  graphics_path: "HKLM:SYSTEMCurrentControlSetControlGraphicsDriversConfiguration"
   
   # Auto HDR - Next Generation
   auto_hdr:
@@ -150,7 +150,7 @@
   
   # DirectX 12 Ultimate
   dx12:
-    path: "HKLM:\SOFTWARE\Microsoft\DirectX"
+    path: "HKLM:SOFTWAREMicrosoftDirectX"
     
     settings:
       EnableDX12Ultimate: 1
@@ -167,7 +167,7 @@
   
   # Game Mode - Enhanced
   game_mode:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\GameUX"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionGameUX"
     
     settings:
       GameModeEnabled: 1
@@ -176,7 +176,7 @@
   
   # Hardware Accelerated GPU Scheduling
   gpu_scheduling:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration"
+    path: "HKLM:SYSTEMCurrentControlSetControlGraphicsDriversConfiguration"
     
     settings:
       EnableHardwareAcceleratedGPUScheduling: 1
@@ -185,7 +185,7 @@
   
   # Xbox Game Bar
   game_bar:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\GameUX"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionGameUX"
     
     settings:
       EnableGameBar: 1
@@ -196,7 +196,7 @@
 29h1_security_features:
   # Virtualization Based Security
   vbs:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+    path: "HKLM:SYSTEMCurrentControlSetControlDeviceGuardScenariosHypervisorEnforcedCodeIntegrity"
     
     settings:
       Enabled: 1
@@ -207,7 +207,7 @@
   
   # Core Isolation
   core_isolation:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\LsaCfg"
+    path: "HKLM:SYSTEMCurrentControlSetControlDeviceGuardScenariosLsaCfg"
     
     settings:
       Enabled: 1
@@ -215,7 +215,7 @@
   
   # Secure Boot
   secure_boot:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State"
+    path: "HKLM:SYSTEMCurrentControlSetControlSecureBootState"
     
     settings:
       UEFISecureBootEnabled: 1
@@ -223,7 +223,7 @@
   
   # TPM 2.0
   tpm:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceGuard\Scenarios\SystemGuard"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionDeviceGuardScenariosSystemGuard"
     
     settings:
       EnableTPM20: 1
@@ -231,7 +231,7 @@
   
   # Control Flow Guard
   cfg:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel"
+    path: "HKLM:SYSTEMCurrentControlSetControlSession ManagerKernel"
     
     settings:
       EnableUltraGuard: 1
@@ -239,7 +239,7 @@
   
   # Windows Defender
   defender:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows Defender"
+    path: "HKLM:SOFTWAREMicrosoftWindows Defender"
     
     settings:
       DisableAntiSpyware: 0
@@ -249,7 +249,7 @@
   
   # Firewall
   firewall:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"
+    path: "HKLM:SYSTEMCurrentControlSetServicesSharedAccessParametersFirewallPolicyStandardProfile"
     
     settings:
       EnableFirewall: 1
@@ -279,7 +279,7 @@
   
   # Power Throttling
   power_throttling:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647c-c1df-4637-891a-dec35c318583"
+    path: "HKLM:SYSTEMCurrentControlSetControlPowerPowerSettings54533251-82be-4824-96c1-47b60b740d000cc5b647c-c1df-4637-891a-dec35c318583"
     
     settings:
       Attributes: 2
@@ -288,7 +288,7 @@
   
   # Performance Optimizations
   performance:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Priority"
+    path: "HKLM:SYSTEMCurrentControlSetControlPriority"
     
     settings:
       EnableAllPerformanceOptimizations: 1
@@ -299,7 +299,7 @@
   
   # System Performance
   system_performance:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"
+    path: "HKLM:SYSTEMCurrentControlSetControlSession ManagerMemory Management"
     
     settings:
       DisablePagingExecutive: 1
@@ -308,7 +308,7 @@
   
   # Prefetch and Superfetch
   prefetch:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters"
+    path: "HKLM:SYSTEMCurrentControlSetControlSession ManagerMemory ManagementPrefetchParameters"
     
     settings:
       EnablePrefetcher: 3
@@ -320,7 +320,7 @@
 29h1_networking_features:
   # TCP/IP Settings
   tcpip:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters"
+    path: "HKLM:SYSTEMCurrentControlSetServicesTcpipParameters"
     
     settings:
       TCPNoDelay: 1
@@ -334,7 +334,7 @@
   
   # IPv6
   ipv6:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters"
+    path: "HKLM:SYSTEMCurrentControlSetServicesTcpip6Parameters"
     
     settings:
       DisabledComponents: 0
@@ -342,7 +342,7 @@
   
   # QUIC and HTTP/3
   quic:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Services\MsQuic\Parameters"
+    path: "HKLM:SYSTEMCurrentControlSetServicesMsQuicParameters"
     
     settings:
       EnableQuic: 1
@@ -351,7 +351,7 @@
   
   # QoS
   qos:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS"
+    path: "HKLM:SYSTEMCurrentControlSetServicesTcpipQoS"
     
     settings:
       "Do not reserve bandwidth": 1
@@ -359,7 +359,7 @@
   
   # DNS
   dns:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters"
+    path: "HKLM:SYSTEMCurrentControlSetServicesTcpipParameters"
     
     settings:
       DnsQueryTimeouts: 2
@@ -372,7 +372,7 @@
 29h1_storage_features:
   # File System Settings
   filesystem:
-    path: "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem"
+    path: "HKLM:SYSTEMCurrentControlSetControlFileSystem"
     
     settings:
       EnableAllStorageFeatures: 1
@@ -391,7 +391,7 @@
   
   # Storage Sense
   storage_sense:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionStorageSenseParameters"
     
     settings:
       StoragePolicy: 1
@@ -407,7 +407,7 @@
 # 29H1 Audio Features Configuration
 29h1_audio_features:
   # Audio Registry Path
-  audio_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio"
+  audio_path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionAudio"
   
   # Audio Settings
   audio_settings:
@@ -431,7 +431,7 @@
 # 29H1 UI Features Configuration
 29h1_ui_features:
   # UI Registry Path
-  ui_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+  ui_path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionExplorerAdvanced"
   
   # UI Settings
   ui_settings:
@@ -470,7 +470,7 @@
   
   # Search
   search:
-    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
+    path: "HKLM:SOFTWAREMicrosoftWindowsCurrentVersionSearch"
     
     settings:
       SearchboxTaskbarMode: 0
@@ -492,7 +492,7 @@
 29h1_features_scripts:
   # Main Features Engine Script
   main_engine:
-    path: "%src%\playbook\Executables\AtlasDesktop\29H1 Features\29h1-features-engine.ps1"
+    path: "%src%playbookExecutablesAtlasDesktop29H1 Features29h1-features-engine.ps1"
     parameters:
       EnableAll: true
       EnableAI: true
@@ -507,14 +507,14 @@
 ---
 # 29H1 Features Completion Markers
 29h1_features_markers:
-  features_complete: "C:\Windows\System32\29h1-features-complete.flag"
-  all_features_complete: "C:\Windows\System32\29h1-all-features-complete.flag"
-  core_complete: "C:\Windows\System32\29H1\Features\core-complete.flag"
-  ai_complete: "C:\Windows\System32\29H1\Features\ai-complete.flag"
-  gaming_complete: "C:\Windows\System32\29H1\Features\gaming-complete.flag"
-  security_complete: "C:\Windows\System32\29H1\Features\security-complete.flag"
-  performance_complete: "C:\Windows\System32\29H1\Features\performance-complete.flag"
-  networking_complete: "C:\Windows\System32\29H1\Features\networking-complete.flag"
-  storage_complete: "C:\Windows\System32\29H1\Features\storage-complete.flag"
-  audio_complete: "C:\Windows\System32\29H1\Features\audio-complete.flag"
-  ui_complete: "C:\Windows\System32\29H1\Features\ui-complete.flag"
+  features_complete: "C:WindowsSystem3229h1-features-complete.flag"
+  all_features_complete: "C:WindowsSystem3229h1-all-features-complete.flag"
+  core_complete: "C:WindowsSystem3229H1Featurescore-complete.flag"
+  ai_complete: "C:WindowsSystem3229H1Featuresai-complete.flag"
+  gaming_complete: "C:WindowsSystem3229H1Featuresgaming-complete.flag"
+  security_complete: "C:WindowsSystem3229H1Featuressecurity-complete.flag"
+  performance_complete: "C:WindowsSystem3229H1Featuresperformance-complete.flag"
+  networking_complete: "C:WindowsSystem3229H1Featuresnetworking-complete.flag"
+  storage_complete: "C:WindowsSystem3229H1Featuresstorage-complete.flag"
+  audio_complete: "C:WindowsSystem3229H1Featuresaudio-complete.flag"
+  ui_complete: "C:WindowsSystem3229H1Featuresui-complete.flag"
