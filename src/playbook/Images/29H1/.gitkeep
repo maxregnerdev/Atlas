@@ -1,0 +1,13 @@
+# Windows 11 29H1 Images Directory
+# Placeholder for 29H1 wallpapers, logos, and branding assets
+
+# This directory should contain:
+# - 29h1-wallpaper.jpg (Primary wallpaper)
+# - 29h1-logo.png (System logo)
+# - 29h1-oobe-background.jpg (OOBE background)
+# - 29h1-oobe-logo.png (OOBE logo)
+# - 29h1-lockscreen.jpg (Lock screen background)
+# - 29h1-icon-*.png (System icons)
+
+# All images should be in high resolution (1920x1080 or higher)
+# Formats: PNG for transparency, JPG for photos

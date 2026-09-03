@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LayoutModificationTemplate 
+    xmlns="http://schemas.microsoft.com/Start/2014/LayoutModification"
+    xmlns:defaultlayout="http://schemas.microsoft.com/Start/2014/FullDefaultLayout"
+    xmlns:start="http://schemas.microsoft.com/Windows/2014/StartLayout"
+    Version="1">
+    
+  <LayoutOptions StartTileGroupCellWidth="6" />
+  
+  <DefaultLayoutOverride LayoutCustomizationRestrictionType="OnlySpecifiedGroups">
+    <StartLayoutCollection>
+      <defaultlayout:StartLayout GroupCellWidth="6">
+        <start:Group Name="29H1 Core Apps">
+          <start:Tile Size="2x2" Column="0" Row="0" AppUserModelID="Microsoft.WindowsCalculator_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="2" Row="0" AppUserModelID="Microsoft.WindowsCamera_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="4" Row="0" AppUserModelID="Microsoft.WindowsPhotos_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="0" Row="2" AppUserModelID="Microsoft.WindowsStore_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="2" Row="2" AppUserModelID="Microsoft.YourPhone_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="4" Row="2" AppUserModelID="Microsoft.WindowsMaps_8wekyb3d8bbwe!App" />
+        </start:Group>
+        
+        <start:Group Name="29H1 Productivity">
+          <start:Tile Size="2x2" Column="0" Row="0" AppUserModelID="Microsoft.MicrosoftOfficeHub_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="2" Row="0" AppUserModelID="Microsoft.Office.OneNote_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="4" Row="0" AppUserModelID="Microsoft.Office.Excel_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="0" Row="2" AppUserModelID="Microsoft.Office.Word_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="2" Row="2" AppUserModelID="Microsoft.Office.PowerPoint_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="4" Row="2" AppUserModelID="Microsoft.Office.Outlook_8wekyb3d8bbwe!App" />
+        </start:Group>
+        
+        <start:Group Name="29H1 Gaming">
+          <start:Tile Size="2x2" Column="0" Row="0" AppUserModelID="Microsoft.XboxApp_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="2" Row="0" AppUserModelID="Microsoft.XboxGameOverlay_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="4" Row="0" AppUserModelID="Microsoft.XboxSpeechToTextOverlay_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="0" Row="2" AppUserModelID="Microsoft.XboxGameBar_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="2" Row="2" AppUserModelID="Microsoft.XboxIdentityProvider_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="4" Row="2" AppUserModelID="Microsoft.GamingApp_8wekyb3d8bbwe!App" />
+        </start:Group>
+        
+        <start:Group Name="29H1 AI & Features">
+          <start:Tile Size="2x2" Column="0" Row="0" AppUserModelID="Microsoft.WindowsCopilot_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="2" Row="0" AppUserModelID="Microsoft.WindowsSearch_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="4" Row="0" AppUserModelID="Microsoft.WindowsTerminal_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="0" Row="2" AppUserModelID="Microsoft.PowerToys_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="2" Row="2" AppUserModelID="Microsoft.WindowsFeedbackHub_8wekyb3d8bbwe!App" />
+          <start:Tile Size="2x2" Column="4" Row="2" AppUserModelID="Microsoft.GetHelp_8wekyb3d8bbwe!App" />
+        </start:Group>
+        
+        <start:Group Name="29H1 System">
+          <start:Tile Size="1x1" Column="0" Row="0" AppUserModelID="windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel" />
+          <start:Tile Size="1x1" Column="1" Row="0" AppUserModelID="Windows.System.UserProfileApp_cw5n1h2txyewy!App" />
+          <start:Tile Size="1x1" Column="2" Row="0" AppUserModelID="windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel.pageAccount" />
+          <start:Tile Size="1x1" Column="3" Row="0" AppUserModelID="windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel.pageWindowsUpdate" />
+          <start:Tile Size="1x1" Column="4" Row="0" AppUserModelID="windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel.pagePower" />
+          <start:Tile Size="1x1" Column="5" Row="0" AppUserModelID="windows.immersivecontrolpanel_cw5n1h2txyewy!microsoft.windows.immersivecontrolpanel.pageNetwork" />
+        </start:Group>
+      </defaultlayout:StartLayout>
+    </StartLayoutCollection>
+  </DefaultLayoutOverride>
+  
+  <CustomTaskbarLayoutCollection PinListPlacement="Replace">
+    <defaultlayout:TaskbarLayout>
+      <taskbar:TaskbarPinList>
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\File Explorer.lnk" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Google Chrome.lnk" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Microsoft Edge.lnk" />
+        <taskbar:DesktopApp DesktopApplicationLinkPath="%ALLUSERSPROFILE%\Microsoft\Windows\Start Menu\Programs\Windows Terminal.lnk" />
+        <taskbar:UWPApp AppUserModelID="Microsoft.WindowsStore_8wekyb3d8bbwe!App" />
+        <taskbar:UWPApp AppUserModelID="Microsoft.WindowsCalculator_8wekyb3d8bbwe!App" />
+      </taskbar:TaskbarPinList>
+    </defaultlayout:TaskbarLayout>
+  </CustomTaskbarLayoutCollection>
+</LayoutModificationTemplate>

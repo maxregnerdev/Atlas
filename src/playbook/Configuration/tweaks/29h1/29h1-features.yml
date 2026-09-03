@@ -1,0 +1,520 @@
+# Windows 11 29H1 Features Configuration
+# Complete feature set transformation for 29H1
+
+---
+# 29H1 Features Main Configuration
+29h1_features:
+  enabled: true
+  description: "Complete 29H1 Features transformation"
+  
+  # Feature Categories
+  categories:
+    core: true
+    ai: true
+    gaming: true
+    security: true
+    performance: true
+    networking: true
+    storage: true
+    audio: true
+    ui: true
+  
+  # Feature Settings
+  settings:
+    enable_all: true
+    create_markers: true
+    restart_explorer: true
+    
+  # Version Information
+  version:
+    name: "29H1 Features"
+    build: "29H1"
+    target: "25H2"
+
+---
+# 29H1 Core Features Configuration
+29h1_core_features:
+  # Core Registry Path
+  core_path: "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion"
+  
+  # Core Version Flags
+  version_flags:
+    29H1_Enabled: 1
+    29H1_Version: "29H1"
+    29H1_Transformed: 1
+    29H1_TransformationDate: "{{date}}"
+  
+  # Feature Update Flags
+  update_flags:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\OSUpgrade"
+    
+    settings:
+      ReserveOSUpgrade: 1
+      TargetVersion: "29H1"
+      AllowOSUpgrade: 1
+      
+  # Auto Update Settings
+  auto_update:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate\Auto Update"
+    
+    settings:
+      DeferFeatureUpdatesPeriodInDays: 0
+      DeferQualityUpdatesPeriodInDays: 0
+      AUOptions: 4
+      NoAutoUpdate: 0
+      ScheduledInstallDay: 0
+      ScheduledInstallTime: 3
+
+---
+# 29H1 AI Features Configuration
+29h1_ai_features:
+  # AI Registry Path
+  ai_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\AI"
+  
+  # AI Platform Settings
+  platform_settings:
+    EnableWindowsAI: 1
+    EnableOnDeviceAI: 1
+    EnableAIModelDownloads: 1
+    AIModelStoragePath: "C:\AI Models"
+    EnableAIProcessing: 1
+    AIPlatformVersion: "29H1"
+  
+  # Copilot Integration
+  copilot:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    
+    settings:
+      EnableCopilot: 1
+      CopilotTaskbarEnabled: 1
+      CopilotFlyoutEnabled: 1
+      CopilotFullScreen: 1
+      CopilotVersion: "29H1"
+  
+  # AI Search
+  ai_search:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
+    
+    settings:
+      EnableAISearch: 1
+      EnableAISuggestions: 1
+      EnableAIContentRecommendations: 1
+      AISearchIndexing: 1
+      AISearchVersion: "29H1"
+  
+  # AI File Explorer
+  ai_explorer:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+    
+    settings:
+      EnableAIFileSuggestions: 1
+      EnableAIFileTagging: 1
+      EnableAISmartFolders: 1
+      AIExplorerVersion: "29H1"
+  
+  # AI Models Directory
+  ai_models:
+    directory: "C:\AI Models"
+    subdirectories:
+      - "C:\AI Models\OnDevice"
+      - "C:\AI Models\Cloud"
+      - "C:\AI Models\Processing"
+
+---
+# 29H1 Gaming Features Configuration
+29h1_gaming_features:
+  # Graphics Registry Path
+  graphics_path: "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration"
+  
+  # Auto HDR - Next Generation
+  auto_hdr:
+    EnableAutoHDR: 1
+    EnableAutoHDRForAll: 1
+    AutoHDRQuality: 2
+    AutoHDRMode: 2
+    AutoHDRVersion: "29H1"
+  
+  # DirectStorage - Next Generation
+  direct_storage:
+    EnableDirectStorage: 1
+    EnableDirectStorageForAll: 1
+    DirectStorageVersion: 2
+    DirectStorageVersionString: "29H1"
+  
+  # Variable Refresh Rate - Enhanced
+  vrr:
+    EnableVRR: 1
+    EnableVRRForAll: 1
+    VRRMode: 2
+    VRRVersion: "29H1"
+  
+  # DirectX 12 Ultimate
+  dx12:
+    path: "HKLM:\SOFTWARE\Microsoft\DirectX"
+    
+    settings:
+      EnableDX12Ultimate: 1
+      EnableDX12UltimateFeatures: 1
+      DX12UltimateVersion: "29H1"
+  
+  # Additional Graphics Features
+  graphics_features:
+    EnableVariableRateShading: 1
+    EnableMeshShading: 1
+    EnableSamplerFeedback: 1
+    EnableRayTracing: 1
+    GraphicsFeaturesVersion: "29H1"
+  
+  # Game Mode - Enhanced
+  game_mode:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\GameUX"
+    
+    settings:
+      GameModeEnabled: 1
+      EnableAllGamingFeatures: 1
+      GameModeVersion: "29H1"
+  
+  # Hardware Accelerated GPU Scheduling
+  gpu_scheduling:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\GraphicsDrivers\Configuration"
+    
+    settings:
+      EnableHardwareAcceleratedGPUScheduling: 1
+      GPUSchedulingPriority: 1
+      GPUSchedulingVersion: "29H1"
+  
+  # Xbox Game Bar
+  game_bar:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\GameUX"
+    
+    settings:
+      EnableGameBar: 1
+      GameBarVersion: "29H1"
+
+---
+# 29H1 Security Features Configuration
+29h1_security_features:
+  # Virtualization Based Security
+  vbs:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\HypervisorEnforcedCodeIntegrity"
+    
+    settings:
+      Enabled: 1
+      EnableVBS29H1: 1
+      MemoryIntegrityEnabled: 1
+      EnableAllSecurityFeatures: 1
+      VBSVersion: "29H1"
+  
+  # Core Isolation
+  core_isolation:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\LsaCfg"
+    
+    settings:
+      Enabled: 1
+      CoreIsolationVersion: "29H1"
+  
+  # Secure Boot
+  secure_boot:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\SecureBoot\State"
+    
+    settings:
+      UEFISecureBootEnabled: 1
+      SecureBootVersion: "29H1"
+  
+  # TPM 2.0
+  tpm:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\DeviceGuard\Scenarios\SystemGuard"
+    
+    settings:
+      EnableTPM20: 1
+      TPMVersion: "29H1"
+  
+  # Control Flow Guard
+  cfg:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel"
+    
+    settings:
+      EnableUltraGuard: 1
+      CFGVersion: "29H1"
+  
+  # Windows Defender
+  defender:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows Defender"
+    
+    settings:
+      DisableAntiSpyware: 0
+      DisableAntiVirus: 0
+      DisableRoutinelyTakingAction: 0
+      DefenderVersion: "29H1"
+  
+  # Firewall
+  firewall:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\StandardProfile"
+    
+    settings:
+      EnableFirewall: 1
+      FirewallVersion: "29H1"
+
+---
+# 29H1 Performance Features Configuration
+29h1_performance_features:
+  # Ultimate Performance Power Plan
+  power_plan:
+    enabled: true
+    guid: "e9a42b89-d57a-4b9f-abc1-7088f7bb4308"
+    name: "29H1 Ultimate Performance"
+    description: "Windows 11 29H1 Ultimate Performance Plan"
+    active: true
+  
+  # Power Settings
+  power_settings:
+    standby_timeout_ac: 0
+    standby_timeout_dc: 0
+    hibernate_timeout_ac: 0
+    hibernate_timeout_dc: 0
+    monitor_timeout_ac: 0
+    monitor_timeout_dc: 0
+    disk_timeout_ac: 0
+    disk_timeout_dc: 0
+  
+  # Power Throttling
+  power_throttling:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\54533251-82be-4824-96c1-47b60b740d00\0cc5b647c-c1df-4637-891a-dec35c318583"
+    
+    settings:
+      Attributes: 2
+      SettingIndex: 0
+      PowerThrottlingVersion: "29H1"
+  
+  # Performance Optimizations
+  performance:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Priority"
+    
+    settings:
+      EnableAllPerformanceOptimizations: 1
+      EnableDynamicTick: 1
+      EnableTimerCoalescing: 1
+      EnablePowerEfficiencyDiagnostics: 1
+      PerformanceVersion: "29H1"
+  
+  # System Performance
+  system_performance:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management"
+    
+    settings:
+      DisablePagingExecutive: 1
+      LargeSystemCache: 1
+      SystemPerformanceVersion: "29H1"
+  
+  # Prefetch and Superfetch
+  prefetch:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters"
+    
+    settings:
+      EnablePrefetcher: 3
+      EnableSuperfetch: 3
+      PrefetchVersion: "29H1"
+
+---
+# 29H1 Networking Features Configuration
+29h1_networking_features:
+  # TCP/IP Settings
+  tcpip:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters"
+    
+    settings:
+      TCPNoDelay: 1
+      TcpWindowSize: 65535
+      Tcp1323Opts: 3
+      DefaultTTL: 64
+      EnablePMTUDisc: 1
+      EnableTCPA: 1
+      EnableAllNetworkingFeatures: 1
+      NetworkingVersion: "29H1"
+  
+  # IPv6
+  ipv6:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters"
+    
+    settings:
+      DisabledComponents: 0
+      IPv6Version: "29H1"
+  
+  # QUIC and HTTP/3
+  quic:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Services\MsQuic\Parameters"
+    
+    settings:
+      EnableQuic: 1
+      EnableHttp3: 1
+      QuicVersion: "29H1"
+  
+  # QoS
+  qos:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\QoS"
+    
+    settings:
+      "Do not reserve bandwidth": 1
+      QoSVersion: "29H1"
+  
+  # DNS
+  dns:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip\Parameters"
+    
+    settings:
+      DnsQueryTimeouts: 2
+      MaxNegativeCacheTtl: 0
+      NegativeCacheTime: 0
+      DNSVersion: "29H1"
+
+---
+# 29H1 Storage Features Configuration
+29h1_storage_features:
+  # File System Settings
+  filesystem:
+    path: "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem"
+    
+    settings:
+      EnableAllStorageFeatures: 1
+      EnableNTFSCompression: 1
+      EnableNTFSEncryption: 1
+      EnableNTFSSparse: 1
+      StorageVersion: "29H1"
+  
+  # NTFS Optimizations
+  ntfs:
+    disable_last_access: 1
+    disable_compression: 0
+    disable_encryption: 0
+    disable_8dot3: 1
+    disable_delete_notify: 0
+  
+  # Storage Sense
+  storage_sense:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters"
+    
+    settings:
+      StoragePolicy: 1
+      StorageSenseVersion: "29H1"
+  
+  # Disk Optimizations
+  disk:
+    enable_trim: 0
+    enable_boot_optimization: true
+    DiskOptimizationVersion: "29H1"
+
+---
+# 29H1 Audio Features Configuration
+29h1_audio_features:
+  # Audio Registry Path
+  audio_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Audio"
+  
+  # Audio Settings
+  audio_settings:
+    EnableAllAudioFeatures: 1
+    EnableSpatialAudio: 1
+    EnableDolbyAtmos: 1
+    EnableDTSX: 1
+    EnableHighQualityAudio: 1
+    EnableHighDefinitionAudio: 1
+    AudioVersion: "29H1"
+  
+  # Audio Enhancements
+  audio_enhancements:
+    EnableAudioEnhancements: 1
+    EnableLoudnessEqualization: 1
+    EnableRoomCorrection: 1
+    EnableBassBoost: 1
+    AudioEnhancementsVersion: "29H1"
+
+---
+# 29H1 UI Features Configuration
+29h1_ui_features:
+  # UI Registry Path
+  ui_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced"
+  
+  # UI Settings
+  ui_settings:
+    Start_Layout: "29H1"
+    Taskbar29H1: 1
+    Explorer29H1: 1
+    WindowManagement29H1: 1
+    ContextMenu29H1: 1
+    UIVersion: "29H1"
+  
+  # Start Menu
+  start_menu:
+    Start_ShowAllApps: 1
+    Start_ShowRecentApps: 1
+    Start_ShowRecommendations: 0
+    Start_ShowUserCloudSync: 0
+    Start_ShowMyGames: 0
+    Start_ShowMyApps: 0
+  
+  # Taskbar
+  taskbar:
+    TaskbarAlignment: 0
+    TaskbarSmallIcons: 1
+    TaskbarGlomLevel: 2
+    TaskbarAutoHide: 0
+    TaskbarAlwaysOnTop: 1
+  
+  # File Explorer
+  explorer:
+    ShowAllFolders: 1
+    Hidden: 1
+    ShowSuperHidden: 1
+    HideFileExt: 0
+    ShowInfoTip: 1
+    ShowPreviewHandlers: 1
+  
+  # Search
+  search:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search"
+    
+    settings:
+      SearchboxTaskbarMode: 0
+      CortanaEnabled: 0
+  
+  # Window Management
+  window_management:
+    EnableSnapAssistFlyout: 1
+    DisableSnapAssist: 0
+    WindowArrangementActive: 1
+  
+  # Context Menu
+  context_menu:
+    ShowClassicContextMenu: 1
+    ExtendedUIHoverTime: 500
+
+---
+# 29H1 Features Script Configuration
+29h1_features_scripts:
+  # Main Features Engine Script
+  main_engine:
+    path: "%src%\playbook\Executables\AtlasDesktop\29H1 Features\29h1-features-engine.ps1"
+    parameters:
+      EnableAll: true
+      EnableAI: true
+      EnableGaming: true
+      EnableSecurity: true
+      EnablePerformance: true
+      EnableNetworking: true
+      EnableStorage: true
+      EnableAudio: true
+      EnableUI: true
+
+---
+# 29H1 Features Completion Markers
+29h1_features_markers:
+  features_complete: "C:\Windows\System32\29h1-features-complete.flag"
+  all_features_complete: "C:\Windows\System32\29h1-all-features-complete.flag"
+  core_complete: "C:\Windows\System32\29H1\Features\core-complete.flag"
+  ai_complete: "C:\Windows\System32\29H1\Features\ai-complete.flag"
+  gaming_complete: "C:\Windows\System32\29H1\Features\gaming-complete.flag"
+  security_complete: "C:\Windows\System32\29H1\Features\security-complete.flag"
+  performance_complete: "C:\Windows\System32\29H1\Features\performance-complete.flag"
+  networking_complete: "C:\Windows\System32\29H1\Features\networking-complete.flag"
+  storage_complete: "C:\Windows\System32\29H1\Features\storage-complete.flag"
+  audio_complete: "C:\Windows\System32\29H1\Features\audio-complete.flag"
+  ui_complete: "C:\Windows\System32\29H1\Features\ui-complete.flag"

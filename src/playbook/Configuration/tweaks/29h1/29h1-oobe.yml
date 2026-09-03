@@ -1,0 +1,344 @@
+# Windows 11 29H1 OOBE Configuration
+# Out-of-Box Experience transformation for 29H1
+
+---
+# 29H1 OOBE Main Configuration
+29h1_oobe:
+  enabled: true
+  description: "Complete 29H1 Out-of-Box Experience transformation"
+  
+  # OOBE Components
+  components:
+    registry: true
+    branding: true
+    features: true
+  
+  # OOBE Settings
+  settings:
+    skip_all: true
+    custom_branding: true
+    bypass_requirements: true
+    dark_mode: true
+    
+  # Version Information
+  version:
+    name: "29H1 OOBE"
+    build: "29H1"
+    target: "25H2"
+
+---
+# 29H1 OOBE Registry Configuration
+29h1_oobe_registry:
+  # Base OOBE Path
+  base_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE"
+  
+  # OOBE Skip Settings
+  skip_settings:
+    SkipProductKey: 1
+    SkipEULA: 1
+    SkipNetwork: 1
+    SkipMachineOOBE: 1
+    SkipUserOOBE: 1
+    SkipWelcome: 1
+    SkipCortanaOptIn: 1
+    SkipOneDrive: 1
+    SkipPrivacy: 1
+    SkipRegion: 1
+    SkipKeyboard: 1
+    SkipTimeZone: 1
+    
+  # OOBE Theme Settings
+  theme_settings:
+    BackgroundColor: "#000000"
+    TextColor: "#FFFFFF"
+    UseDarkMode: 1
+    DisableAnimations: 1
+    
+  # OOBE Version Flags
+  version_flags:
+    29H1_Enabled: 1
+    29H1_Version: "29H1"
+    OOBEVersion: "29H1"
+
+---
+# 29H1 OOBE Bypass Configuration
+29h1_oobe_bypass:
+  # LabConfig Bypass (for installation requirements)
+  labconfig:
+    enabled: true
+    path: "HKLM:\SYSTEM\Setup\LabConfig"
+    
+    bypass_flags:
+      BypassTPMCheck: 1
+      BypassSecureBootCheck: 1
+      BypassRAMCheck: 1
+      BypassStorageCheck: 1
+      BypassCPUCheck: 1
+      BypassDiskSpaceCheck: 1
+      BypassNetwork: 1
+    
+  # Setup Bypass
+  setup:
+    enabled: true
+    path: "HKLM:\SYSTEM\Setup"
+    
+    bypass_flags:
+      OOBEInProgress: 0
+      SetupInProgress: 0
+      SetupType: 0
+      CmdLine: ""
+
+---
+# 29H1 OOBE Privacy Configuration
+29h1_oobe_privacy:
+  # Data Collection Settings
+  data_collection:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection"
+    
+    settings:
+      AllowTelemetry: 0
+      DisableEnterpriseAuthProxy: 1
+      MaxTelemetryAllowed: 0
+      
+  # Diagnostic Tracking
+  diagnostic_tracking:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Diagnostics\DiagTrack"
+    
+    settings:
+      ShowedToastAtLevel: 4
+    
+  # Location Services
+  location:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Capabilities\Location"
+    
+    settings:
+      LocationEnabled: 0
+    
+  # Privacy Settings
+  privacy:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Privacy"
+    
+    settings:
+      TailoredExperiencesWithDiagnosticData: 0
+      TailoredExperiencesWithDiagnosticDataEnabled: 0
+      PublishUserActivities: 0
+      ActivityHistoryEnabled: 0
+      EnableActivityFeed: 0
+
+---
+# 29H1 OOBE Branding Configuration
+29h1_oobe_branding:
+  # Branding Registry
+  registry:
+    path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OEMInformation"
+    
+    branding_info:
+      Logo: "C:\Windows\System32\29H1\OOBE\Branding\logo.png"
+      Manufacturer: "Microsoft Corporation"
+      Model: "Windows 11 29H1"
+      SupportHours: "24/7"
+      SupportPhone: "+1 (800) MICROSOFT"
+      SupportURL: "https://www.microsoft.com/windows/29h1"
+    
+  # OOBE Branding Paths
+  paths:
+    BrandingPath: "C:\Windows\System32\29H1\OOBE\Branding"
+    LogoPath: "C:\Windows\System32\29H1\OOBE\Branding\logo.png"
+    BackgroundPath: "C:\Windows\System32\29H1\OOBE\Branding\background.jpg"
+    ThemeColor: "#0078D4"
+    AccentColor: "#0078D4"
+  
+  # Branding Directory Structure
+  directories:
+    - "C:\Windows\System32\29H1\OOBE\Branding"
+    - "C:\Windows\System32\29H1\OOBE\Backgrounds"
+    - "C:\Windows\System32\29H1\OOBE\Themes"
+    - "C:\Windows\System32\oobe\backgrounds"
+    - "C:\Windows\System32\oobe\info"
+  
+  # Branding Files
+  files:
+    logo:
+      source: "%src%\playbook\Images\29H1\29h1-oobe-logo.png"
+      destination: "C:\Windows\System32\29H1\OOBE\Branding\logo.png"
+      
+    background:
+      source: "%src%\playbook\Images\29H1\29h1-oobe-background.jpg"
+      destination: "C:\Windows\System32\29H1\OOBE\Branding\background.jpg"
+      
+    welcome_xml:
+      content: |
+        <?xml version="1.0" encoding="utf-8"?>
+        <OOBE>
+          <Welcome>
+            <Title>Welcome to Windows 11 29H1</Title>
+            <Subtitle>Next Generation Experience</Subtitle>
+            <Description>Experience the future of Windows with enhanced performance, privacy, and customization.</Description>
+            <Brand>29H1</Brand>
+            <Version>29H1</Version>
+          </Welcome>
+          <Settings>
+            <Theme>Dark</Theme>
+            <Animation>Disabled</Animation>
+            <Telemetry>Disabled</Telemetry>
+          </Settings>
+        </OOBE>
+      destination: "C:\Windows\System32\29H1\OOBE\Branding\welcome.xml"
+    
+    theme_css:
+      content: |
+        /* 29H1 OOBE Theme */
+        body {
+          background-color: #000000;
+          color: #FFFFFF;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .welcome-box {
+          background: linear-gradient(135deg, #0078D4 0%, #005A9E 100%);
+          border-radius: 12px;
+          padding: 40px;
+        }
+        .title {
+          font-size: 48px;
+          font-weight: 600;
+          margin-bottom: 20px;
+        }
+        .subtitle {
+          font-size: 24px;
+          opacity: 0.9;
+          margin-bottom: 40px;
+        }
+      destination: "C:\Windows\System32\29H1\OOBE\Branding\theme.css"
+
+---
+# 29H1 OOBE Features Configuration
+29h1_oobe_features:
+  # Feature Registry Path
+  registry_path: "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\OOBE\Features"
+  
+  # Feature Flags
+  feature_flags:
+    EnableAllFeatures: 1
+    Enable29H1Features: 1
+    FeatureVersion: "29H1"
+    
+  # AI Features
+  ai_features:
+    EnableAIOOBE: 1
+    AIOOBEVersion: "29H1"
+    EnableOnDeviceAI: 1
+    EnableCloudAI: 1
+    
+  # Voice and Biometric Features
+  voice_features:
+    EnableVoiceSetup: 1
+    VoiceSetupVersion: "29H1"
+    
+  biometric_features:
+    EnableFaceRecognition: 1
+    FaceRecognitionVersion: "29H1"
+    EnableBiometricSetup: 1
+    BiometricSetupVersion: "29H1"
+    
+  # Security Features
+  security_features:
+    EnableDeviceEncryption: 1
+    DeviceEncryptionVersion: "29H1"
+    
+  # Cloud Features
+  cloud_features:
+    EnableOneDriveSetup: 1
+    OneDriveSetupVersion: "29H1"
+    EnableMSASetup: 1
+    MSASetupVersion: "29H1"
+    
+  # Gaming Features
+  gaming_features:
+    EnableGameModeSetup: 1
+    GameModeSetupVersion: "29H1"
+  
+  # Feature Directories
+  directories:
+    - "C:\Windows\System32\29H1\OOBE\Features"
+    
+  # Feature Configuration Files
+  config_files:
+    ai_config:
+      content: |
+        {
+          "Version": "29H1",
+          "Enabled": true,
+          "OnDeviceAI": true,
+          "CloudAI": true,
+          "ModelDownload": true,
+          "ProcessingEnabled": true
+        }
+      destination: "C:\Windows\System32\29H1\OOBE\Features\ai-config.json"
+      
+    voice_config:
+      content: |
+        {
+          "Version": "29H1",
+          "Enabled": true,
+          "VoiceRecognition": true,
+          "VoiceCommands": true,
+          "VoiceTraining": true
+        }
+      destination: "C:\Windows\System32\29H1\OOBE\Features\voice-config.json"
+      
+    biometric_config:
+      content: |
+        {
+          "Version": "29H1",
+          "Enabled": true,
+          "FaceRecognition": true,
+          "Fingerprint": true,
+          "IrisRecognition": true,
+          "PinSetup": true
+        }
+      destination: "C:\Windows\System32\29H1\OOBE\Features\biometric-config.json"
+
+---
+# 29H1 OOBE Script Configuration
+29h1_oobe_scripts:
+  # Main OOBE Engine Script
+  main_engine:
+    path: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-engine.ps1"
+    parameters:
+      ConfigureAll: true
+      ConfigureRegistry: true
+      ConfigureBranding: true
+      ConfigureFeatures: true
+      BypassOOBE: true
+      EnableAllSettings: true
+    
+  # OOBE Branding Script
+  branding_script:
+    path: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-branding.ps1"
+    parameters:
+      InitializeDirectories: true
+      DeployAssets: true
+      CreateWelcomeXML: true
+      ConfigureRegistry: true
+      CreateThemeCSS: true
+    
+  # OOBE Features Script
+  features_script:
+    path: "%src%\playbook\Executables\AtlasDesktop\29H1 OOBE\29h1-oobe-features.ps1"
+    parameters:
+      EnableAIIntegration: true
+      EnableGamingFeatures: true
+      EnableSecurityFeatures: true
+      EnablePerformanceFeatures: true
+      EnableNetworkingFeatures: true
+      EnableStorageFeatures: true
+      EnableAudioFeatures: true
+      EnableUIFeatures: true
+
+---
+# 29H1 OOBE Completion Markers
+29h1_oobe_markers:
+  oobe_complete: "C:\Windows\System32\29h1-oobe-complete.flag"
+  oobe_engine_complete: "C:\Windows\System32\oobe\29h1-engine-complete.flag"
+  oobe_branding_complete: "C:\Windows\System32\29H1\OOBE\Branding\.complete.flag"
+  oobe_features_complete: "C:\Windows\System32\29H1\OOBE\Features\.complete.flag"

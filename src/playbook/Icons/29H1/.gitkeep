@@ -1,0 +1,18 @@
+# Windows 11 29H1 Icons Directory
+# Placeholder for custom 29H1 system icons
+
+# This directory should contain:
+# - computer.ico (This PC icon)
+# - recyclebin.ico (Empty recycle bin)
+# - recyclebin_full.ico (Full recycle bin)
+# - network.ico (Network icon)
+# - printer.ico (Printer icon)
+# - documents.ico (Documents folder)
+# - pictures.ico (Pictures folder)
+# - music.ico (Music folder)
+# - videos.ico (Videos folder)
+# - downloads.ico (Downloads folder)
+# - desktop.ico (Desktop icon)
+
+# All icons should be in .ico format with multiple sizes (16x16, 32x32, 48x48, 256x256)
+# Use 32-bit color depth with transparency where appropriate

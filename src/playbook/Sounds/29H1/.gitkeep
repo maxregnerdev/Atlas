@@ -1,0 +1,21 @@
+# Windows 11 29H1 Sounds Directory
+# Placeholder for custom 29H1 system sounds
+
+# This directory should contain:
+# - 29h1-system-default.wav (Default system sound)
+# - 29h1-system-exclamation.wav (Exclamation sound)
+# - 29h1-system-hand.wav (Hand sound)
+# - 29h1-system-asterisk.wav (Asterisk sound)
+# - 29h1-system-question.wav (Question sound)
+# - 29h1-notification-default.wav (Notification sound)
+# - 29h1-notification-im.wav (IM notification)
+# - 29h1-notification-mail.wav (Mail notification)
+# - 29h1-notification-proximity.wav (Proximity notification)
+# - 29h1-notification-reminder.wav (Reminder notification)
+# - 29h1-logon.wav (Logon sound)
+# - 29h1-logoff.wav (Logoff sound)
+# - 29h1-startup.wav (Startup sound)
+# - 29h1-shutdown.wav (Shutdown sound)
+
+# All sounds should be in .wav format, 16-bit, 44.1kHz stereo
+# Keep file sizes under 1MB for system performance
