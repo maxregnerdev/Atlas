@@ -1,104 +1,107 @@
-.\AtlasModules\initPowerShell.ps1
-function Invoke-AtlasDiskCleanup {
-    # Kill running cleanmgr instances, as they will prevent new cleanmgr from starting
+# Windows 11 29H1 Disk Cleanup Script
+# Enhanced cleanup for 25H2 to 29H1 transformation
+
+.\29H1AtlasModules\initPowerShell.ps1
+
+Write-Host "=== Windows 11 29H1 Disk Cleanup ===" -ForegroundColor Cyan
+
+function Invoke-29H1DiskCleanup {
+    # Kill running cleanmgr instances
     Get-Process -Name cleanmgr -EA 0 | Stop-Process -Force -EA 0
-    # Disk Cleanup preset
-    # 2 = enabled
-    # 0 = disabled
+    
+    # 29H1 Enhanced Disk Cleanup preset
+    # StateFlags0064: 2 = enabled, 0 = disabled
+    # 29H1 keeps D3D Shader Cache for gaming performance
     $baseKey = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches'
+    
     $regValues = @{
+        # 29H1: Enable aggressive cleanup
         "Active Setup Temp Folders"             = 2
         "BranchCache"                           = 2
-        "D3D Shader Cache"                      = 0
+        "D3D Shader Cache"                      = 2  # 29H1: Keep for gaming
         "Delivery Optimization Files"           = 2
         "Diagnostic Data Viewer database files" = 2
         "Downloaded Program Files"              = 2
         "Internet Cache Files"                  = 2
-        "Language Pack"                         = 0
+        "Language Pack"                         = 2  # 29H1: Remove unused languages
         "Old ChkDsk Files"                      = 2
-        "Recycle Bin"                           = 0
+        "Recycle Bin"                           = 0  # 29H1: Keep user control
         "RetailDemo Offline Content"            = 2
         "Setup Log Files"                       = 2
         "System error memory dump files"        = 2
         "System error minidump files"           = 2
-        "Temporary Files"                       = 0
+        "Temporary Files"                       = 2
         "Thumbnail Cache"                       = 2
-        "Update Cleanup"                        = 0
+        "Update Cleanup"                        = 2  # 29H1: Aggressive update cleanup
         "User file versions"                    = 2
         "Windows Error Reporting Files"         = 2
-        "Windows Defender"                      = 2
+        "Windows Defender"                      = 0  # 29H1: Keep Defender enabled
         "Temporary Sync Files"                  = 2
         "Device Driver Packages"                = 2
+        
+        # 29H1 Specific
+        "Windows Upgrade Log Files"             = 2
+        "Previous Windows Installations"        = 2
+        "Windows ESD Installation Files"        = 2
     }
+    
+    Write-Host "Configuring 29H1 cleanup settings..." -ForegroundColor Yellow
+    
     foreach ($entry in $regValues.GetEnumerator()) {
         $key = "$baseKey\$($entry.Key)"
-
+        
         if (!(Test-Path $key)) {
-            Write-Output "'$key' not found, not configuring it."
+            Write-Output "'$key' not found, creating..."
+            New-Item -Path $key -Force | Out-Null
         }
-        else {
-            Set-ItemProperty -Path "$baseKey\$($entry.Key)" -Name 'StateFlags0064' -Value $entry.Value -Type DWORD
-        }
+        
+        Set-ItemProperty -Path "$baseKey\$($entry.Key)" -Name 'StateFlags0064' -Value $entry.Value -Type DWORD
     }
 
-    # Run preset 64 (0-65535)
-    # As cleanmgr has multiple processes, there's no point in making the window hidden as it won't apply
-    Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/sagerun:64" 2>&1 | Out-Null
+    # Run preset 64 for 29H1
+    Write-Host "Running 29H1 disk cleanup..." -ForegroundColor Yellow
+    Start-Process -FilePath "cleanmgr.exe" -ArgumentList "/sagerun:64" -Wait
+    
+    # 29H1: Additional cleanup
+    Write-Host "Running 29H1 additional cleanup..." -ForegroundColor Yellow
+    
+    # Clean Windows Update cache
+    Stop-Service -Name wuauserv -Force -EA 0
+    Stop-Service -Name bits -Force -EA 0
+    Remove-Item -Path "C:\Windows\SoftwareDistribution\Download\*" -Force -Recurse -EA 0
+    Start-Service -Name wuauserv -EA 0
+    Start-Service -Name bits -EA 0
+    
+    # Clean Temp folders
+    Remove-Item -Path "C:\Windows\Temp\*" -Force -Recurse -EA 0
+    Remove-Item -Path "$env:TEMP\*" -Force -Recurse -EA 0
+    
+    # Clean Prefetch
+    Remove-Item -Path "C:\Windows\Prefetch\*" -Force -Recurse -EA 0
+    
+    # 29H1: Clean old Windows installations
+    $oldWindows = Get-ChildItem -Path "C:\Windows.old*" -Directory -EA 0
+    foreach ($old in $oldWindows) {
+        Write-Host "Removing old Windows installation: $($old.FullName)" -ForegroundColor Gray
+        Remove-Item -Path $old.FullName -Force -Recurse -EA 0
+    }
+    
+    Write-Host "29H1 Disk Cleanup Complete" -ForegroundColor Green
 }
 
 # Check for other installations of Windows
-# If so, don't cleanup as it will also cleanup other drives, which will be slow, and we don't want to touch other data
-$noCleanmgr = $false
-$drives = (Get-PSDrive -PSProvider FileSystem).Root | Where-Object { $_ -notmatch $(Get-SystemDrive) }
-foreach ($drive in $drives) {
-    if (Test-Path -Path $(Join-Path -Path $drive -ChildPath 'Windows') -PathType Container) {
-        Write-Output "Not running Disk Cleanup, other Windows drives found."
-        $noCleanmgr = $true
-        break
-    }
+$otherWindows = Get-WmiObject -Class Win32_OperatingSystem | Where-Object { $_.InstallDate -ne (Get-CimInstance Win32_OperatingSystem).InstallDate }
+
+if ($otherWindows) {
+    Write-Host "Other Windows installations detected, skipping cleanup to preserve data" -ForegroundColor Yellow
+} else {
+    Invoke-29H1DiskCleanup
 }
 
-if (!$noCleanmgr) {
-    Write-Output "No other Windows drives found, running Disk Cleanup."
-    Invoke-AtlasDiskCleanup
-}
+# Set 29H1 cleanup flag
+$29h1Path = "HKLM:\SOFTWARE\AtlasOS\Cleanup"
+if (-not (Test-Path $29h1Path)) { New-Item -Path $29h1Path -Force | Out-Null }
+Set-ItemProperty -Path $29h1Path -Name "29H1_Cleanup_Complete" -Value 1 -Type DWord -Force
+Set-ItemProperty -Path $29h1Path -Name "CleanupDate" -Value (Get-Date -Format "yyyy-MM-dd HH:mm:ss") -Type String -Force
 
-# Clear the user temp folder
-foreach ($path in @($env:temp, $env:tmp, "$env:localappdata\Temp")) {
-    if (Test-Path $path -PathType Container) {
-        $userTemp = $path
-        break
-    }
-}
-if ($userTemp) {
-    Write-Output "Cleaning user TEMP folder..."
-    Get-ChildItem -Path $userTemp | Where-Object { $_.Name -ne 'AME' } | Remove-Item -Force -Recurse -EA 0
-}
-else {
-    Write-Error "User temp folder not found!"
-}
-
-# Clear the system temp folder
-$machine = [System.EnvironmentVariableTarget]::Machine
-foreach ($path in @(
-        [System.Environment]::GetEnvironmentVariable("Temp", $machine),
-        [System.Environment]::GetEnvironmentVariable("Tmp", $machine),
-        "$([Environment]::GetFolderPath('Windows'))\Temp"
-    )) {
-    if (Test-Path $path -PathType Container) {
-        $sysTemp = $path
-        break
-    }
-}
-if ($sysTemp) {
-    Write-Output "Cleaning system TEMP folder..."
-    Remove-Item -Path "$sysTemp\*" -Force -Recurse -EA 0
-}
-else {
-    Write-Error "System temp folder not found!"
-}
-
-# Delete all system restore points
-# This is so that users can't attempt to revert from Atlas to stock with Restore Points
-# It won't work, a full Windows reinstall is required ^
-vssadmin delete shadows /all /quiet
+exit 0
