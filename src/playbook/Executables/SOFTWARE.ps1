@@ -11,6 +11,18 @@ param (
 
 .\29H1AtlasModules\initPowerShell.ps1
 
+Write-Host "=== Windows 11 29H1 Software Installation ===" -ForegroundColor Cyan
+
+# Check for 29H1 mode
+$29h1Path = "HKLM:\SOFTWARE\AtlasOS"
+$29h1Mode = $false
+if (Test-Path $29h1Path) {
+    $29h1Mode = (Get-ItemProperty -Path $29h1Path -Name "29H1_Mode" -ErrorAction SilentlyContinue).29H1_Mode -eq 1
+    if ($29h1Mode) {
+        Write-Host "29H1 Mode detected - Installing 29H1 software" -ForegroundColor Green
+    }
+}
+
 # ----------------------------------------------------------------------------------------------------------- #
 # Windows 11 29H1 Software Installation
 # Optimized for 25H2 to 29H1 transformation
@@ -21,9 +33,9 @@ $msiArgs = "/qn /quiet /norestart ALLUSERS=1 REBOOT=ReallySuppress"
 $arm = ((Get-CimInstance -Class Win32_ComputerSystem).SystemType -match 'ARM64') -or ($env:PROCESSOR_ARCHITECTURE -eq 'ARM64')
 
 # Check for 29H1 mode
-$29h1Active = $29H1Mode -or $29H1Toolbox -or $29H1Brave -or $29H1Firefox
+$29h1Active = $29H1Mode -or $29H1Toolbox -or $29H1Brave -or $29H1Firefox -or $29h1Mode
 if ($29h1Active) {
-    Write-Host "=== Windows 11 29H1 Software Installation ===" -ForegroundColor Cyan
+    Write-Host "29H1 Mode detected - Installing 29H1 software" -ForegroundColor Green
 }
 
 # Create a temporary directory
@@ -34,6 +46,7 @@ Push-Location $tempDir
 
 # Windows 11 29H1 Toolbox
 if ($Toolbox -or $29H1Toolbox) {
+    Write-Host "Downloading 29H1 Toolbox..." -ForegroundColor Yellow
     # Download 29H1 optimized Toolbox
     & curl.exe -LSs "https://github.com/Atlas-OS/atlas-toolbox/releases/latest/download/AtlasToolbox-29H1-Setup.exe" -o "$tempDir\toolbox.exe" $timeouts
     if (!$?) {
@@ -41,7 +54,7 @@ if ($Toolbox -or $29H1Toolbox) {
         exit 1
     }
 
-    Write-Output "Installing Windows 11 29H1 Toolbox..."
+    Write-Host "Installing Windows 11 29H1 Toolbox..." -ForegroundColor Yellow
     Start-Process -FilePath "$tempDir\toolbox.exe" -WindowStyle Hidden -ArgumentList '/verysilent /install /MERGETASKS="desktopicon"'
 
     # Set 29H1 Toolbox registry flag
@@ -55,14 +68,14 @@ if ($Toolbox -or $29H1Toolbox) {
 
 # Brave Browser - 29H1 Optimized
 if ($Brave -or $29H1Brave) {
-    Write-Output "Downloading Brave for 29H1..."
+    Write-Host "Downloading Brave for 29H1..." -ForegroundColor Yellow
     & curl.exe -LSs "https://laptop-updates.brave.com/latest/winx64" -o "$tempDir\BraveSetup.exe" $timeouts
     if (!$?) {
         Write-Error "Downloading Brave failed."
         exit 1
     }
 
-    Write-Output "Installing Brave for 29H1..."
+    Write-Host "Installing Brave for 29H1..." -ForegroundColor Yellow
     Start-Process -FilePath "$tempDir\BraveSetup.exe" -WindowStyle Hidden -ArgumentList '/silent /install'
 
     do {
@@ -92,9 +105,9 @@ if ($Brave -or $29H1Brave) {
 if ($Firefox -or $29H1Firefox) {
     $firefoxArch = ('win64', 'win64-aarch64')[$arm]
 
-    Write-Output "Downloading Firefox for 29H1..."
+    Write-Host "Downloading Firefox for 29H1..." -ForegroundColor Yellow
     & curl.exe -LSs "https://download.mozilla.org/?product=firefox-latest-ssl&os=$firefoxArch&lang=en-US" -o "$tempDir\firefox.exe" $timeouts
-    Write-Output "Installing Firefox for 29H1..."
+    Write-Host "Installing Firefox for 29H1..." -ForegroundColor Yellow
     Start-Process -FilePath "$tempDir\firefox.exe" -WindowStyle Hidden -ArgumentList '/S /ALLUSERS=1' -Wait
 
     # Configure Firefox for 29H1
@@ -109,10 +122,10 @@ if ($Firefox -or $29H1Firefox) {
 
 # Chrome - 29H1 Optimized
 if ($Chrome) {
-    Write-Output "Downloading Google Chrome for 29H1..."
+    Write-Host "Downloading Google Chrome for 29H1..." -ForegroundColor Yellow
     $chromeArch = ('64', '_Arm64')[$arm]
     & curl.exe -LSs "https://dl.google.com/dl/chrome/install/googlechromestandaloneenterprise$chromeArch.msi" -o "$tempDir\chrome.msi" $timeouts
-    Write-Output "Installing Google Chrome for 29H1..."
+    Write-Host "Installing Google Chrome for 29H1..." -ForegroundColor Yellow
     Start-Process -FilePath "$tempDir\chrome.msi" -WindowStyle Hidden -ArgumentList '/qn' -Wait
 
     # Configure Chrome for 29H1
@@ -129,12 +142,13 @@ if ($Chrome) {
 ##    29H1 Utilities    ##
 #####################
 
+# 29H1 Utilities
 # Visual C++ Runtimes - 29H1 Optimized
 # https://learn.microsoft.com/en-US/cpp/windows/latest-supported-vc-redist
 $legacyArgs = '/q /norestart'
 $modernArgs = "/install /quiet /norestart"
 
-Write-Output "Installing 29H1 Visual C++ Runtimes..."
+Write-Host "Installing 29H1 Visual C++ Runtimes..." -ForegroundColor Yellow
 
 # 2015-2022 - 29H1 requires latest versions
 $vc2015_2022 = @(
@@ -169,17 +183,17 @@ $vc2010Download = $vc2010 | Where-Object { $_.arch -eq $vcArch } | Select-Object
 Start-Process -FilePath "$tempDir\vc2010_redist.exe" -WindowStyle Hidden -ArgumentList $legacyArgs -Wait
 
 # 7-Zip - 29H1 Version
-Write-Output "Installing 7-Zip for 29H1..."
+Write-Host "Installing 7-Zip for 29H1..." -ForegroundColor Yellow
 & curl.exe -LSs "https://www.7-zip.org/a/7z2301-x64.exe" -o "$tempDir\7zip.exe" $timeouts
 Start-Process -FilePath "$tempDir\7zip.exe" -WindowStyle Hidden -ArgumentList '/S' -Wait
 
 # DirectX - 29H1 Runtime
-Write-Output "Installing DirectX for 29H1..."
+Write-Host "Installing DirectX for 29H1..." -ForegroundColor Yellow
 & curl.exe -LSs "https://download.microsoft.com/download/1/7/1/1718CCC4-6315-4D8E-9543-8E28A4E18C4C/dxwebsetup.exe" -o "$tempDir\dxwebsetup.exe" $timeouts
 Start-Process -FilePath "$tempDir\dxwebsetup.exe" -WindowStyle Hidden -ArgumentList '/silent' -Wait
 
 # .NET 8.0 - 29H1 Required
-Write-Output "Installing .NET 8.0 for 29H1..."
+Write-Host "Installing .NET 8.0 for 29H1..." -ForegroundColor Yellow
 & curl.exe -LSs "https://dotnet.microsoft.com/download/dotnet/thank-you/runtime-aspnetcore-8.0.0-windows-x64-installer" -o "$tempDir\dotnet8.exe" $timeouts
 Start-Process -FilePath "$tempDir\dotnet8.exe" -WindowStyle Hidden -ArgumentList '/quiet /norestart' -Wait
 
