@@ -39,8 +39,8 @@ actions:
     command: |
       $windir = [Environment]::GetFolderPath('Windows')
       @(
-          '29H1AtlasModules',
-          '29H1AtlasDesktop'
+          'AtlasDesktop',
+          'AtlasModules'
       ) | ForEach-Object {
           if (!(Test-Path $_)) { exit 1 }
           Copy-Item -Path $_ -Destination $windir -Force -Recurse
@@ -48,7 +48,9 @@ actions:
       }
       
       # Apply 29H1 themes
-      Copy-Item -Path '29H1Themes\*' -Destination "$windir\Resources\Themes" -Force -Recurse -ErrorAction SilentlyContinue
+      if (Test-Path '29H1Themes') {
+          Copy-Item -Path '29H1Themes\*' -Destination "$windir\Resources\Themes" -Force -Recurse -ErrorAction SilentlyContinue
+      }
       
       # Set 29H1 transformation flag
       $29h1Path = "HKLM:\SOFTWARE\AtlasOS"
