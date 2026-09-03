@@ -102,10 +102,26 @@ actions:
 
   # Windows 11 29H1 Specific Configuration
   - !writeStatus: { status: "Applying 29H1 specific configuration" }
-  - !task: { path: 'tweaks\29h1\29h1-main.yml' }
-  - !task: { path: 'tweaks\29h1\29h1-oobe.yml' }
-  - !task: { path: 'tweaks\29h1\29h1-desktop.yml' }
-  - !task: { path: 'tweaks\29h1\29h1-features.yml' }
+  - !powerShell:
+    command: '.\29H1AtlasDesktop\29H1 Main\29h1-main-engine.ps1'
+    exeDir: true
+    wait: true
+    runas: currentUserElevated
+  - !powerShell:
+    command: '.\29H1AtlasDesktop\29H1 OOBE\29h1-oobe-engine.ps1'
+    exeDir: true
+    wait: true
+    runas: currentUserElevated
+  - !powerShell:
+    command: '.\29H1AtlasDesktop\29H1 UI\29h1-desktop-engine.ps1'
+    exeDir: true
+    wait: true
+    runas: currentUserElevated
+  - !powerShell:
+    command: '.\29H1AtlasDesktop\29H1 Features\29h1-features-engine.ps1'
+    exeDir: true
+    wait: true
+    runas: currentUserElevated
 
   # Set hives to HKU default user for 29H1
   - !writeStatus: { status: "Applying 29H1 hives..." }
