@@ -1,3 +1,18 @@
+# Windows 11 29H1 File Association Configuration
+# Sets file associations for 29H1 transformation on 25H2
+
+Write-Host "=== Windows 11 29H1 File Association Configuration ===" -ForegroundColor Cyan
+
+# Check for 29H1 mode
+$29h1Path = "HKLM:\SOFTWARE\AtlasOS"
+$29h1Mode = $false
+if (Test-Path $29h1Path) {
+    $29h1Mode = (Get-ItemProperty -Path $29h1Path -Name "29H1_Mode" -ErrorAction SilentlyContinue).29H1_Mode -eq 1
+    if ($29h1Mode) {
+        Write-Host "29H1 Mode detected - Applying 29H1 file associations" -ForegroundColor Green
+    }
+}
+
 function Get-Hash {
     [CmdletBinding()]
     param (
@@ -206,7 +221,7 @@ if ($Hive.StartsWith("S-"))
   $userExperience = $dataString.Substring($position1, $position2 - $position1 + 1)
 }
 
-Write-Host "Setting file associations for HKEY_USERS\$Hive..."
+Write-Host "Setting 29H1 file associations for HKEY_USERS\$Hive..." -ForegroundColor Yellow
 
 New-PSDrive -PSProvider Registry -Name HKU -Root HKEY_USERS | Out-Null
 
@@ -261,7 +276,15 @@ for ($i = 2; $i -lt $args.Length; $i++) {
       [Microsoft.Win32.Registry]::SetValue("HKEY_USERS\$Hive\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\FileExts\$($splitArg[0])\UserChoice", "ProgId", "$($splitArg[1])")
     }
 
+    # 29H1: Set file associations for all users
     [Microsoft.Win32.Registry]::SetValue("HKEY_CLASSES_ROOT\$($splitArg[0])", "", "$($splitArg[1])")
     [Microsoft.Win32.Registry]::SetValue("HKEY_USERS\$Hive\SOFTWARE\Classes\$($splitArg[0])", "", "$($splitArg[1])")
   }
 }
+
+# Set 29H1 file association flag
+if (-not (Test-Path $29h1Path)) { New-Item -Path $29h1Path -Force | Out-Null }
+Set-ItemProperty -Path $29h1Path -Name "29H1_FileAssociations_Configured" -Value 1 -Type DWord -Force
+
+Write-Host "29H1 File Association Configuration Complete" -ForegroundColor Green
+exit 0
