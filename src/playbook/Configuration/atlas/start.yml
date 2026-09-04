@@ -51,7 +51,7 @@ actions:
             [Environment]::SetEnvironmentVariable('PATH', "$($newPath -join $separator)", $machine)
       }
 
-      $modulesPath = "$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules"
+      $modulesPath = "$([Environment]::GetFolderPath('Windows'))\AtlasModules"
       $legacyPath = "$([Environment]::GetFolderPath('Windows'))\AtlasModules"
       
       Add-ToPath "$modulesPath", "$modulesPath\Tools", "$modulesPath\Scripts", "$legacyPath", "$legacyPath\Tools", "$legacyPath\Scripts"

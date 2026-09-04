@@ -29,14 +29,14 @@ actions:
 
   - !writeStatus: {status: 'Configuring 29H1 Location Services'}
   - !cmd:
-    command: '"29H1AtlasDesktop\3. General Configuration\Location\29H1 Disable Location (default).cmd" /silent'
+    command: '"$windir\AtlasDesktop\3. General Configuration\Location\29H1 Disable Location (default).cmd" /silent'
     exeDir: true
     wait: true
     runas: currentUserElevated
 
   - !writeStatus: {status: 'Configuring 29H1 AI Search Indexing'}
   - !cmd:
-    command: '"29H1AtlasDesktop\3. General Configuration\Search Indexing\29H1 AI Search Indexing (default).cmd" /silent'
+    command: '"$windir\AtlasDesktop\3. General Configuration\Search Indexing\29H1 AI Search Indexing (default).cmd" /silent'
     exeDir: true
     wait: true
     runas: currentUserElevated

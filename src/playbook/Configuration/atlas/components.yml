@@ -50,7 +50,7 @@ actions:
     iso: only
   - !powerShell:
     command: >-
-      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      & """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Scripts\packageInstall.ps1"""
       -InstallPackages @('*Z-Atlas-29H1-AI-Package*',
         '*Z-Atlas-29H1-Copilot-Package*',
         '*Z-Atlas-29H1-Network-Package*'
@@ -64,7 +64,7 @@ actions:
   - !writeStatus: {status: 'Installing 29H1 Gaming Components'}
   - !powerShell:
     command: >-
-      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      & """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Scripts\packageInstall.ps1"""
       -InstallPackages @('*Z-Atlas-29H1-Gaming-Package*',
         '*Z-Atlas-29H1-DirectStorage-Package*',
         '*Z-Atlas-29H1-AutoHDR-Package*'
@@ -78,7 +78,7 @@ actions:
   - !writeStatus: {status: 'Configuring 29H1 Security Components'}
   - !powerShell:
     command: >-
-      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      & """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Scripts\packageInstall.ps1"""
       -InstallPackages @('*Z-Atlas-29H1-Security-Package*',
         '*Z-Atlas-29H1-VBS-Package*',
         '*Z-Atlas-29H1-TPM-Package*'
@@ -92,7 +92,7 @@ actions:
   - !writeStatus: {status: 'Configuring 29H1 Performance Components'}
   - !powerShell:
     command: >-
-      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      & """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Scripts\packageInstall.ps1"""
       -InstallPackages @('*Z-Atlas-29H1-Performance-Package*',
         '*Z-Atlas-29H1-Power-Package*'
       )
@@ -111,7 +111,7 @@ actions:
     iso: only
   - !powerShell:
     command: >-
-      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      & """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Scripts\packageInstall.ps1"""
       -InstallPackages @('*Z-Atlas-29H1-Defender-Package*')
       -NoInteraction
     option: '29h1-defender-enable'
@@ -119,7 +119,7 @@ actions:
     exeDir: true
   - !powerShell:
     command: >-
-      & """$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\Scripts\packageInstall.ps1"""
+      & """$([Environment]::GetFolderPath('Windows'))\AtlasModules\Scripts\packageInstall.ps1"""
       -UninstallPackages @('*Z-Atlas-29H1-Defender-Package*')
       -NoInteraction
     option: '29h1-defender-disable'

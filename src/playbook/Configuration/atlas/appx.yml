@@ -20,7 +20,7 @@ actions:
   - !powerShell:
     command: |
       (Get-AppxPackage).PackageFamilyName |
-        Out-File "$([Environment]::GetFolderPath('Windows'))\29H1AtlasModules\AtlasPackagesOld.txt"
+        Out-File "$([Environment]::GetFolderPath('Windows'))\AtlasModules\AtlasPackagesOld.txt"
     runas: currentUserElevated
     wait: true
 
