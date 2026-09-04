@@ -1,0 +1,445 @@
+# Windows 12 Sounds Configuration
+# Complete sound scheme for Windows 12 transformation
+# Based on the Windows 12 concept from https://windows-12-web.vercel.app/
+
+---
+# Windows 12 Sounds Main Configuration
+windows12_sounds:
+  enabled: true
+  description: "Complete Windows 12 sound scheme"
+  
+  # Sound Components
+  components:
+    system_sounds: true
+    notification_sounds: true
+    application_sounds: true
+    custom_sounds: true
+    sound_cache: true
+  
+  # Sound Settings
+  settings:
+    apply_all: true
+    restart_explorer: false
+    create_backup: true
+    volume_level: 100
+    
+  # Version Information
+  version:
+    name: "Windows 12 Sounds"
+    build: "12.0.50023"
+    target: "25H2"
+    concept_by: "immobilesmile70 | he/him"
+    concept_url: "https://windows-12-web.vercel.app/"
+
+---
+# Windows 12 Sound Scheme Configuration
+windows12_sound_scheme:
+  # Sound Scheme Registry
+  sound_scheme_registry:
+    path: "HKCU:/AppEvents/Schemes/Windows12"
+    
+    settings:
+      DisplayName: "Windows 12"
+      Description: "Windows 12 Concept Sound Scheme by immobilesmile70"
+      Author: "Macrohard Corporation"
+      Version: "12.0"
+      
+  # Sound Scheme Files
+  sound_scheme_files:
+    # System Sounds
+    SystemExclamation: "%windir%/Media/Windows12/Sounds/SystemExclamation.wav"
+    SystemHand: "%windir%/Media/Windows12/Sounds/SystemHand.wav"
+    SystemQuestion: "%windir%/Media/Windows12/Sounds/SystemQuestion.wav"
+    SystemAsterisk: "%windir%/Media/Windows12/Sounds/SystemAsterisk.wav"
+    SystemDefault: "%windir%/Media/Windows12/Sounds/SystemDefault.wav"
+    
+    # Notification Sounds
+    Notification.Default: "%windir%/Media/Windows12/Sounds/Notification.wav"
+    Notification.IM: "%windir%/Media/Windows12/Sounds/Notification.wav"
+    Notification.Mail: "%windir%/Media/Windows12/Sounds/MailNotification.wav"
+    Notification.Reminder: "%windir%/Media/Windows12/Sounds/Reminder.wav"
+    Notification.Proximity: "%windir%/Media/Windows12/Sounds/Proximity.wav"
+    Notification.SMS: "%windir%/Media/Windows12/Sounds/SMS.wav"
+    
+    # Application Sounds
+    AppGPFault: "%windir%/Media/Windows12/Sounds/AppError.wav"
+    BatteryCritical: "%windir%/Media/Windows12/Sounds/BatteryCritical.wav"
+    BatteryLow: "%windir%/Media/Windows12/Sounds/BatteryLow.wav"
+    CameraShutter: "%windir%/Media/Windows12/Sounds/CameraShutter.wav"
+    DeviceConnect: "%windir%/Media/Windows12/Sounds/DeviceConnect.wav"
+    DeviceDisconnect: "%windir%/Media/Windows12/Sounds/DeviceDisconnect.wav"
+    DeviceFailedConnect: "%windir%/Media/Windows12/Sounds/DeviceFailedConnect.wav"
+    Lock: "%windir%/Media/Windows12/Sounds/Lock.wav"
+    Logoff: "%windir%/Media/Windows12/Sounds/Logoff.wav"
+    Logon: "%windir%/Media/Windows12/Sounds/Logon.wav"
+    PowerSleep: "%windir%/Media/Windows12/Sounds/Sleep.wav"
+    PowerWake: "%windir%/Media/Windows12/Sounds/Wake.wav"
+    RecycleBin: "%windir%/Media/Windows12/Sounds/Recycle.wav"
+    Shutdown: "%windir%/Media/Windows12/Sounds/Shutdown.wav"
+    Startup: "%windir%/Media/Windows12/Sounds/Startup.wav"
+    Unlock: "%windir%/Media/Windows12/Sounds/Unlock.wav"
+    UserAccountControl: "%windir%/Media/Windows12/Sounds/UAC.wav"
+    WindowsFeedDiscovered: "%windir%/Media/Windows12/Sounds/FeedDiscovered.wav"
+    WindowsUAC: "%windir%/Media/Windows12/Sounds/UAC.wav"
+    
+    # Custom Windows 12 Sounds
+    Windows12_Alert: "%windir%/Media/Windows12/Sounds/Alert.wav"
+    Windows12_Confirm: "%windir%/Media/Windows12/Sounds/Confirm.wav"
+    Windows12_Error: "%windir%/Media/Windows12/Sounds/Error.wav"
+    Windows12_Info: "%windir%/Media/Windows12/Sounds/Info.wav"
+    Windows12_Success: "%windir%/Media/Windows12/Sounds/Success.wav"
+    Windows12_Warning: "%windir%/Media/Windows12/Sounds/Warning.wav"
+
+---
+# Windows 12 Sound Files Configuration
+windows12_sound_files:
+  # Sound File Paths
+  sound_paths:
+    source_directory: "%src%/playbook/Sounds/Windows12"
+    destination_directory: "%windir%/Media/Windows12/Sounds"
+    
+  # Sound File List
+  sound_file_list:
+    # System Sounds
+    - name: "SystemExclamation"
+      source: "SystemExclamation.wav"
+      destination: "%windir%/Media/Windows12/Sounds/SystemExclamation.wav"
+      
+    - name: "SystemHand"
+      source: "SystemHand.wav"
+      destination: "%windir%/Media/Windows12/Sounds/SystemHand.wav"
+      
+    - name: "SystemQuestion"
+      source: "SystemQuestion.wav"
+      destination: "%windir%/Media/Windows12/Sounds/SystemQuestion.wav"
+      
+    - name: "SystemAsterisk"
+      source: "SystemAsterisk.wav"
+      destination: "%windir%/Media/Windows12/Sounds/SystemAsterisk.wav"
+      
+    - name: "SystemDefault"
+      source: "SystemDefault.wav"
+      destination: "%windir%/Media/Windows12/Sounds/SystemDefault.wav"
+      
+    # Notification Sounds
+    - name: "Notification"
+      source: "Notification.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Notification.wav"
+      
+    - name: "MailNotification"
+      source: "MailNotification.wav"
+      destination: "%windir%/Media/Windows12/Sounds/MailNotification.wav"
+      
+    - name: "Reminder"
+      source: "Reminder.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Reminder.wav"
+      
+    - name: "Proximity"
+      source: "Proximity.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Proximity.wav"
+      
+    - name: "SMS"
+      source: "SMS.wav"
+      destination: "%windir%/Media/Windows12/Sounds/SMS.wav"
+      
+    # Application Sounds
+    - name: "AppError"
+      source: "AppError.wav"
+      destination: "%windir%/Media/Windows12/Sounds/AppError.wav"
+      
+    - name: "BatteryCritical"
+      source: "BatteryCritical.wav"
+      destination: "%windir%/Media/Windows12/Sounds/BatteryCritical.wav"
+      
+    - name: "BatteryLow"
+      source: "BatteryLow.wav"
+      destination: "%windir%/Media/Windows12/Sounds/BatteryLow.wav"
+      
+    - name: "CameraShutter"
+      source: "CameraShutter.wav"
+      destination: "%windir%/Media/Windows12/Sounds/CameraShutter.wav"
+      
+    - name: "DeviceConnect"
+      source: "DeviceConnect.wav"
+      destination: "%windir%/Media/Windows12/Sounds/DeviceConnect.wav"
+      
+    - name: "DeviceDisconnect"
+      source: "DeviceDisconnect.wav"
+      destination: "%windir%/Media/Windows12/Sounds/DeviceDisconnect.wav"
+      
+    - name: "DeviceFailedConnect"
+      source: "DeviceFailedConnect.wav"
+      destination: "%windir%/Media/Windows12/Sounds/DeviceFailedConnect.wav"
+      
+    # System State Sounds
+    - name: "Lock"
+      source: "Lock.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Lock.wav"
+      
+    - name: "Logoff"
+      source: "Logoff.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Logoff.wav"
+      
+    - name: "Logon"
+      source: "Logon.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Logon.wav"
+      
+    - name: "Sleep"
+      source: "Sleep.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Sleep.wav"
+      
+    - name: "Wake"
+      source: "Wake.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Wake.wav"
+      
+    - name: "Recycle"
+      source: "Recycle.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Recycle.wav"
+      
+    - name: "Shutdown"
+      source: "Shutdown.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Shutdown.wav"
+      
+    - name: "Startup"
+      source: "Startup.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Startup.wav"
+      
+    - name: "Unlock"
+      source: "Unlock.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Unlock.wav"
+      
+    - name: "UAC"
+      source: "UAC.wav"
+      destination: "%windir%/Media/Windows12/Sounds/UAC.wav"
+      
+    # Custom Windows 12 Sounds
+    - name: "Alert"
+      source: "Alert.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Alert.wav"
+      
+    - name: "Confirm"
+      source: "Confirm.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Confirm.wav"
+      
+    - name: "Error"
+      source: "Error.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Error.wav"
+      
+    - name: "Info"
+      source: "Info.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Info.wav"
+      
+    - name: "Success"
+      source: "Success.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Success.wav"
+      
+    - name: "Warning"
+      source: "Warning.wav"
+      destination: "%windir%/Media/Windows12/Sounds/Warning.wav"
+
+---
+# Windows 12 Sound Volume Configuration
+windows12_sound_volume:
+  # Volume Settings
+  volume_settings:
+    master: 100
+    system: 100
+    notifications: 80
+    applications: 90
+    
+  # Volume Registry
+  volume_registry:
+    path: "HKCU:/Software/Microsoft/Multimedia/Audio"
+    
+    settings:
+      UserPreferencesMask: 0x10000000
+      UserPreferences: 0x10000000
+      
+  # Individual Volume Levels
+  individual_volumes:
+    SystemExclamation: 100
+    SystemHand: 100
+    SystemQuestion: 100
+    SystemAsterisk: 100
+    SystemDefault: 100
+    Notification: 80
+    Logon: 100
+    Logoff: 100
+    Startup: 100
+    Shutdown: 100
+    
+  # Volume Mixer Settings
+  volume_mixer:
+    path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Audio/Volume"
+    
+    settings:
+      MasterVolume: 100
+      SystemVolume: 100
+      NotificationVolume: 80
+
+---
+# Windows 12 Sound Format Configuration
+windows12_sound_format:
+  # Sound Format Settings
+  sound_format:
+    sample_rate: 44100
+    bits_per_sample: 16
+    channels: 2
+    format: "WAV"
+    compression: "PCM"
+    
+  # Sound Quality Settings
+  sound_quality:
+    high_quality: true
+    surround_sound: false
+    spatial_audio: true
+    dolby_atmos: false
+    
+  # Sound Effects
+  sound_effects:
+    reverb: false
+    chorus: false
+    echo: false
+    equalizer: true
+
+---
+# Windows 12 Custom Sounds Configuration
+windows12_custom_sounds:
+  # Custom Sound Events
+  custom_sound_events:
+    # Windows 12 Specific Events
+    Windows12_Startup:
+      path: "%windir%/Media/Windows12/Sounds/Startup.wav"
+      description: "Windows 12 Startup Sound"
+      enabled: true
+      
+    Windows12_Shutdown:
+      path: "%windir%/Media/Windows12/Sounds/Shutdown.wav"
+      description: "Windows 12 Shutdown Sound"
+      enabled: true
+      
+    Windows12_Logon:
+      path: "%windir%/Media/Windows12/Sounds/Logon.wav"
+      description: "Windows 12 Logon Sound"
+      enabled: true
+      
+    Windows12_Logoff:
+      path: "%windir%/Media/Windows12/Sounds/Logoff.wav"
+      description: "Windows 12 Logoff Sound"
+      enabled: true
+      
+    Windows12_Alert:
+      path: "%windir%/Media/Windows12/Sounds/Alert.wav"
+      description: "Windows 12 Alert Sound"
+      enabled: true
+      
+    Windows12_Confirm:
+      path: "%windir%/Media/Windows12/Sounds/Confirm.wav"
+      description: "Windows 12 Confirmation Sound"
+      enabled: true
+      
+    Windows12_Error:
+      path: "%windir%/Media/Windows12/Sounds/Error.wav"
+      description: "Windows 12 Error Sound"
+      enabled: true
+      
+    Windows12_Success:
+      path: "%windir%/Media/Windows12/Sounds/Success.wav"
+      description: "Windows 12 Success Sound"
+      enabled: true
+      
+    Windows12_Warning:
+      path: "%windir%/Media/Windows12/Sounds/Warning.wav"
+      description: "Windows 12 Warning Sound"
+      enabled: true
+
+---
+# Windows 12 Sound Application Configuration
+windows12_sound_application:
+  # Sound Application Settings
+  application_settings:
+    apply_to_all_users: true
+    apply_to_new_users: true
+    restart_explorer: false
+    create_backup: true
+    
+  # Sound Application Order
+  application_order:
+    - sound_scheme
+    - sound_files
+    - sound_volume
+    - sound_format
+    - custom_sounds
+    
+  # Sound Application Scripts
+  application_scripts:
+    main: "%src%/playbook/Executables/Windows12/Features/windows12-sound-engine.ps1"
+    scheme: "%src%/playbook/Executables/Windows12/Features/windows12-sound-scheme.ps1"
+    files: "%src%/playbook/Executables/Windows12/Features/windows12-sound-files.ps1"
+    volume: "%src%/playbook/Executables/Windows12/Features/windows12-sound-volume.ps1"
+    custom: "%src%/playbook/Executables/Windows12/Features/windows12-sound-custom.ps1"
+
+---
+# Windows 12 Sound Registry Configuration
+windows12_sound_registry:
+  # Sound Registry Settings
+  sound_registry:
+    path: "HKCU:/AppEvents/EventLabels"
+    
+    # Windows 12 Custom Event Labels
+    event_labels:
+      Windows12_Startup: "Windows 12 Startup"
+      Windows12_Shutdown: "Windows 12 Shutdown"
+      Windows12_Logon: "Windows 12 Logon"
+      Windows12_Logoff: "Windows 12 Logoff"
+      Windows12_Alert: "Windows 12 Alert"
+      Windows12_Confirm: "Windows 12 Confirm"
+      Windows12_Error: "Windows 12 Error"
+      Windows12_Success: "Windows 12 Success"
+      Windows12_Warning: "Windows 12 Warning"
+  
+  # Sound Registry for All Users
+  sound_registry_all_users:
+    path: "HKU:/AME_UserHive_Default/AppEvents/Schemes"
+    
+    settings:
+      Default: "Windows12"
+      Current: "Windows12"
+
+---
+# Windows 12 Sound Creation Configuration
+windows12_sound_creation:
+  # Sound Creation Settings
+  sound_creation:
+    create_custom_sounds: true
+    sound_designer: "immobilesmile70"
+    sound_version: "12.0"
+    
+  # Sound Creation Tools
+  sound_creation_tools:
+    - name: "Audacity"
+      path: "C:/Program Files/Audacity/audacity.exe"
+      description: "Audio editing software"
+      
+    - name: "Adobe Audition"
+      path: "C:/Program Files/Adobe/Adobe Audition 2024/Adobe Audition 2024.exe"
+      description: "Professional audio editing"
+      
+    - name: "FL Studio"
+      path: "C:/Program Files/Image-Line/FL Studio 21/FL64.exe"
+      description: "Music production software"
+      
+  # Sound Creation Notes
+  sound_creation_notes: |
+    Windows 12 sounds should be created with the following characteristics:
+    - Modern, clean, and professional sound design
+    - Consistent with Windows 12 visual style
+    - Use of electronic and digital sound elements
+    - Subtle but noticeable audio feedback
+    - Optimized for system notifications and events
+    - Should work well with Windows 12 dark theme
+    - Consider using blue accent colors (#0078D4) for sound wave visualization
+    - All sounds should be in WAV format, 44.1kHz, 16-bit, stereo
+    - Keep file sizes reasonable for system performance
+    - Test sounds at different volume levels
+    - Ensure sounds are accessible and clear

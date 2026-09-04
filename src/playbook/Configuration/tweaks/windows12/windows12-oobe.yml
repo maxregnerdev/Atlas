@@ -1,0 +1,286 @@
+# Windows 12 OOBE Configuration
+# Out-of-Box Experience transformation based on Windows 12 concept
+# https://windows-12-web.vercel.app/
+
+---
+# Windows 12 OOBE Main Configuration
+windows12_oobe:
+  enabled: true
+  description: "Complete Windows 12 Out-of-Box Experience transformation"
+  
+  # OOBE Components
+  components:
+    registry: true
+    branding: true
+    features: true
+    bypass: true
+    privacy: true
+    
+  # OOBE Settings
+  settings:
+    skip_all: true
+    custom_branding: true
+    bypass_requirements: true
+    dark_mode: true
+    windows12_style: true
+    
+  # Version Information
+  version:
+    name: "Windows 12 OOBE"
+    build: "12.0.50023"
+    target: "25H2"
+    concept_by: "immobilesmile70 | he/him"
+    concept_url: "https://windows-12-web.vercel.app/"
+
+---
+# Windows 12 OOBE Registry Configuration
+windows12_oobe_registry:
+  # Base OOBE Path
+  base_path: "HKLM:/SOFTWARE/Microsoft/Windows/CurrentVersion/OOBE"
+  
+  # OOBE Skip Settings - Skip everything for clean Windows 12 experience
+  skip_settings:
+    SkipProductKey: 1
+    SkipEULA: 1
+    SkipNetwork: 1
+    SkipMachineOOBE: 1
+    SkipUserOOBE: 1
+    SkipWelcome: 1
+    SkipCortanaOptIn: 1
+    SkipOneDrive: 1
+    SkipPrivacy: 1
+    SkipRegion: 1
+    SkipKeyboard: 1
+    SkipTimeZone: 1
+    SkipExpressSettings: 1
+    SkipProvisioning: 1
+    
+  # OOBE Theme Settings - Windows 12 Dark Theme
+  theme_settings:
+    BackgroundColor: "#000000"
+    TextColor: "#FFFFFF"
+    AccentColor: "#0078D4"
+    UseDarkMode: 1
+    DisableAnimations: 1
+    EnableTransparency: 1
+    
+  # OOBE Windows 12 Specific Settings
+  windows12_settings:
+    OOBEStyle: "Windows12"
+    OOBEVersion: "12.0.50023"
+    Manufacturer: "Macrohard Corporation"
+    ProductName: "Windows 12"
+    
+  # OOBE Version Flags
+  version_flags:
+    Windows12_Enabled: 1
+    Windows12_Version: "12.0.50023"
+    Windows12_OOBEVersion: "12.0"
+    Concept_By: "immobilesmile70"
+    Concept_URL: "https://windows-12-web.vercel.app/"
+
+---
+# Windows 12 OOBE Bypass Configuration
+windows12_oobe_bypass:
+  # LabConfig Bypass (for installation requirements)
+  labconfig:
+    enabled: true
+    path: "HKLM:/SYSTEM/Setup/LabConfig"
+    
+    bypass_flags:
+      BypassTPMCheck: 1
+      BypassSecureBootCheck: 1
+      BypassRAMCheck: 1
+      BypassStorageCheck: 1
+      BypassCPUCheck: 1
+      BypassDiskSpaceCheck: 1
+      BypassNetwork: 1
+      BypassBitLockerCheck: 1
+    
+  # Setup Bypass
+  setup:
+    enabled: true
+    path: "HKLM:/SYSTEM/Setup"
+    
+    bypass_flags:
+      OOBEInProgress: 0
+      SetupInProgress: 0
+      SetupType: 0
+      CmdLine: ""
+      SetupPhase: 0
+      SetupFlags: 0
+
+---
+# Windows 12 OOBE Privacy Configuration
+windows12_oobe_privacy:
+  # Data Collection Settings - Maximum privacy for Windows 12
+  data_collection:
+    path: "HKLM:/SOFTWARE/Microsoft/Windows/CurrentVersion/Policies/DataCollection"
+    
+    settings:
+      AllowTelemetry: 0
+      DisableEnterpriseAuthProxy: 1
+      MaxTelemetryAllowed: 0
+      DisableTelemetryOptInChangeNotification: 1
+      
+  # Diagnostic Tracking
+  diagnostic_tracking:
+    path: "HKLM:/SOFTWARE/Microsoft/Windows/CurrentVersion/Diagnostics/DiagTrack"
+    
+    settings:
+      ShowedToastAtLevel: 4
+      DiagTrackServiceEnabled: 0
+      
+  # Location Services
+  location:
+    path: "HKLM:/SOFTWARE/Microsoft/Windows/CurrentVersion/Capabilities/Location"
+    
+    settings:
+      LocationEnabled: 0
+    
+  # Privacy Settings
+  privacy:
+    path: "HKLM:/SOFTWARE/Microsoft/Windows/CurrentVersion/Privacy"
+    
+    settings:
+      TailoredExperiencesWithDiagnosticData: 0
+      TailoredExperiencesWithDiagnosticDataEnabled: 0
+      PublishUserActivities: 0
+      ActivityHistoryEnabled: 0
+      EnableActivityFeed: 0
+      AllowInputPersonalization: 0
+      AllowClipboardHistory: 0
+      AllowCloudClipboard: 0
+
+---
+# Windows 12 OOBE Branding Configuration
+windows12_oobe_branding:
+  # Branding Registry
+  registry:
+    path: "HKLM:/SOFTWARE/Microsoft/Windows/CurrentVersion/OEMInformation"
+    
+    branding_info:
+      Logo: "C:/Windows/System32/Windows12/OOBE/Branding/logo.png"
+      Manufacturer: "Macrohard Corporation"
+      Model: "Windows 12"
+      SupportHours: "24/7"
+      SupportPhone: "+1 (800) MACROHARD"
+      SupportURL: "https://www.macrohard.com/windows/12"
+      OEMLogo: "C:/Windows/System32/Windows12/OOBE/Branding/logo.png"
+    
+  # OOBE Branding Paths
+  paths:
+    BrandingPath: "C:/Windows/System32/Windows12/OOBE/Branding"
+    LogoPath: "C:/Windows/System32/Windows12/OOBE/Branding/logo.png"
+    BackgroundPath: "C:/Windows/System32/Windows12/OOBE/Branding/background.jpg"
+    WallpaperPath: "C:/Windows/System32/Windows12/OOBE/Branding/wallpaper.jpg"
+    ThemeColor: "#0078D4"
+    AccentColor: "#0078D4"
+    TextColor: "#FFFFFF"
+    
+  # Windows 12 Specific Branding
+  windows12_branding:
+    ProductName: "Macrohard Windows 12"
+    VersionString: "Version 12.0.50023"
+    Copyright: "(c) Macrohard Corporation. Some rights reserved."
+    BuildString: "12.0.50023.1000"
+    
+  # OOBE Text Customization
+  oobe_text:
+    WelcomeTitle: "Welcome to Windows 12"
+    WelcomeSubtitle: "The future of computing"
+    SetupCompleteTitle: "Windows 12 is ready"
+    SetupCompleteSubtitle: "Enjoy your new experience"
+
+---
+# Windows 12 OOBE Visual Style
+windows12_oobe_visual:
+  # OOBE Window Style
+  window_style:
+    BorderColor: "#0078D4"
+    BorderWidth: 2
+    RoundedCorners: 12
+    ShadowEffect: 1
+    Transparency: 1
+    
+  # OOBE Button Style
+  button_style:
+    PrimaryColor: "#0078D4"
+    PrimaryHover: "#47A3FF"
+    PrimaryPressed: "#005A9E"
+    SecondaryColor: "#333333"
+    SecondaryHover: "#444444"
+    SecondaryPressed: "#222222"
+    TextColor: "#FFFFFF"
+    BorderRadius: 8
+    
+  # OOBE Input Style
+  input_style:
+    BackgroundColor: "#1C1C1C"
+    BorderColor: "#444444"
+    FocusBorderColor: "#0078D4"
+    TextColor: "#FFFFFF"
+    PlaceholderColor: "#888888"
+    BorderRadius: 6
+    
+  # OOBE Animation Settings
+  animations:
+    EnableEntranceAnimations: 1
+    EnableExitAnimations: 1
+    AnimationDuration: 300
+    AnimationEasing: "EaseInOut"
+
+---
+# Windows 12 OOBE Custom Pages
+windows12_oobe_custom_pages:
+  # Custom OOBE Pages Configuration
+  custom_pages:
+    - name: "Windows12Welcome"
+      title: "Welcome to Windows 12"
+      subtitle: "Macrohard Windows [Version 12.0.50023]"
+      description: "Experience the next generation of Windows"
+      image: "C:/Windows/System32/Windows12/OOBE/Branding/windows12-logo.png"
+      
+    - name: "Windows12Features"
+      title: "Windows 12 Features"
+      features:
+        - "Next-generation user interface"
+        - "Enhanced performance and security"
+        - "Modern design language"
+        - "Improved productivity tools"
+        - "Seamless cloud integration"
+      
+    - name: "Windows12SetupComplete"
+      title: "Setup Complete"
+      message: "Windows 12 has been successfully installed"
+      restart_required: false
+      
+  # OOBE Page Order
+  page_order:
+    - "Windows12Welcome"
+    - "Windows12Features"
+    - "Windows12SetupComplete"
+
+---
+# Windows 12 OOBE System Configuration
+windows12_oobe_system:
+  # System Settings for OOBE
+  system_settings:
+    path: "HKLM:/SYSTEM/CurrentControlSet/Control/OOBE"
+    
+    settings:
+      SkipWelcome: 1
+      SkipEULA: 1
+      SkipProductKey: 1
+      SkipNetwork: 1
+      SkipMachineOOBE: 1
+      SkipUserOOBE: 1
+      
+  # OOBE Completion Settings
+  completion:
+    path: "HKLM:/SYSTEM/Setup/OOBE"
+    
+    settings:
+      Complete: 1
+      SkipWelcome: 1
+      SkipEULA: 1

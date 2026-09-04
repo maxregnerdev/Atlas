@@ -1,0 +1,175 @@
+# Windows 12 Complete Transformation Playbook
+# Master configuration for transforming Windows 11 25H2 to Windows 12 UI
+# Based on the Windows 12 concept from https://windows-12-web.vercel.app/
+
+---
+# Windows 12 Main Configuration
+windows12_main:
+  # Transformation Settings
+  enabled: true
+  description: "Complete Windows 12 UI transformation for Windows 11 25H2"
+  
+  # Component System
+  components:
+    oobe: true
+    desktop: true
+    features: true
+    icons: true
+    sounds: true
+    themes: true
+    menus: true
+    styles: true
+  
+  # Execution Settings
+  execution:
+    run_as_admin: true
+    restart_explorer: true
+    create_markers: true
+    silent_mode: false
+    force_reapply: false
+    skip_backup: false
+  
+  # Version Information
+  version:
+    name: "Windows 12"
+    build: "12.0.50023"
+    codename: "Macrohard Windows 12"
+    target_build: "26200"  # 25H2
+    transformation_date: "{{date}}"
+    concept_source: "https://windows-12-web.vercel.app/"
+  
+  # Branding
+  branding:
+    manufacturer: "Macrohard Corporation"
+    product_name: "Windows 12"
+    version_string: "Version 12.0.50023"
+    copyright: "(c) Macrohard Corporation. Some rights reserved."
+  
+  # File Paths
+  paths:
+    system32: "%windir%/System32"
+    resources: "%windir%/Resources"
+    themes: "%windir%/Resources/Themes"
+    icons: "%windir%/Resources/Icons/Windows12"
+    images: "%windir%/Resources/Images/Windows12"
+    sounds: "%windir%/Media/Windows12"
+    layouts: "%windir%/Resources/Layouts/Windows12"
+  
+  # Script Paths
+  scripts:
+    main_engine: "%src%/playbook/Executables/Windows12/Main/windows12-main-engine.ps1"
+    oobe_engine: "%src%/playbook/Executables/Windows12/OOBE/windows12-oobe-engine.ps1"
+    desktop_engine: "%src%/playbook/Executables/Windows12/UI/windows12-desktop-engine.ps1"
+    features_engine: "%src%/playbook/Executables/Windows12/Features/windows12-features-engine.ps1"
+    theme_engine: "%src%/playbook/Executables/Windows12/UI/windows12-theme-engine.ps1"
+    icon_engine: "%src%/playbook/Executables/Windows12/UI/windows12-icon-engine.ps1"
+    sound_engine: "%src%/playbook/Executables/Windows12/Features/windows12-sound-engine.ps1"
+  
+  # Completion Markers
+  markers:
+    complete: "%system32%/windows12-complete-transformation.flag"
+    oobe_complete: "%system32%/windows12-oobe-complete.flag"
+    desktop_complete: "%system32%/windows12-desktop-complete.flag"
+    features_complete: "%system32%/windows12-features-complete.flag"
+    themes_complete: "%system32%/windows12-themes-complete.flag"
+    icons_complete: "%system32%/windows12-icons-complete.flag"
+    sounds_complete: "%system32%/windows12-sounds-complete.flag"
+  
+  # Registry Flags
+  registry:
+    version_path: "HKLM:/SOFTWARE/Microsoft/Windows NT/CurrentVersion"
+    transformed_flag: "Windows12_Transformed"
+    version_flag: "Windows12_Version"
+    date_flag: "Windows12_TransformationDate"
+    concept_flag: "Windows12_Concept_By_immobilesmile70"
+
+---
+# Windows 12 Component Order
+windows12_order:
+  - name: "Windows 12 Main Engine"
+    script: "%src%/playbook/Executables/Windows12/Main/windows12-main-engine.ps1"
+    priority: 1
+    dependencies: []
+    
+  - name: "Windows 12 OOBE System"
+    script: "%src%/playbook/Executables/Windows12/OOBE/windows12-oobe-engine.ps1"
+    priority: 10
+    dependencies: ["Windows 12 Main Engine"]
+    
+  - name: "Windows 12 Desktop Engine"
+    script: "%src%/playbook/Executables/Windows12/UI/windows12-desktop-engine.ps1"
+    priority: 20
+    dependencies: ["Windows 12 OOBE System"]
+    
+  - name: "Windows 12 Theme Engine"
+    script: "%src%/playbook/Executables/Windows12/UI/windows12-theme-engine.ps1"
+    priority: 21
+    dependencies: ["Windows 12 Desktop Engine"]
+    
+  - name: "Windows 12 Icon Engine"
+    script: "%src%/playbook/Executables/Windows12/UI/windows12-icon-engine.ps1"
+    priority: 22
+    dependencies: ["Windows 12 Theme Engine"]
+    
+  - name: "Windows 12 Features Engine"
+    script: "%src%/playbook/Executables/Windows12/Features/windows12-features-engine.ps1"
+    priority: 30
+    dependencies: ["Windows 12 Desktop Engine"]
+    
+  - name: "Windows 12 Sound Engine"
+    script: "%src%/playbook/Executables/Windows12/Features/windows12-sound-engine.ps1"
+    priority: 31
+    dependencies: ["Windows 12 Features Engine"]
+
+---
+# Windows 12 Color Palette (Based on concept screenshots)
+windows12_colors:
+  primary:
+    accent: "#0078D4"
+    accent_light: "#47A3FF"
+    accent_dark: "#005A9E"
+    
+  system:
+    background: "#000000"
+    surface: "#1C1C1C"
+    surface_light: "#2B2B2B"
+    
+  text:
+    primary: "#FFFFFF"
+    secondary: "#B0B0B0"
+    disabled: "#606060"
+    
+  status:
+    success: "#00FF00"
+    warning: "#FFA500"
+    error: "#FF0000"
+    info: "#00FFFF"
+  
+  explorer:
+    navigation_pane: "#000000"
+    navigation_text: "#FFFFFF"
+    navigation_hover: "#0078D4"
+    navigation_selected: "#0078D4"
+    
+  taskbar:
+    background: "#000000"
+    text: "#FFFFFF"
+    hover: "#0078D4"
+    active: "#47A3FF"
+
+---
+# Windows 12 Execution Parameters
+windows12_parameters:
+  main_engine:
+    ApplyAll: true
+    ApplyOOBE: true
+    ApplyDesktop: true
+    ApplyFeatures: true
+    ApplyThemes: true
+    ApplyIcons: true
+    ApplySounds: true
+    
+  cleanup:
+    RemoveOldFiles: true
+    CreateBackup: true
+    RestartRequired: true

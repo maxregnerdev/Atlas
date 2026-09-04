@@ -1,0 +1,724 @@
+# Windows 12 Context Menus Configuration
+# Complete context menu transformation based on Windows 12 concept
+# https://windows-12-web.vercel.app/
+
+---
+# Windows 12 Context Menus Main Configuration
+windows12_menus:
+  enabled: true
+  description: "Complete Windows 12 context menu transformation"
+  
+  # Menu Components
+  components:
+    desktop_menu: true
+    file_menu: true
+    folder_menu: true
+    drive_menu: true
+    special_menu: true
+    new_menu: true
+    send_to_menu: true
+    custom_items: true
+    styling: true
+  
+  # Menu Settings
+  settings:
+    apply_all: true
+    restart_explorer: true
+    create_backup: true
+    enable_custom_items: true
+    
+  # Version Information
+  version:
+    name: "Windows 12 Context Menus"
+    build: "12.0.50023"
+    target: "25H2"
+    concept_by: "immobilesmile70 | he/him"
+    concept_url: "https://windows-12-web.vercel.app/"
+
+---
+# Windows 12 Desktop Context Menu Configuration
+windows12_desktop_menu:
+  # Desktop Menu Registry Path
+  desktop_menu_path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced"
+  
+  # Desktop Menu Settings
+  desktop_menu_settings:
+    ContextMenuHandlers: ""
+    ExtendedContextMenuHandlers: ""
+    StartMenuAdminTools: 1
+    StartMenuFavorites: 1
+    
+  # Desktop Menu Items
+  desktop_menu_items:
+    - name: "View"
+      type: "submenu"
+      items:
+        - name: "Large icons"
+          command: "LargeIcons"
+          icon: "imageres.dll,-102"
+          
+        - name: "Medium icons"
+          command: "MediumIcons"
+          icon: "imageres.dll,-102"
+          
+        - name: "Small icons"
+          command: "SmallIcons"
+          icon: "imageres.dll,-102"
+          
+        - name: "-"
+          type: "separator"
+          
+        - name: "Show desktop icons"
+          command: "ToggleDesktopIcons"
+          icon: "imageres.dll,-102"
+          
+        - name: "Auto arrange icons"
+          command: "AutoArrange"
+          icon: "imageres.dll,-102"
+          
+        - name: "Align icons to grid"
+          command: "AlignToGrid"
+          icon: "imageres.dll,-102"
+          
+    - name: "Sort by"
+      type: "submenu"
+      items:
+        - name: "Name"
+          command: "SortByName"
+          icon: "imageres.dll,-102"
+          
+        - name: "Size"
+          command: "SortBySize"
+          icon: "imageres.dll,-102"
+          
+        - name: "Item type"
+          command: "SortByType"
+          icon: "imageres.dll,-102"
+          
+        - name: "Date modified"
+          command: "SortByDate"
+          icon: "imageres.dll,-102"
+          
+    - name: "Refresh"
+      command: "Refresh"
+      icon: "imageres.dll,-103"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Paste"
+      command: "Paste"
+      icon: "imageres.dll,-25"
+      
+    - name: "Paste shortcut"
+      command: "PasteShortcut"
+      icon: "imageres.dll,-25"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "New"
+      type: "submenu"
+      items:
+        - name: "Folder"
+          command: "NewFolder"
+          icon: "imageres.dll,-112"
+          
+        - name: "Shortcut"
+          command: "NewShortcut"
+          icon: "imageres.dll,-102"
+          
+        - name: "Text Document"
+          command: "NewTextDocument"
+          icon: "imageres.dll,-102"
+          
+        - name: "-"
+          type: "separator"
+          
+        - name: "Windows 12 Folder"
+          command: "NewWindows12Folder"
+          icon: "%windir%/System32/Windows12/Icons/Folder.ico"
+          
+    - name: "-"
+      type: "separator"
+      
+    - name: "Display settings"
+      command: "DisplaySettings"
+      icon: "imageres.dll,-104"
+      
+    - name: "Personalize"
+      command: "Personalize"
+      icon: "imageres.dll,-105"
+
+---
+# Windows 12 File Context Menu Configuration
+windows12_file_menu:
+  # File Menu Registry Path
+  file_menu_path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced"
+  
+  # File Menu Settings
+  file_menu_settings:
+    ContextMenuHandlers: ""
+    ExtendedContextMenuHandlers: ""
+    
+  # File Menu Items
+  file_menu_items:
+    - name: "Open"
+      command: "open"
+      icon: "imageres.dll,-102"
+      
+    - name: "Open in new window"
+      command: "opennewwindow"
+      icon: "imageres.dll,-102"
+      
+    - name: "Open in new tab"
+      command: "openintab"
+      icon: "imageres.dll,-102"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Run as administrator"
+      command: "runas"
+      icon: "imageres.dll,-78"
+      
+    - name: "Run with PowerShell"
+      command: "runwithpowershell"
+      icon: "powershell.exe,-1"
+      
+    - name: "Run with Command Prompt"
+      command: "runwithcmd"
+      icon: "cmd.exe,-1"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Pin to Start"
+      command: "pintostart"
+      icon: "imageres.dll,-54"
+      
+    - name: "Pin to taskbar"
+      command: "pintotaskbar"
+      icon: "imageres.dll,-54"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Cut"
+      command: "cut"
+      icon: "imageres.dll,-54"
+      
+    - name: "Copy"
+      command: "copy"
+      icon: "imageres.dll,-24"
+      
+    - name: "Paste"
+      command: "paste"
+      icon: "imageres.dll,-25"
+      
+    - name: "Delete"
+      command: "delete"
+      icon: "imageres.dll,-32"
+      
+    - name: "Rename"
+      command: "rename"
+      icon: "imageres.dll,-156"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Copy as path"
+      command: "copyaspath"
+      icon: "imageres.dll,-24"
+      
+    - name: "Copy path"
+      command: "copypath"
+      icon: "imageres.dll,-24"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Properties"
+      command: "properties"
+      icon: "imageres.dll,-103"
+
+---
+# Windows 12 Folder Context Menu Configuration
+windows12_folder_menu:
+  # Folder Menu Registry Path
+  folder_menu_path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced"
+  
+  # Folder Menu Items
+  folder_menu_items:
+    - name: "Open"
+      command: "open"
+      icon: "imageres.dll,-112"
+      
+    - name: "Open in new window"
+      command: "opennewwindow"
+      icon: "imageres.dll,-112"
+      
+    - name: "Open in new tab"
+      command: "openintab"
+      icon: "imageres.dll,-112"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Run as administrator"
+      command: "runas"
+      icon: "imageres.dll,-78"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Pin to Start"
+      command: "pintostart"
+      icon: "imageres.dll,-54"
+      
+    - name: "Pin to taskbar"
+      command: "pintotaskbar"
+      icon: "imageres.dll,-54"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Cut"
+      command: "cut"
+      icon: "imageres.dll,-54"
+      
+    - name: "Copy"
+      command: "copy"
+      icon: "imageres.dll,-24"
+      
+    - name: "Paste"
+      command: "paste"
+      icon: "imageres.dll,-25"
+      
+    - name: "Delete"
+      command: "delete"
+      icon: "imageres.dll,-32"
+      
+    - name: "Rename"
+      command: "rename"
+      icon: "imageres.dll,-156"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "New"
+      type: "submenu"
+      items:
+        - name: "Folder"
+          command: "NewFolder"
+          icon: "imageres.dll,-112"
+          
+        - name: "Shortcut"
+          command: "NewShortcut"
+          icon: "imageres.dll,-102"
+          
+        - name: "Text Document"
+          command: "NewTextDocument"
+          icon: "imageres.dll,-102"
+          
+        - name: "-"
+          type: "separator"
+          
+        - name: "Windows 12 Folder"
+          command: "NewWindows12Folder"
+          icon: "%windir%/System32/Windows12/Icons/Folder.ico"
+          
+        - name: "Windows 12 Shortcut"
+          command: "NewWindows12Shortcut"
+          icon: "%windir%/System32/Windows12/Icons/Shortcut.ico"
+          
+    - name: "-"
+      type: "separator"
+      
+    - name: "Open in Terminal"
+      command: "openinterminal"
+      icon: "%windir%/System32/wt.exe,-1"
+      
+    - name: "Open in PowerShell"
+      command: "openinpowershell"
+      icon: "powershell.exe,-1"
+      
+    - name: "Open in Command Prompt"
+      command: "openincmd"
+      icon: "cmd.exe,-1"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Share"
+      type: "submenu"
+      items:
+        - name: "Share with..."
+          command: "share"
+          icon: "imageres.dll,-102"
+          
+        - name: "Copy link"
+          command: "copylink"
+          icon: "imageres.dll,-24"
+          
+        - name: "Email"
+          command: "email"
+          icon: "imageres.dll,-102"
+          
+    - name: "-"
+      type: "separator"
+      
+    - name: "Properties"
+      command: "properties"
+      icon: "imageres.dll,-103"
+
+---
+# Windows 12 Drive Context Menu Configuration
+windows12_drive_menu:
+  # Drive Menu Items
+  drive_menu_items:
+    - name: "Open"
+      command: "open"
+      icon: "imageres.dll,-112"
+      
+    - name: "Open in new window"
+      command: "opennewwindow"
+      icon: "imageres.dll,-112"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Eject"
+      command: "eject"
+      icon: "imageres.dll,-102"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Format..."
+      command: "format"
+      icon: "imageres.dll,-102"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Properties"
+      command: "properties"
+      icon: "imageres.dll,-103"
+
+---
+# Windows 12 Special Context Menu Configuration
+windows12_special_menu:
+  # Special Menu Items (Recycle Bin, Network, etc.)
+  special_menu_items:
+    # Recycle Bin Menu
+    RecycleBin:
+      - name: "Open"
+        command: "open"
+        icon: "imageres.dll,-54"
+        
+      - name: "Empty Recycle Bin"
+        command: "empty"
+        icon: "imageres.dll,-54"
+        
+      - name: "-"
+        type: "separator"
+        
+      - name: "Properties"
+        command: "properties"
+        icon: "imageres.dll,-103"
+        
+    # Network Menu
+    Network:
+      - name: "Open Network & Internet settings"
+        command: "networksettings"
+        icon: "imageres.dll,-102"
+        
+      - name: "-"
+        type: "separator"
+        
+      - name: "Properties"
+        command: "properties"
+        icon: "imageres.dll,-103"
+
+---
+# Windows 12 New Menu Configuration
+windows12_new_menu:
+  # New Menu Items
+  new_menu_items:
+    - name: "Folder"
+      command: "NewFolder"
+      icon: "imageres.dll,-112"
+      
+    - name: "Shortcut"
+      command: "NewShortcut"
+      icon: "imageres.dll,-102"
+      
+    - name: "Text Document"
+      command: "NewTextDocument"
+      icon: "imageres.dll,-102"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Bitmap Image"
+      command: "NewBitmap"
+      icon: "imageres.dll,-102"
+      
+    - name: "Contact"
+      command: "NewContact"
+      icon: "imageres.dll,-102"
+      
+    - name: "Journal Document"
+      command: "NewJournal"
+      icon: "imageres.dll,-102"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Microsoft Edge Shortcut"
+      command: "NewEdgeShortcut"
+      icon: "msedge.exe,-1"
+      
+    - name: "Windows Terminal Shortcut"
+      command: "NewTerminalShortcut"
+      icon: "%windir%/System32/wt.exe,-1"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Windows 12 Folder"
+      command: "NewWindows12Folder"
+      icon: "%windir%/System32/Windows12/Icons/Folder.ico"
+      
+    - name: "Windows 12 Shortcut"
+      command: "NewWindows12Shortcut"
+      icon: "%windir%/System32/Windows12/Icons/Shortcut.ico"
+      
+    - name: "Windows 12 Text Document"
+      command: "NewWindows12Text"
+      icon: "%windir%/System32/Windows12/Icons/Text.ico"
+
+---
+# Windows 12 Send To Menu Configuration
+windows12_send_to_menu:
+  # Send To Menu Items
+  send_to_items:
+    - name: "Compressed (zipped) folder"
+      command: "CompressedFolder"
+      icon: "zipfldr.dll,-102"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Desktop (create shortcut)"
+      command: "DesktopShortcut"
+      icon: "imageres.dll,-102"
+      
+    - name: "Documents"
+      command: "Documents"
+      icon: "imageres.dll,-112"
+      
+    - name: "Downloads"
+      command: "Downloads"
+      icon: "imageres.dll,-112"
+      
+    - name: "Music"
+      command: "Music"
+      icon: "imageres.dll,-112"
+      
+    - name: "Pictures"
+      command: "Pictures"
+      icon: "imageres.dll,-112"
+      
+    - name: "Videos"
+      command: "Videos"
+      icon: "imageres.dll,-112"
+      
+    - name: "-"
+      type: "separator"
+      
+    - name: "Mail recipient"
+      command: "MailRecipient"
+      icon: "imageres.dll,-102"
+      
+    - name: "Bluetooth device"
+      command: "Bluetooth"
+      icon: "bthprops.cpl,-102"
+
+---
+# Windows 12 Custom Menu Items Configuration
+windows12_custom_menu_items:
+  # Custom Windows 12 Menu Items
+  custom_items:
+    # Windows 12 Specific Items
+    - name: "Windows 12"
+      type: "submenu"
+      icon: "%windir%/System32/Windows12/Icons/windows12-logo.ico"
+      items:
+        - name: "About Windows 12"
+          command: "AboutWindows12"
+          icon: "%windir%/System32/Windows12/Icons/windows12-logo.ico"
+          
+        - name: "Windows 12 Settings"
+          command: "Windows12Settings"
+          icon: "%windir%/System32/Windows12/Icons/Settings.ico"
+          
+        - name: "Windows 12 Store"
+          command: "Windows12Store"
+          icon: "%windir%/System32/Windows12/Icons/Store.ico"
+          
+        - name: "-"
+          type: "separator"
+          
+        - name: "Switch to Dark Theme"
+          command: "SwitchToDark"
+          icon: "%windir%/System32/Windows12/Icons/Theme_Dark.ico"
+          
+        - name: "Switch to Light Theme"
+          command: "SwitchToLight"
+          icon: "%windir%/System32/Windows12/Icons/Theme_Light.ico"
+          
+        - name: "-"
+          type: "separator"
+          
+        - name: "Check for Updates"
+          command: "CheckForUpdates"
+          icon: "%windir%/System32/Windows12/Icons/Update.ico"
+          
+    # Developer Tools
+    - name: "Developer Tools"
+      type: "submenu"
+      icon: "%windir%/System32/Windows12/Icons/Developer.ico"
+      items:
+        - name: "Open in VS Code"
+          command: "OpenInVSCode"
+          icon: "code.exe,-1"
+          
+        - name: "Open in Notepad++"
+          command: "OpenInNotepad++"
+          icon: "notepad++.exe,-1"
+          
+        - name: "Open in Git Bash"
+          command: "OpenInGitBash"
+          icon: "git-bash.exe,-1"
+          
+        - name: "-"
+          type: "separator"
+          
+        - name: "Open Terminal Here"
+          command: "OpenTerminalHere"
+          icon: "%windir%/System32/wt.exe,-1"
+          
+        - name: "Open PowerShell Here"
+          command: "OpenPowerShellHere"
+          icon: "powershell.exe,-1"
+          
+        - name: "Open CMD Here"
+          command: "OpenCMDHere"
+          icon: "cmd.exe,-1"
+
+---
+# Windows 12 Menu Styling Configuration
+windows12_menu_styling:
+  # Menu Style Settings
+  menu_style:
+    background_color: "#1C1C1C"
+    text_color: "#FFFFFF"
+    hover_color: "#0078D4"
+    selected_color: "#005A9E"
+    border_color: "#404040"
+    separator_color: "#404040"
+    
+  # Menu Dimensions
+  menu_dimensions:
+    width: 240
+    item_height: 32
+    icon_size: 24
+    icon_spacing: 8
+    text_padding: 8
+    
+  # Menu Animations
+  menu_animations:
+    fade_in: 200
+    fade_out: 150
+    slide_in: 250
+    slide_out: 200
+    
+  # Menu Shadows
+  menu_shadows:
+    enabled: true
+    color: "#000000"
+    opacity: 0.3
+    blur: 8
+    offset_x: 0
+    offset_y: 4
+    
+  # Menu Border Radius
+  menu_border_radius:
+    main: 12
+    item: 8
+    submenu: 8
+    
+  # Menu Font
+  menu_font:
+    name: "Segoe UI"
+    size: 9
+    weight: 400
+    style: "Normal"
+
+---
+# Windows 12 Menu Registry Configuration
+windows12_menu_registry:
+  # Menu Registry Settings
+  menu_registry:
+    path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Advanced"
+    
+    settings:
+      ContextMenuHandlers: ""
+      ExtendedContextMenuHandlers: ""
+      StartMenuAdminTools: 1
+      StartMenuFavorites: 1
+      StartMenuMyGames: 0
+      StartMenuMyMusic: 0
+      StartMenuMyPictures: 0
+      StartMenuMyVideos: 0
+      
+  # Menu Performance Settings
+  menu_performance:
+    path: "HKCU:/Control Panel/Desktop/WindowMetrics"
+    
+    settings:
+      MenuShowDelay: 200
+      MenuFade: 1
+      SelectionFade: 1
+
+---
+# Windows 12 Menu Application Configuration
+windows12_menu_application:
+  # Menu Application Settings
+  application_settings:
+    apply_to_all_users: true
+    apply_to_new_users: true
+    restart_explorer: true
+    create_backup: true
+    
+  # Menu Application Order
+  application_order:
+    - desktop_menu
+    - file_menu
+    - folder_menu
+    - drive_menu
+    - special_menu
+    - new_menu
+    - send_to_menu
+    - custom_items
+    - styling
+    
+  # Menu Application Scripts
+  application_scripts:
+    main: "%src%/playbook/Executables/Windows12/UI/windows12-menu-engine.ps1"
+    desktop: "%src%/playbook/Executables/Windows12/UI/windows12-desktop-menu.ps1"
+    file: "%src%/playbook/Executables/Windows12/UI/windows12-file-menu.ps1"
+    folder: "%src%/playbook/Executables/Windows12/UI/windows12-folder-menu.ps1"
+    styling: "%src%/playbook/Executables/Windows12/UI/windows12-menu-styling.ps1"

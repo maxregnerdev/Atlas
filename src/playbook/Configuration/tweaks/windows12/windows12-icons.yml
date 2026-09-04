@@ -1,0 +1,480 @@
+# Windows 12 Icons Configuration
+# Complete icon pack for Windows 12 transformation
+# Based on the Windows 12 concept from https://windows-12-web.vercel.app/
+
+---
+# Windows 12 Icons Main Configuration
+windows12_icons:
+  enabled: true
+  description: "Complete Windows 12 icon pack replacement"
+  
+  # Icon Components
+  components:
+    system_icons: true
+    application_icons: true
+    file_type_icons: true
+    custom_icons: true
+    icon_cache: true
+  
+  # Icon Settings
+  settings:
+    apply_all: true
+    restart_explorer: true
+    create_backup: true
+    icon_size: 256
+    icon_format: "PNG"
+    
+  # Version Information
+  version:
+    name: "Windows 12 Icons"
+    build: "12.0.50023"
+    target: "25H2"
+    concept_by: "immobilesmile70 | he/him"
+    concept_url: "https://windows-12-web.vercel.app/"
+
+---
+# Windows 12 Icon Paths Configuration
+windows12_icon_paths:
+  # Source Paths
+  source_paths:
+    icons_directory: "%src%/playbook/Icons/Windows12"
+    system_icons: "%windir%/System32/Windows12/Icons"
+    shell_icons: "%windir%/System32/imageres.dll"
+    
+  # Destination Paths
+  destination_paths:
+    system32_icons: "%windir%/System32/Windows12/Icons"
+    program_files_icons: "%ProgramFiles%/Windows12/Icons"
+    appdata_icons: "%LocalAppData%/Windows12/Icons"
+    
+  # Icon Files
+  icon_files:
+    # System Icons
+    Computer: "Computer.ico"
+    Computer_small: "Computer_small.ico"
+    Network: "Network.ico"
+    Network_small: "Network_small.ico"
+    User: "User.ico"
+    User_small: "User_small.ico"
+    ControlPanel: "ControlPanel.ico"
+    ControlPanel_small: "ControlPanel_small.ico"
+    Printers: "Printers.ico"
+    Printers_small: "Printers_small.ico"
+    RecycleBin: "RecycleBin.ico"
+    RecycleBin_small: "RecycleBin_small.ico"
+    RecycleBin_full: "RecycleBin_full.ico"
+    RecycleBin_full_small: "RecycleBin_full_small.ico"
+    
+    # Application Icons (from concept)
+    Clock: "Clock.ico"
+    Calculator: "Calculator.ico"
+    Paint: "Paint.ico"
+    Google: "Google.ico"
+    Notepad: "Notepad.ico"
+    CMD: "CMD.ico"
+    Github: "Github.ico"
+    Winception: "Winception.ico"
+    
+    # Windows 12 Specific Icons
+    Windows12_Logo: "windows12-logo.ico"
+    Windows12_Logo_small: "windows12-logo_small.ico"
+    Copilot: "Copilot.ico"
+    Copilot_small: "Copilot_small.ico"
+    Settings: "Settings.ico"
+    Settings_small: "Settings_small.ico"
+    Store: "Store.ico"
+    Store_small: "Store_small.ico"
+    Launcher: "Launcher.ico"
+    Launcher_small: "Launcher_small.ico"
+    
+    # File Type Icons
+    Folder: "Folder.ico"
+    Folder_small: "Folder_small.ico"
+    File: "File.ico"
+    File_small: "File_small.ico"
+    Shortcut: "Shortcut.ico"
+    Shortcut_small: "Shortcut_small.ico"
+    Executable: "Executable.ico"
+    Executable_small: "Executable_small.ico"
+    
+    # Document Icons
+    Text: "Text.ico"
+    Text_small: "Text_small.ico"
+    Image: "Image.ico"
+    Image_small: "Image_small.ico"
+    Video: "Video.ico"
+    Video_small: "Video_small.ico"
+    Audio: "Audio.ico"
+    Audio_small: "Audio_small.ico"
+    PDF: "PDF.ico"
+    PDF_small: "PDF_small.ico"
+    
+    # System Icons
+    Battery: "Battery.ico"
+    Battery_small: "Battery_small.ico"
+    Volume: "Volume.ico"
+    Volume_small: "Volume_small.ico"
+    Network_Signal: "Network_Signal.ico"
+    Network_Signal_small: "Network_Signal_small.ico"
+    Bluetooth: "Bluetooth.ico"
+    Bluetooth_small: "Bluetooth_small.ico"
+    
+    # Status Icons
+    Error: "Error.ico"
+    Error_small: "Error_small.ico"
+    Warning: "Warning.ico"
+    Warning_small: "Warning_small.ico"
+    Info: "Info.ico"
+    Info_small: "Info_small.ico"
+    Success: "Success.ico"
+    Success_small: "Success_small.ico"
+
+---
+# Windows 12 System Icons Configuration
+windows12_system_icons:
+  # System Icons Registry
+  system_icons_registry:
+    path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/Shell Icons"
+    
+    # Desktop Icons
+    desktop_icons:
+      29: "%windir%/System32/Windows12/Icons/Computer.ico"  # This PC
+      31: "%windir%/System32/Windows12/Icons/Network.ico"  # Network
+      34: "%windir%/System32/Windows12/Icons/User.ico"   # User Files
+      35: "%windir%/System32/Windows12/Icons/ControlPanel.ico"  # Control Panel
+      36: "%windir%/System32/Windows12/Icons/Printers.ico"  # Printers
+      45: "%windir%/System32/Windows12/Icons/RecycleBin.ico"  # Recycle Bin
+      
+    # Small Desktop Icons
+    small_desktop_icons:
+      29: "%windir%/System32/Windows12/Icons/Computer_small.ico"
+      31: "%windir%/System32/Windows12/Icons/Network_small.ico"
+      34: "%windir%/System32/Windows12/Icons/User_small.ico"
+      35: "%windir%/System32/Windows12/Icons/ControlPanel_small.ico"
+      36: "%windir%/System32/Windows12/Icons/Printers_small.ico"
+      45: "%windir%/System32/Windows12/Icons/RecycleBin_small.ico"
+  
+  # Recycle Bin Settings
+  recycle_bin:
+    path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer/CLSID/{645FF040-5081-101B-9F08-00AA002F954E}"
+    
+    settings:
+      DefaultIcon: "%windir%/System32/Windows12/Icons/RecycleBin.ico"
+      EmptyIcon: "%windir%/System32/Windows12/Icons/RecycleBin.ico"
+      FullIcon: "%windir%/System32/Windows12/Icons/RecycleBin_full.ico"
+
+---
+# Windows 12 Application Icons Configuration
+windows12_application_icons:
+  # Application Icons for Start Menu and Desktop
+  application_icons:
+    # Windows 12 Apps (from concept)
+    Clock:
+      path: "%windir%/System32/Windows12/Apps/Clock/Clock.exe"
+      icon: "%windir%/System32/Windows12/Icons/Clock.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/Clock_small.ico"
+      
+    Calculator:
+      path: "%windir%/System32/Windows12/Apps/Calculator/Calculator.exe"
+      icon: "%windir%/System32/Windows12/Icons/Calculator.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/Calculator_small.ico"
+      
+    Paint:
+      path: "%windir%/System32/Windows12/Apps/Paint/Paint.exe"
+      icon: "%windir%/System32/Windows12/Icons/Paint.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/Paint_small.ico"
+      
+    Notepad:
+      path: "%windir%/System32/Windows12/Apps/Notepad/Notepad.exe"
+      icon: "%windir%/System32/Windows12/Icons/Notepad.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/Notepad_small.ico"
+      
+    CMD:
+      path: "%windir%/System32/Windows12/Apps/CMD/cmd.exe"
+      icon: "%windir%/System32/Windows12/Icons/CMD.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/CMD_small.ico"
+      
+    # System Applications
+    Settings:
+      path: "%windir%/System32/Windows12/Apps/Settings/Settings.exe"
+      icon: "%windir%/System32/Windows12/Icons/Settings.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/Settings_small.ico"
+      
+    Store:
+      path: "%windir%/System32/Windows12/Apps/Store/Store.exe"
+      icon: "%windir%/System32/Windows12/Icons/Store.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/Store_small.ico"
+      
+    Copilot:
+      path: "%windir%/System32/Windows12/Apps/Copilot/Copilot.exe"
+      icon: "%windir%/System32/Windows12/Icons/Copilot.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/Copilot_small.ico"
+      
+    Launcher:
+      path: "%windir%/System32/Windows12/Apps/Launcher/Launcher.exe"
+      icon: "%windir%/System32/Windows12/Icons/Launcher.ico"
+      small_icon: "%windir%/System32/Windows12/Icons/Launcher_small.ico"
+
+---
+# Windows 12 File Type Icons Configuration
+windows12_file_type_icons:
+  # File Type Icons Registry
+  file_type_icons_registry:
+    # Documents
+    ".txt":
+      icon: "%windir%/System32/Windows12/Icons/Text.ico"
+      description: "Text Document"
+      
+    ".docx":
+      icon: "%windir%/System32/Windows12/Icons/Text.ico"
+      description: "Word Document"
+      
+    ".pdf":
+      icon: "%windir%/System32/Windows12/Icons/PDF.ico"
+      description: "PDF Document"
+      
+    # Images
+    ".png":
+      icon: "%windir%/System32/Windows12/Icons/Image.ico"
+      description: "PNG Image"
+      
+    ".jpg":
+      icon: "%windir%/System32/Windows12/Icons/Image.ico"
+      description: "JPEG Image"
+      
+    ".jpeg":
+      icon: "%windir%/System32/Windows12/Icons/Image.ico"
+      description: "JPEG Image"
+      
+    ".gif":
+      icon: "%windir%/System32/Windows12/Icons/Image.ico"
+      description: "GIF Image"
+      
+    # Video
+    ".mp4":
+      icon: "%windir%/System32/Windows12/Icons/Video.ico"
+      description: "MP4 Video"
+      
+    ".mov":
+      icon: "%windir%/System32/Windows12/Icons/Video.ico"
+      description: "MOV Video"
+      
+    # Audio
+    ".mp3":
+      icon: "%windir%/System32/Windows12/Icons/Audio.ico"
+      description: "MP3 Audio"
+      
+    ".wav":
+      icon: "%windir%/System32/Windows12/Icons/Audio.ico"
+      description: "WAV Audio"
+      
+    # Archives
+    ".zip":
+      icon: "%windir%/System32/Windows12/Icons/Compressed.ico"
+      description: "ZIP Archive"
+      
+    ".rar":
+      icon: "%windir%/System32/Windows12/Icons/Compressed.ico"
+      description: "RAR Archive"
+      
+    # Executables
+    ".exe":
+      icon: "%windir%/System32/Windows12/Icons/Executable.ico"
+      description: "Application"
+      
+    ".msi":
+      icon: "%windir%/System32/Windows12/Icons/Executable.ico"
+      description: "Installer"
+      
+    # Shortcuts
+    ".lnk":
+      icon: "%windir%/System32/Windows12/Icons/Shortcut.ico"
+      description: "Shortcut"
+
+---
+# Windows 12 Custom Icons Configuration
+windows12_custom_icons:
+  # Custom Icons for Windows 12
+  custom_icons:
+    # Windows 12 Logo
+    Windows12_Logo:
+      path: "%windir%/System32/Windows12/Icons/windows12-logo.ico"
+      sizes:
+        - 16x16
+        - 32x32
+        - 48x48
+        - 64x64
+        - 128x128
+        - 256x256
+      
+    # Windows 12 Logo Small
+    Windows12_Logo_Small:
+      path: "%windir%/System32/Windows12/Icons/windows12-logo_small.ico"
+      sizes:
+        - 16x16
+        - 24x24
+        - 32x32
+        - 48x48
+      
+    # Copilot Icon
+    Copilot:
+      path: "%windir%/System32/Windows12/Icons/Copilot.ico"
+      sizes:
+        - 16x16
+        - 32x32
+        - 48x48
+        - 64x64
+        - 128x128
+        - 256x256
+      
+    # Settings Icon
+    Settings:
+      path: "%windir%/System32/Windows12/Icons/Settings.ico"
+      sizes:
+        - 16x16
+        - 32x32
+        - 48x48
+        - 64x64
+        - 128x128
+        - 256x256
+      
+    # Store Icon
+    Store:
+      path: "%windir%/System32/Windows12/Icons/Store.ico"
+      sizes:
+        - 16x16
+        - 32x32
+        - 48x48
+        - 64x64
+        - 128x128
+        - 256x256
+
+---
+# Windows 12 Icon Cache Configuration
+windows12_icon_cache:
+  # Icon Cache Settings
+  icon_cache_settings:
+    path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Explorer"
+    
+    settings:
+      MaxCachedIcons: 4096
+      IconCacheSize: 8192
+      
+  # Icon Cache Files
+  icon_cache_files:
+    - "%LocalAppData%/IconCache.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_16.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_32.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_48.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_96.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_256.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_1024.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_2048.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_4096.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_8192.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_exif.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_idx.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_sr.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_wide.db"
+    - "%LocalAppData%/Microsoft/Windows/Explorer/iconcache_wide_alt.db"
+
+---
+# Windows 12 Icon Application Configuration
+windows12_icon_application:
+  # Icon Application Settings
+  application_settings:
+    apply_to_all_users: true
+    apply_to_new_users: true
+    restart_explorer: true
+    clear_icon_cache: true
+    rebuild_icon_cache: true
+    
+  # Icon Application Order
+  application_order:
+    - system_icons
+    - application_icons
+    - file_type_icons
+    - custom_icons
+    - icon_cache
+    
+  # Icon Application Scripts
+  application_scripts:
+    main: "%src%/playbook/Executables/Windows12/UI/windows12-icon-engine.ps1"
+    system: "%src%/playbook/Executables/Windows12/UI/windows12-system-icons.ps1"
+    application: "%src%/playbook/Executables/Windows12/UI/windows12-application-icons.ps1"
+    file_types: "%src%/playbook/Executables/Windows12/UI/windows12-file-type-icons.ps1"
+    custom: "%src%/playbook/Executables/Windows12/UI/windows12-custom-icons.ps1"
+    cache: "%src%/playbook/Executables/Windows12/UI/windows12-icon-cache.ps1"
+
+---
+# Windows 12 Icon Color Palette
+windows12_icon_colors:
+  # Primary Colors
+  primary:
+    blue: "#0078D4"
+    blue_light: "#47A3FF"
+    blue_dark: "#005A9E"
+    
+  # System Colors
+  system:
+    white: "#FFFFFF"
+    black: "#000000"
+    gray_light: "#F5F5F5"
+    gray_medium: "#808080"
+    gray_dark: "#404040"
+    
+  # Status Colors
+  status:
+    success: "#00FF00"
+    warning: "#FFA500"
+    error: "#FF0000"
+    info: "#00FFFF"
+    
+  # Application Colors
+  applications:
+    clock: "#0078D4"
+    calculator: "#47A3FF"
+    paint: "#005A9E"
+    notepad: "#FFFFFF"
+    cmd: "#000000"
+    settings: "#808080"
+    store: "#0078D4"
+    copilot: "#47A3FF"
+
+---
+# Windows 12 Icon Style Configuration
+windows12_icon_style:
+  # Icon Style Settings
+  icon_style:
+    border_radius: 8
+    shadow_enabled: true
+    shadow_color: "#000000"
+    shadow_opacity: 0.3
+    shadow_blur: 4
+    shadow_offset_x: 0
+    shadow_offset_y: 2
+    
+  # Icon Effects
+  icon_effects:
+    hover_scale: 1.05
+    hover_opacity: 0.9
+    pressed_scale: 0.95
+    pressed_opacity: 0.8
+    transition_duration: 200
+    
+  # Icon Sizes
+  icon_sizes:
+    small: 16
+    medium: 32
+    large: 48
+    extra_large: 64
+    huge: 128
+    massive: 256
+    
+  # Icon Spacing
+  icon_spacing:
+    desktop: 80
+    taskbar: 8
+    start_menu: 16
+    context_menu: 8
+    file_explorer: 24

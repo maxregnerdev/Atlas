@@ -1,0 +1,535 @@
+# Windows 12 Theme Configuration
+# Complete theme system based on Windows 12 concept
+# https://windows-12-web.vercel.app/
+
+---
+# Windows 12 Theme Main Configuration
+windows12_theme:
+  enabled: true
+  description: "Complete Windows 12 Theme transformation"
+  
+  # Theme Components
+  components:
+    colors: true
+    fonts: true
+    sounds: true
+    cursors: true
+    wallpapers: true
+    styles: true
+    animations: true
+  
+  # Theme Settings
+  settings:
+    apply_all: true
+    restart_explorer: true
+    create_backup: true
+    
+  # Version Information
+  version:
+    name: "Windows 12 Theme"
+    build: "12.0.50023"
+    target: "25H2"
+    concept_by: "immobilesmile70 | he/him"
+    concept_url: "https://windows-12-web.vercel.app/"
+
+---
+# Windows 12 Theme Files Configuration
+windows12_theme_files:
+  # Theme File Paths
+  theme_paths:
+    dark_theme: "%windir%/Resources/Themes/Windows12-Dark.theme"
+    light_theme: "%windir%/Resources/Themes/Windows12-Light.theme"
+    high_contrast_theme: "%windir%/Resources/Themes/Windows12-HighContrast.theme"
+    
+  # Theme File Content - Dark Theme
+  dark_theme_content: |
+    [Theme]
+    DisplayName=Windows 12 Dark
+    Author=Macrohard Corporation
+    Description=Windows 12 Concept Dark Theme by immobilesmile70
+    Version=12.0
+    
+    [VisualStyles]
+    Path=%windir%/Resources/Themes/Aero/Aero.msstyles
+    ColorStyle=NormalColor
+    Size=NormalSize
+    Color=NormalColor
+    
+    [Sounds]
+    SchemeName=Windows12
+    
+    [Cursors]
+    SchemeName=Windows12
+    
+    [Icons]
+    SchemeName=Windows12
+    
+    [Metrics]
+    BorderWidth=1
+    BorderHeight=1
+    CaptionWidth=1
+    CaptionHeight=32
+    MinWidth=384
+    MinHeight=288
+    
+    [Colors]
+    ActiveBorder=0 0 0
+    ActiveTitle=0 0 0
+    AppWorkspace=60 60 60
+    Background=0 0 0
+    ButtonFace=60 60 60
+    ButtonText=255 255 255
+    CaptionText=255 255 255
+    GrayText=128 128 128
+    Hilight=0 120 212
+    HilightText=255 255 255
+    HotTrackingColor=0 150 255
+    InactiveBorder=40 40 40
+    InactiveTitle=40 40 40
+    InactiveTitleText=160 160 160
+    InfoText=0 0 0
+    InfoWindow=48 48 48
+    Menu=48 48 48
+    MenuBar=48 48 48
+    MenuHilight=0 120 212
+    MenuText=255 255 255
+    MessageBox=48 48 48
+    Scrollbar=80 80 80
+    TitleText=255 255 255
+    Window=48 48 48
+    WindowFrame=0 0 0
+    WindowText=255 255 255
+  
+  # Theme File Content - Light Theme
+  light_theme_content: |
+    [Theme]
+    DisplayName=Windows 12 Light
+    Author=Macrohard Corporation
+    Description=Windows 12 Concept Light Theme by immobilesmile70
+    Version=12.0
+    
+    [VisualStyles]
+    Path=%windir%/Resources/Themes/Aero/Aero.msstyles
+    ColorStyle=NormalColor
+    Size=NormalSize
+    Color=NormalColor
+    
+    [Sounds]
+    SchemeName=Windows12
+    
+    [Cursors]
+    SchemeName=Windows12
+    
+    [Icons]
+    SchemeName=Windows12
+    
+    [Metrics]
+    BorderWidth=1
+    BorderHeight=1
+    CaptionWidth=1
+    CaptionHeight=32
+    MinWidth=384
+    MinHeight=288
+    
+    [Colors]
+    ActiveBorder=255 255 255
+    ActiveTitle=255 255 255
+    AppWorkspace=200 200 200
+    Background=255 255 255
+    ButtonFace=240 240 240
+    ButtonText=0 0 0
+    CaptionText=0 0 0
+    GrayText=100 100 100
+    Hilight=0 120 212
+    HilightText=255 255 255
+    HotTrackingColor=0 150 255
+    InactiveBorder=200 200 200
+    InactiveTitle=200 200 200
+    InactiveTitleText=100 100 100
+    InfoText=0 0 0
+    InfoWindow=230 230 255
+    Menu=240 240 240
+    MenuBar=240 240 240
+    MenuHilight=0 120 212
+    MenuText=0 0 0
+    MessageBox=230 230 255
+    Scrollbar=200 200 200
+    TitleText=0 0 0
+    Window=255 255 255
+    WindowFrame=255 255 255
+    WindowText=0 0 0
+
+---
+# Windows 12 Color Configuration
+windows12_colors:
+  # Primary Colors
+  primary:
+    accent: "#0078D4"
+    accent_light: "#47A3FF"
+    accent_dark: "#005A9E"
+    accent_gradient: "linear-gradient(135deg, #0078D4 0%, #47A3FF 100%)"
+    
+  # System Colors
+  system:
+    background_dark: "#000000"
+    background_light: "#FFFFFF"
+    surface_dark: "#1C1C1C"
+    surface_light: "#F5F5F5"
+    surface_medium: "#2B2B2B"
+    
+  # Text Colors
+  text:
+    primary_dark: "#FFFFFF"
+    primary_light: "#000000"
+    secondary_dark: "#B0B0B0"
+    secondary_light: "#606060"
+    disabled: "#606060"
+    link: "#0078D4"
+    link_hover: "#47A3FF"
+    
+  # Status Colors
+  status:
+    success: "#00FF00"
+    success_light: "#00E600"
+    warning: "#FFA500"
+    warning_light: "#FFB347"
+    error: "#FF0000"
+    error_light: "#FF4747"
+    info: "#00FFFF"
+    info_light: "#00E6E6"
+  
+  # UI Element Colors
+  ui:
+    card_background: "#1C1C1C"
+    card_border: "#404040"
+    card_hover: "#2B2B2B"
+    button_primary: "#0078D4"
+    button_primary_hover: "#47A3FF"
+    button_primary_pressed: "#005A9E"
+    button_secondary: "#333333"
+    button_secondary_hover: "#444444"
+    input_background: "#1C1C1C"
+    input_border: "#404040"
+    input_focus: "#0078D4"
+    
+  # Explorer Colors
+  explorer:
+    navigation_background: "#000000"
+    navigation_text: "#FFFFFF"
+    navigation_hover: "#0078D4"
+    navigation_selected: "#0078D4"
+    navigation_border: "#404040"
+    item_hover: "#1C1C1C"
+    item_selected: "#0078D4"
+    
+  # Taskbar Colors
+  taskbar:
+    background: "#000000"
+    text: "#FFFFFF"
+    hover: "#0078D4"
+    active: "#47A3FF"
+    border: "#404040"
+    clock_text: "#FFFFFF"
+    
+  # Start Menu Colors
+  start_menu:
+    background: "#000000"
+    text: "#FFFFFF"
+    hover: "#1C1C1C"
+    active: "#0078D4"
+    search_background: "#1C1C1C"
+    search_text: "#FFFFFF"
+
+---
+# Windows 12 Font Configuration
+windows12_fonts:
+  # System Font
+  system_font:
+    name: "Segoe UI"
+    size: 9
+    weight: 400
+    style: "Normal"
+    
+  # UI Fonts
+  ui_fonts:
+    caption: "Segoe UI"
+    small_caption: "Segoe UI"
+    menu: "Segoe UI"
+    status: "Segoe UI"
+    message_box: "Segoe UI"
+    
+  # Font Sizes
+  font_sizes:
+    system: 9
+    caption: 11
+    small_caption: 10
+    menu: 9
+    status: 8
+    message_box: 9
+    
+  # Font Weights
+  font_weights:
+    normal: 400
+    bold: 700
+    semi_bold: 600
+    
+  # Custom Fonts for Windows 12
+  custom_fonts:
+    - name: "Windows12-Icons"
+      path: "%windir%/Fonts/Windows12-Icons.ttf"
+      description: "Windows 12 Icon Font"
+      
+    - name: "Windows12-UI"
+      path: "%windir%/Fonts/Windows12-UI.ttf"
+      description: "Windows 12 UI Font"
+
+---
+# Windows 12 Sound Configuration
+windows12_sounds:
+  # Sound Scheme
+  sound_scheme:
+    name: "Windows12"
+    description: "Windows 12 Concept Sound Scheme"
+    author: "Macrohard Corporation"
+    version: "12.0"
+    
+  # Sound Files
+  sound_files:
+    system_exclamation: "%windir%/Media/Windows12/Sounds/SystemExclamation.wav"
+    system_hand: "%windir%/Media/Windows12/Sounds/SystemHand.wav"
+    system_question: "%windir%/Media/Windows12/Sounds/SystemQuestion.wav"
+    system_asterisk: "%windir%/Media/Windows12/Sounds/SystemAsterisk.wav"
+    system_default: "%windir%/Media/Windows12/Sounds/SystemDefault.wav"
+    
+    # Windows 12 Custom Sounds
+    windows12_logon: "%windir%/Media/Windows12/Sounds/Logon.wav"
+    windows12_logoff: "%windir%/Media/Windows12/Sounds/Logoff.wav"
+    windows12_startup: "%windir%/Media/Windows12/Sounds/Startup.wav"
+    windows12_shutdown: "%windir%/Media/Windows12/Sounds/Shutdown.wav"
+    windows12_notification: "%windir%/Media/Windows12/Sounds/Notification.wav"
+    windows12_alert: "%windir%/Media/Windows12/Sounds/Alert.wav"
+    
+  # Sound Volume Levels
+  volume_levels:
+    master: 100
+    system: 100
+    notifications: 80
+    
+  # Sound Registry Settings
+  sound_registry:
+    path: "HKCU:/AppEvents/Schemes/Windows12"
+    
+    settings:
+      DisplayName: "Windows 12"
+      Description: "Windows 12 Concept Sound Scheme"
+      Author: "Macrohard Corporation"
+      Version: "12.0"
+
+---
+# Windows 12 Cursor Configuration
+windows12_cursors:
+  # Cursor Scheme
+  cursor_scheme:
+    name: "Windows12"
+    description: "Windows 12 Concept Cursor Scheme"
+    author: "Macrohard Corporation"
+    version: "12.0"
+    
+  # Cursor Files
+  cursor_files:
+    arrow: "%windir%/Cursors/Windows12/arrow.ani"
+    help: "%windir%/Cursors/Windows12/help.ani"
+    appstarting: "%windir%/Cursors/Windows12/appstarting.ani"
+    wait: "%windir%/Cursors/Windows12/wait.ani"
+    crosshair: "%windir%/Cursors/Windows12/crosshair.cur"
+    hand: "%windir%/Cursors/Windows12/hand.cur"
+    ibeam: "%windir%/Cursors/Windows12/ibeam.cur"
+    no: "%windir%/Cursors/Windows12/no.cur"
+    nwpen: "%windir%/Cursors/Windows12/nwpen.cur"
+    sizeall: "%windir%/Cursors/Windows12/sizeall.cur"
+    sizenesw: "%windir%/Cursors/Windows12/sizenesw.cur"
+    sizens: "%windir%/Cursors/Windows12/sizens.cur"
+    sizenwse: "%windir%/Cursors/Windows12/sizenwse.cur"
+    sizewe: "%windir%/Cursors/Windows12/sizewe.cur"
+    uparrow: "%windir%/Cursors/Windows12/uparrow.cur"
+    
+  # Cursor Registry Settings
+  cursor_registry:
+    path: "HKCU:/Control Panel/Cursors"
+    
+    settings:
+      AppStarting: "%windir%/Cursors/Windows12/appstarting.ani"
+      Arrow: "%windir%/Cursors/Windows12/arrow.ani"
+      Crosshair: "%windir%/Cursors/Windows12/crosshair.cur"
+      Hand: "%windir%/Cursors/Windows12/hand.cur"
+      Help: "%windir%/Cursors/Windows12/help.ani"
+      IBeam: "%windir%/Cursors/Windows12/ibeam.cur"
+      No: "%windir%/Cursors/Windows12/no.cur"
+      NWPen: "%windir%/Cursors/Windows12/nwpen.cur"
+      SizeAll: "%windir%/Cursors/Windows12/sizeall.cur"
+      SizeNESW: "%windir%/Cursors/Windows12/sizenesw.cur"
+      SizeNS: "%windir%/Cursors/Windows12/sizens.cur"
+      SizeNWSE: "%windir%/Cursors/Windows12/sizenwse.cur"
+      SizeWE: "%windir%/Cursors/Windows12/sizewe.cur"
+      UpArrow: "%windir%/Cursors/Windows12/uparrow.cur"
+      Wait: "%windir%/Cursors/Windows12/wait.ani"
+      SchemeSource: 1
+      SchemeName: "Windows12"
+
+---
+# Windows 12 Wallpaper Configuration
+windows12_wallpapers:
+  # Wallpaper Settings
+  wallpaper_settings:
+    path: "HKCU:/Control Panel/Desktop"
+    
+    settings:
+      Wallpaper: "%windir%/Resources/Images/Windows12/wallpaper-dark.jpg"
+      WallpaperStyle: "2"  # Fill
+      TileWallpaper: "0"
+      WallpaperOriginX: "0"
+      WallpaperOriginY: "0"
+      
+  # Wallpaper Files
+  wallpaper_files:
+    dark: "%windir%/Resources/Images/Windows12/wallpaper-dark.jpg"
+    light: "%windir%/Resources/Images/Windows12/wallpaper-light.jpg"
+    lockscreen: "%windir%/Resources/Images/Windows12/lockscreen-dark.jpg"
+    
+  # Lockscreen Settings
+  lockscreen_settings:
+    path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/Lock Screen"
+    
+    settings:
+      LockScreenImage: "%windir%/Resources/Images/Windows12/lockscreen-dark.jpg"
+      LockScreenImageStretch: "2"  # Fill
+      LockScreenOverlaysDisabled: 1
+      
+  # Wallpaper Registry for All Users
+  wallpaper_all_users:
+    path: "HKU:/AME_UserHive_Default/Control Panel/Desktop"
+    
+    settings:
+      Wallpaper: "%windir%/Resources/Images/Windows12/wallpaper-dark.jpg"
+      WallpaperStyle: "2"
+      TileWallpaper: "0"
+
+---
+# Windows 12 Style Configuration
+windows12_styles:
+  # Visual Styles
+  visual_styles:
+    path: "HKCU:/Software/Microsoft/Windows/CurrentVersion/ThemeManager"
+    
+    settings:
+      DLLName: "%windir%/Resources/Themes/Aero/Aero.msstyles"
+      ColorName: "NormalColor"
+      SizeName: "NormalSize"
+      VisualStyle: "Aero"
+      
+  # Windows 12 Specific Styles
+  windows12_styles:
+    EnableFluentDesign: 1
+    EnableAcrylic: 1
+    EnableMica: 1
+    EnableRoundedCorners: 1
+    EnableTransparency: 1
+    EnableDynamicAccent: 1
+    
+  # Border Radius
+  border_radius:
+    window: 12
+    dialog: 12
+    button: 8
+    input: 6
+    card: 12
+    menu: 8
+    
+  # Shadow Effects
+  shadow_effects:
+    window: "0 2px 8px rgba(0, 0, 0, 0.3)"
+    dialog: "0 4px 16px rgba(0, 0, 0, 0.3)"
+    button: "0 1px 4px rgba(0, 0, 0, 0.2)"
+    card: "0 2px 8px rgba(0, 0, 0, 0.2)"
+    
+  # Transparency Levels
+  transparency_levels:
+    window: 0.8
+    dialog: 0.9
+    button: 0.95
+    card: 0.9
+
+---
+# Windows 12 Animation Configuration
+windows12_animations:
+  # Animation Settings
+  animation_settings:
+    path: "HKCU:/Control Panel/Desktop/WindowMetrics"
+    
+    settings:
+      MinAnimate: 1
+      ComboBoxAnimation: 1
+      CursorShadow: 1
+      DragFullWindows: 1
+      GradientCaptions: 1
+      ListBoxSmoothScrolling: 1
+      MenuShowDelay: 200
+      MenuFade: 1
+      SelectionFade: 1
+      ToolTipAnimation: 1
+      WindowAnimation: 1
+      
+  # Windows 12 Custom Animations
+  windows12_animations:
+    EnableEntranceAnimations: 1
+    EnableExitAnimations: 1
+    AnimationDuration: 300
+    AnimationEasing: "EaseInOut"
+    
+  # Animation Durations
+  animation_durations:
+    fade_in: 300
+    fade_out: 200
+    slide_in: 400
+    slide_out: 300
+    scale_in: 300
+    scale_out: 200
+    
+  # Animation Easing Functions
+  animation_easing:
+    default: "EaseInOut"
+    fade: "EaseInOut"
+    slide: "EaseOut"
+    scale: "EaseOutBack"
+    bounce: "EaseOutBounce"
+
+---
+# Windows 12 Theme Application Configuration
+windows12_theme_application:
+  # Theme Application Settings
+  application_settings:
+    apply_to_all_users: true
+    apply_to_new_users: true
+    restart_explorer: true
+    create_backup: true
+    
+  # Theme Application Order
+  application_order:
+    - colors
+    - fonts
+    - sounds
+    - cursors
+    - wallpapers
+    - styles
+    - animations
+    
+  # Theme Application Scripts
+  application_scripts:
+    main: "%src%/playbook/Executables/Windows12/UI/windows12-theme-engine.ps1"
+    colors: "%src%/playbook/Executables/Windows12/UI/windows12-colors.ps1"
+    fonts: "%src%/playbook/Executables/Windows12/UI/windows12-fonts.ps1"
+    sounds: "%src%/playbook/Executables/Windows12/Features/windows12-sound-engine.ps1"
+    cursors: "%src%/playbook/Executables/Windows12/UI/windows12-cursors.ps1"
+    wallpapers: "%src%/playbook/Executables/Windows12/UI/windows12-wallpapers.ps1"
+    styles: "%src%/playbook/Executables/Windows12/UI/windows12-styles.ps1"
+    animations: "%src%/playbook/Executables/Windows12/UI/windows12-animations.ps1"
